@@ -18,7 +18,7 @@
 <rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-pthubert-raw-architecture-00" ipr="trust200902" obsoletes="" updates="" submissionType="IETF" xml:lang="en" version="3">
   <!-- xml2rfc v2v3 conversion 2.32.0 -->
   <front>
-    <title abbrev="RAW PS">Reliable and Available Wireless Problem Statement</title>
+    <title abbrev="RAW Architecture">Reliable and Available Wireless Architecture</title>
     <seriesInfo name="Internet-Draft" value="draft-pthubert-raw-problem-statement-05"/>
     <author initials="P" surname="Thubert" fullname="Pascal Thubert" role="editor">
       <organization abbrev="Cisco Systems">Cisco Systems, Inc</organization>
@@ -58,6 +58,7 @@
     </abstract>
   </front>
   <middle>
+
     <section numbered="true" toc="default">
       <name>Introduction</name>
       <t>
@@ -169,6 +170,8 @@
     </section>
     <!-- Introduction -->
 
+    <!--  000000000000000000000    -->
+
     <section numbered="true" toc="default">
       <name>Terminology</name>
     <t>RAW reuses terminology defined for DetNet in <xref target=
@@ -209,21 +212,26 @@
         is either lost or delivered too late.  RAW expresses reliability in
         terms of Mean Time Between Failure (MTBF) and Maximum Consecutive
         Failures (MCF).</dd>
-        <dt>Availability:</dt><dd>cccccckehblnbcnidffvcveiegdgtiufnjulctibdgrg
-        .
+        <dt>Availability:</dt><dd>Availability is a measure of the relative
+        amount of time where a path operates in stated condition, in other words
+        (uptime)/(uptime+downtime). Because a serial wireless path may not be
+        good enough to provide the required availability, and even 2 parallel
+        paths may not be over a longer period of time, the RAW availability
+        implies a path that is a lot more complex than what DetNet typically
+        envisages (a Track).
         </dd>
     </dl>
     </section>
     <!-- Terminology -->
 
-
+    <!--  000000000000000000000    -->
 
     <section numbered="true" toc="default">
       <name>Reliability and Availability</name>
     </section>
     <!--Reliability and Availability-->
 
-
+    <!--  000000000000000000000    -->
 
     <section numbered="true" toc="default">
       <name>Use Cases and Requirements Served</name>
@@ -250,19 +258,20 @@
 </t>
 
              <figure anchor="Figranp">
-              <name>Time Scales</name>
+              <name>Radio Access Protection</name>
        <artwork align="center" name="" type="" alt="">
                                    ***   *
                 RAN 1  -----  ***     **  **
              /              *    **        ****
    +----+  /              *           **      ***
    |    |-                *                      **
-   |    | zzzz  RAN 2 -- *      Internet       ***
+   |    |--zzz- RAN 2 -- *      Internet       ***
    |    |-                 *                  ***
    +----+  \                *              ***
              \               ***   **     **
                 RAN n  --------  ***   ***
 
+        zzz = flapping now
        </artwork>
        </figure>
 
@@ -275,19 +284,17 @@
       <name>Track Protection in a Radio Mesh</name>
 
        <figure anchor="Figtrk">
-              <name>Time Scales</name>
+              <name>Track Protection in a Radio Mesh</name>
        <artwork align="center" name="" type="" alt="">
-            ....    .  | .       .....
-         ....          v             ...
-       ..   A-------B-------C---D     ..
-    ...    /  \   /       /      \     ..
-   .      I ----M-------N--zzz-- E  ..
-   ..      \      \   /         /     .
-     ..     P--zzz--Q----------R   ..
-       ..                         ..
-         .......               ...
-                ...............
-  zzz = flapping now
+
+         A-------B-------C---D
+        /  \   /       /      \
+       I ----M-------N--zzz--- E
+        \      \   /          /
+         P--zzz--Q-----------R
+
+        zzz = flapping now
+
        </artwork>
        </figure>
     </section>
@@ -298,7 +305,7 @@
     </section>
     <!-- Use Cases and Requirements Served -->
 
-
+    <!--  000000000000000000000    -->
 
     <section anchor="rou" numbered="true" toc="default">
       <name>Routing Time Scale vs. Forwarding Time Scale</name>
@@ -379,6 +386,8 @@
     </section >
     <!--Routing Time Scale vs. Forwarding Time Scale-->
 
+    <!--  000000000000000000000    -->
+
     <section numbered="true" toc="default">
       <name>The PAREO Functions</name>
 
@@ -412,11 +421,6 @@
         Packet Replication and Elimination (PRE) functions, several paths may be computed,
         and these paths may be more or less independent. For example, a complex Track may
         branch off and rejoin over non-congruent paths (branches).
-        <!-- [XV] this is not clear. What are the requirements to compute that paths?
-are they feasible given the restrictions of a 6TiSCH network. Could you detail more how
-this paths may be computed? what is the information that is required and how this information
-is made available to the nodes in the network? Is this a L4 task?  or is handled at the L2.5?
-[GP] please allow me to reply to this comment in the new version. We have referred to these requirements in the "Requirements Related to Cell Reservation" section in the new version. We also address this a bit further down in this version in section 4 "PRE model can be implemented in ...". (DONE).  -->
     </t>
 
     <t>
@@ -632,9 +636,7 @@ is made available to the nodes in the network? Is this a L4 task?  or is handled
     <!-- The PAREO Functions -->
 
 
-
-
-
+    <!--  000000000000000000000    -->
 
 
     <section numbered="true" toc="default">
@@ -671,6 +673,10 @@ is made available to the nodes in the network? Is this a L4 task?  or is handled
       </t>
     </section>
     <!-- Prerequisites -->
+
+
+    <!--  000000000000000000000    -->
+
     <section numbered="true" toc="default">
       <name>Related Work at The IETF</name>
       <t>RAW intersects with protocols or practices in development at the IETF
@@ -724,12 +730,14 @@ is made available to the nodes in the network? Is this a L4 task?  or is handled
       the focus radios.
       </li>
       </ul>
-    </section>    <!-- Related Work at The IETF -->
+    </section>
+    <!--Related Work at The IETF   -->
 
 
-    <!--
+    <!--  000000000000000000000    -->
+
     <section numbered="true" toc="default">
-      <name>Problem Statement</name>
+      <name>RAW Options</name>
       <t>
    Within a large routed topology, the routing operation builds a particular
    complex Track with one source and one or more destinations; within the Track,
@@ -774,7 +782,11 @@ is made available to the nodes in the network? Is this a L4 task?  or is handled
    recognize the flow and determine the forwarding policy to be applied.
       </t>
     </section>
-    Functional Gaps -->
+    <!-- RAW Options -->
+
+
+
+    <!--  000000000000000000000    -->
 
     <section anchor="SecurityConsiderations" numbered="true" toc="default">
       <name>Security Considerations</name>
@@ -782,12 +794,41 @@ is made available to the nodes in the network? Is this a L4 task?  or is handled
       that could yield security issues.
       </t>
     </section>
+      <!--Security Considerations-->
+
+
+
+    <!--  000000000000000000000    -->
 
     <section numbered="true" toc="default">
       <name>IANA Considerations</name>
       <t>This document has no IANA actions.
       </t>
     </section>
+      <!--IANA Considerations-->
+
+
+    <!--  000000000000000000000    -->
+
+    <section numbered="true" toc="default">
+      <name>ConTributors</name>
+      <dl>
+    <dt>Xavi Vilajosana:</dt><dd>Wireless Networks Research Lab, Universitat Oberta de Catalunya</dd>
+    <dt>Remous-Aris Koutsiamanis:</dt><dd>IMT Atlantique</dd>
+    <dt>Nicolas Montavont:</dt><dd>IMT Atlantique</dd>
+      </dl>
+    </section>
+      <!--ConTributors-->
+
+
+   <section><name>Acknowledgments</name>
+   <t>The authors wish to thank
+   </t>
+   </section>
+   <!-- ack -->
+
+    <!--  000000000000000000000    -->
+
 
   </middle>
   <back>
