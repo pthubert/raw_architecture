@@ -96,7 +96,8 @@
    focus on issues that are mostly a concern on wireless links, and inherits
    the architecture and the planes. A RAW Network Plane is thus a Network Plane
    inherited by RAW from DetNet, composed of one or multiple hops of homogeneous
-   or heterogeneous technologies, e.g. a Wi-Fi6 Mesh or one-hop CBRS access links federated by a 5G backhaul.
+   or heterogeneous technologies, e.g. a Wi-Fi6 Mesh or one-hop CBRS access links
+   federated by a 5G backhaul.
    </t><t>
    RAW networking aims at providing highly available and reliable end-to-end
    performances in a network with scheduled wireless segments. Uncontrolled
@@ -165,7 +166,8 @@
    This is discussed in more details in <xref target="rou" format="default"/>
    and the next sections.
       </t>
-    </section>    <!-- Introduction -->
+    </section>
+    <!-- Introduction -->
 
     <section numbered="true" toc="default">
       <name>Terminology</name>
@@ -211,19 +213,93 @@
         .
         </dd>
     </dl>
-    </section>    <!-- Terminology -->
+    </section>
+    <!-- Terminology -->
+
+
+
+    <section numbered="true" toc="default">
+      <name>Reliability and Availability</name>
+    </section>
+    <!--Reliability and Availability-->
+
+
 
     <section numbered="true" toc="default">
       <name>Use Cases and Requirements Served</name>
       <t>
    <xref target="RFC8578" format="default"/> presents a number of wireless use
-   cases including Wireless for Industrial Applications.
+   cases including Wireless for Industrial Applications, Pro-Audio and SmartGrid.
    <xref target="I-D.bernardos-raw-use-cases" format="default"/> adds a number
-   of use cases that demonstrate the need for RAW capabilities in Pro-Audio,
-   gaming and robotics.
+   of use cases that demonstrate the need for RAW capabilities in new use cases
+   including Pro-Gaming and drones.
       </t>
+      <t>
+    The use cases can be abstracted in 2 families, radio access protection and
+
+      </t>
+
+
+
+
+    <section numbered="true" toc="default">
+      <name>Radio Access Protection</name>
+
+<t>
+
+</t>
+
+             <figure anchor="Figranp">
+              <name>Time Scales</name>
+       <artwork align="center" name="" type="" alt="">
+                                   ***   *
+                RAN 1  -----  ***     **  **
+             /              *    **        ****
+   +----+  /              *           **      ***
+   |    |-                *                      **
+   |    | zzzz  RAN 2 -- *      Internet       ***
+   |    |-                 *                  ***
+   +----+  \                *              ***
+             \               ***   **     **
+                RAN n  --------  ***   ***
+
+       </artwork>
+       </figure>
+
+    </section>
+    <!--Radio Access Protection-->
+
+
+
+    <section numbered="true" toc="default">
+      <name>Track Protection in a Radio Mesh</name>
+
+       <figure anchor="Figtrk">
+              <name>Time Scales</name>
+       <artwork align="center" name="" type="" alt="">
+            ....    .  | .       .....
+         ....          v             ...
+       ..   A-------B-------C---D     ..
+    ...    /  \   /       /      \     ..
+   .      I ----M-------N--zzz-- E  ..
+   ..      \      \   /         /     .
+     ..     P--zzz--Q----------R   ..
+       ..                         ..
+         .......               ...
+                ...............
+  zzz = flapping now
+       </artwork>
+       </figure>
+    </section>
+    <!--Track Protection in a Radio Mesh-->
+
+
+
     </section>
     <!-- Use Cases and Requirements Served -->
+
+
+
     <section anchor="rou" numbered="true" toc="default">
       <name>Routing Time Scale vs. Forwarding Time Scale</name>
       <t>
@@ -240,7 +316,8 @@
    that aggregate the behavior of a link over long periods of time, and
    represent its availability as shades of gray as opposed to either up or down.
       </t>
-       <figure anchor="Figcontrol">
+
+             <figure anchor="Figcontrol">
               <name>Time Scales</name>
        <artwork align="center" name="" type="" alt="">
                +----------------+
@@ -298,8 +375,268 @@
    uses information that must be pertinent at the present time for the current
    transmission.
       </t>
+
+    </section >
+    <!--Routing Time Scale vs. Forwarding Time Scale-->
+
+    <section numbered="true" toc="default">
+      <name>The PAREO Functions</name>
+
+
+
+    <section numbered="true" toc="default">
+      <name>Tracks</name>
+
+    <section numbered="true" toc="default">
+      <name>Tracks Overview</name>
+    <t>
+        The 6TiSCH architecture introduces the concept of
+        Tracks in <xref
+        target="I-D.ietf-6tisch-architecture">6TiSCH
+        Architecture</xref>. A simple track is composed of a
+        sequence of cells (a combination of a transmitter, a
+        receiver and a given channel offset) to ensure the
+        transmission of a single packet from a source
+        node to a destination node across a multihop path.
+    </t>
+</section>
+      <!--Tracks Overview-->
+
+    <section numbered="true" toc="default">
+      <name>Complex Tracks</name>
+    <t>
+        A Complex Track is designed as a directed acyclic graph from a source node
+        towards a destination node to support multi-path forwarding, as introduced in
+        <xref target="I-D.ietf-6tisch-architecture">6TiSCH Architecture</xref>.
+        By employing <xref target="I-D.ietf-detnet-architecture">DetNet</xref>
+        Packet Replication and Elimination (PRE) functions, several paths may be computed,
+        and these paths may be more or less independent. For example, a complex Track may
+        branch off and rejoin over non-congruent paths (branches).
+        <!-- [XV] this is not clear. What are the requirements to compute that paths?
+are they feasible given the restrictions of a 6TiSCH network. Could you detail more how
+this paths may be computed? what is the information that is required and how this information
+is made available to the nodes in the network? Is this a L4 task?  or is handled at the L2.5?
+[GP] please allow me to reply to this comment in the new version. We have referred to these requirements in the "Requirements Related to Cell Reservation" section in the new version. We also address this a bit further down in this version in section 4 "PRE model can be implemented in ...". (DONE).  -->
+    </t>
+
+    <t>
+        Some more details for Deterministic Network
+        PRE techniques are presented in the following Section.
+    </t>
+</section>
+
+      <!--Complex Tracks-->
+
+</section>
+      <!--Tracks-->
+
+
+
+    <section numbered="true" toc="default">
+      <name>Packet Replication and Elimination principles</name>
+
+    <t>
+        In a nutshell, PRE establishes several paths in a
+        network to provide redundancy and parallel transmissions to
+        bound the end-to-end delay to traverse the network.
+        Optionally, promiscuous listening between paths is possible, such that the nodes
+        on one path may overhear transmissions along the other path.
+        Considering the scenario shown in <xref
+        target="fig_ladder"/>,
+        many different paths are possible for S to reach R. A simple
+        way to benefit from this topology could be to use the
+        two independent paths via nodes A, C, E and via B, D, F.  But
+        more complex paths are possible by interleaving transmissions
+        from the lower level of the path to the upper level.
+    </t>
+
+
+    <t>
+         PRE may also take advantage of
+         the shared properties of the wireless medium to compensate for the
+         potential loss that is incurred with radio transmissions.
+         For instance, when the source sends to A, B may listen also and
+         get a second chance to receive the frame without an
+         additional transmission. Note that B would not have to listen if it
+         already received that particular frame at an earlier timeslot in a dedicated transmission towards B.
+<!-- [->] This is assuming some sort of implicit knowledge in B. Not sure if this is  -->
+<!-- possible without specific signaling.   -->
+<!-- [GP] Yes, we may need additional 6P transactions from the source to B, or  -->
+<!-- multicast 6P transaction from the source to both A and B. However, this  -->
+<!-- need to be discussed and defined. We have referred to these requirements in the "Requirements Related to Cell Reservation" section in the upcoming version.  (DONE) -->
+    </t>
+
+
+      <figure anchor="fig_ladder" align="center" title="A Typical Ladder Shape with Two Parallel Paths Toward the Destination">
+         <artwork align="center"><![CDATA[
+
+                 (A)   (C)   (E)
+
+   source (S)                       (R) (root)
+
+                 (B)   (D)   (F)
+
+        ]]></artwork>
+     </figure>
+
+    <t>
+        The PRE model can be implemented in both centralized and distributed scheduling
+        approaches.
+        In the centralized approach, a Path Computation Element (PCE) scheduler calculates
+        the routes and schedules the communication among the nodes along a circuit such
+        as a Label switched path.
+        In the distributed approach, each node selects its route to the destination,
+        typically using a source routing header.
+        <!-- This specification focuses on the distributed path diversity. -->
+        In both cases, at each node in the paths, a default parent and alternative parent(s) should
+        be selected to set up complex tracks.
+    </t>
+
+
+
+    <t>
+        In the following Subsections, all the required operations
+        defined by PRE, namely, Alternative Path Selection, Packet Replication, Packet
+        Elimination and Promiscuous Overhearing, are described.
+    </t>
+
+
+
+<section title="Packet Replication">
+
+    <t>
+        The objective of PRE is to provide deterministic networking properties:
+        high reliability and bounded latency.
+        To achieve this goal, determinism in every hop of the forwarding paths MUST be
+        guaranteed.
+<!-- NM - Not clear what is a level. Not clear to me if it is a "should be"-->
+<!-- GP: is it clear now? -->
+        By employing a Packet Replication procedure, each node forwards
+        a copy of each data packet to multiple parents: its Default Parent (DP) and multiple Alternative Parents (APs).
+        To do so, each node (i.e., source and intermediate node) transmits the
+        data packet multiple times in unicast to each parent.
+        For instance, in <xref target="fig_replication"/>, the source node S is
+        transmitting the packet to both parents, nodes A and B, in two different
+        timeslots within the same TSCH slotframe. An example TSCH schedule is shown in <xref target="fig_replication_schedule"/>.
+        Thus, the packet eventually obtains parallel paths to the destination.
+    </t>
+
+
+        <figure anchor="fig_replication" align="center"
+            title="Packet Replication: S transmits twice the same data packet, to its DP
+            (A) and to its AP (B).">
+            <artwork align="center"><![CDATA[
+
+               ===> (A) => (C) => (E) ===
+             //        \\//   \\//       \\
+   source (S)          //\\   //\\         (R) (root)
+             \\       //  \\ //  \\      //
+               ===> (B) => (D) => (F) ===
+
+            ]]></artwork>
+        </figure>
+
+        <figure anchor="fig_replication_schedule" align="center"
+            title="Packet Replication: Sample TSCH schedule">
+            <artwork align="center"><![CDATA[
+                                Timeslot
++---------++------+------+------+------+------+------+------+
+| Channel || 0    | 1    | 2    | 3    | 4    | 5    | 6    |
++---------++======+======+======+======+======+======+======+
+| 0       || S->A | S->B | B->C | B->D | C->F | E->R | F->R |
++---------++------+------+------+------+------+------+------+
+| 1       ||      | A->C | A->D | C->E | D->E | D->F |      |
++---------++------+------+------+------+------+------+------+
+
+            ]]></artwork>
+        </figure>
+
+<!-- [XV] here you are only considering duplication at the source. While would be better IMHO to duplicate before those links that show lower performance. Would you also consider duplication at inner hops?  -->
+<!-- [GP] Yes, definitely, there is replication (duplication) at inner hops.  -->
+<!-- For instance, A will transmit both to its default parent C and alternative B. -->
+<!-- The Figure 2 and the text in 4.1 is updated. (Modified, DONE) -->
+<!-- As far as only duplicating at lower performance links, this is a very good point and a nice optimisation target. This needs to be discussed further -->
+
+<!-- [GP] Do you think a Figure with the TSCH schedule representation would be helpful?         -->
+<!-- [RK] Yes, I do. Added  fig_replication_schedule -->
+
+</section>
+
+
+
+<section title="Packet Elimination">
+
+    <t>
+        The replication operation increases the traffic load in the
+        network, due to packet duplications.  Thus, a Packet Elimination
+        operation SHOULD be applied at each RPL DODAG level to reduce
+        the unnecessary traffic. To this aim, once a node receives the
+        first copy of a data packet, it discards the subsequent copies. <!-- see Figure X
+        (TODO) --> Because the first copy that reaches a node is the
+        one that matters, it is the only copy that will be
+        forwarded upward. Then, once a node performs the Packet Elimination operation,
+        it will proceed with the Packet Replication operation to forward the packet
+        toward the RPL DODAG Root.
+<!-- [xv] Will this node duplicate it again? -->
+<!-- [GP] Yes, it will replicate when it will forward it. Text is updated.(Modified, DONE) -->
+
+<!-- [GP] Do you think a Figure is necessary, or it is clear enough?         -->
+<!-- [RK] I think this is clear enough and no Figure is really needed here (DONE) -->
+    </t>
+
+</section>
+
+
+
+<section title="Promiscuous Overhearing">
+
+    <t>
+        Considering that the wireless medium is broadcast by nature, any neighbor of
+        a transmitter may overhear a transmission.
+        By employing the Promiscuous Overhearing operation, a DP and some AP(s) eventually have more
+        chances to receive the data packets.
+        In <xref target="fig_overhearing"/>, when node A is transmitting to its DP
+        (node C), the AP (node D) and its sibling (node B) may decode this data packet as
+        well.
+        As a result, by employing corellated paths, a node may have multiple
+        opportunities to receive a given data packet.
+        This feature not only enhances the end-to-end reliability but also it reduces the
+        end-to-end delay and increases energy efficiency.
+    </t>
+
+
+        <figure anchor="fig_overhearing" align="center"
+            title="Unicast to DP with Overhearing: by employing Promiscuous Overhearing,
+            DP, AP and the sibling nodes have more opportunities to receive the same data
+            packet.">
+            <artwork align="center"><![CDATA[
+
+               ===> (A) ====> (C) ====> (E) ====
+             //     ^ | \\                      \\
+   source (S)       | |   \\                      (R) (root)
+             \\     | v     \\                  //
+               ===> (B) ====> (D) ====> (F) ====
+
+            ]]></artwork>
+        </figure>
+
+</section>
+
+
+
+</section>
+      <!--Packet Replication and Elimination principles-->
+
+
     </section>
-    <!-- Routing and Forwarding -->
+    <!-- The PAREO Functions -->
+
+
+
+
+
+
+
     <section numbered="true" toc="default">
       <name>Prerequisites</name>
       <t>
@@ -388,6 +725,9 @@
       </li>
       </ul>
     </section>    <!-- Related Work at The IETF -->
+
+
+    <!--
     <section numbered="true" toc="default">
       <name>Problem Statement</name>
       <t>
@@ -433,7 +773,8 @@
    In either case, a per-flow state is installed in all intermediate nodes to
    recognize the flow and determine the forwarding policy to be applied.
       </t>
-    </section>     <!-- Functional Gaps -->
+    </section>
+    Functional Gaps -->
 
     <section anchor="SecurityConsiderations" numbered="true" toc="default">
       <name>Security Considerations</name>
