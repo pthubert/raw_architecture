@@ -91,10 +91,10 @@
    many cost and performance optimizations.
       </t>
       <t>
-   The DetNet architecture <xref target="RFC8655"/> is
+   The <xref target="RFC8655">"Deterministic Networking Architecture"</xref> is
    composed of three planes: the Application (User) Plane, the Controller Plane,
    and the Network Plane. Reliable and Available Wireless (RAW) extends DetNet
-   to focus on issues that are mostly a concern on wireless links, and inherits
+   to focus on issues that are mostly a co"ern on wireless links, and inherits
    the architecture and the planes. A RAW Network Plane is thus a Network Plane
    inherited by RAW from DetNet, composed of one or multiple hops of homogeneous
    or heterogeneous technologies, e.g. a Wi-Fi6 Mesh or one-hop CBRS access links
@@ -110,10 +110,10 @@
    conforming to a RAW Service Level Agreement (SLA) that may vary rapidly.
    </t><t>
    The wireless and wired media are fundamentally different at the physical
-   level, and while the generic <xref target="RFC8557"> Deterministic Networking
-   Problem Statement</xref> applies to the wired as well as the wireless medium,
-   the methods to achieve RAW will extend those used to support time-sensitive
-   networking over wires, as a RAW solution will need to address less consistent
+   level, and while the generic <xref target="RFC8557">"Deterministic Networking
+   Problem Statement"</xref> applies to both the wired and the wireless media,
+   the methods to achieve RAW must extend those used to support time-sensitive
+   networking over wires, as a RAW solution has to address less consistent
    transmissions, energy conservation and shared spectrum efficiency.
 
       </t>
@@ -417,10 +417,10 @@
     <t>
         A Complex Track is designed as a directed acyclic graph from a source node
         towards a destination node to support multi-path forwarding, as introduced in
-        <xref target="I-D.ietf-6tisch-architecture">6TiSCH Architecture</xref>.
-        By employing <xref target="RFC8655">DetNet</xref>
-        Packet Replication and Elimination (PRE) functions, several paths may be computed,
-        and these paths may be more or less independent. For example, a complex Track may
+        <xref target="I-D.ietf-6tisch-architecture">"6TiSCH Architecture"</xref>.
+        By employing Packet Replication and Elimination (PRE) functions
+        <xref target="RFC8655"/>, several paths may be computed, and these paths
+        may be more or less independent. For example, a complex Track may
         branch off and rejoin over non-congruent paths (branches).
     </t>
 
