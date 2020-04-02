@@ -17,10 +17,8 @@
 <?rfc tocappendix="yes"?>
 <rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-pthubert-raw-architecture-01"
      ipr="trust200902" obsoletes="" updates="" submissionType="IETF" xml:lang="en" version="3">
-  <!-- xml2rfc v2v3 conversion 2.32.0 -->
   <front>
-    <title abbrev="RAW Architecture">Reliable and Available Wireless Architecture</title>
-    <seriesInfo name="Internet-Draft" value="draft-pthubert-raw-problem-statement-05"/>
+    <title abbrev="RAW Architecture/Framework">Reliable and Available Wireless Architecture/Framework</title>
     <author initials="P" surname="Thubert" fullname="Pascal Thubert" role="editor">
       <organization abbrev="Cisco Systems">Cisco Systems, Inc</organization>
       <address>
@@ -163,17 +161,18 @@
    The scope of the RAW WG comprises Network plane protocol elements such as OAM
    and in-band control to improve the RAW operation at the Service and at the
    forwarding sub-layers, e.g., controlling whether to use packet replication,
-   Hybrid ARQ and coding, with a constraint to limit the use of redundancy when
+   Automatic Repeat reQuest (ARQ), Hybrid ARQ (HARQ) that includes Forward Error
+   Correction (FEC) and coding, with a constraint to limit the use of redundancy
+   whencccccckehblncidtvdigtbfgjiugivbrkkklehrciijk
    it is really needed, e.g., when a spike of loss is observed.
    This is discussed in more details in <xref target="rou" format="default"/>
    and the next sections.
       </t>
     </section>
     <!-- Introduction -->
-
     <!--  000000000000000000000    -->
 
-    <section numbered="true" toc="default">
+    <section anchor="terms" numbered="true" toc="default">
       <name>Terminology</name>
 
     <t>
@@ -201,9 +200,7 @@
     </t>
 
     <t>
-    This document reuses terms that are well-defined in the context of
-    automation to networking and packet delivery, in particular for reliability
-    and availability. In the context of the RAW work, they are defined as
+    In the context of the RAW work, Reliability and Availability are defined as
     follows:
     </t>
     <dl>
@@ -225,104 +222,7 @@
     </dl>
     </section>
     <!-- Terminology -->
-
     <!--  000000000000000000000    -->
-
-
-    <section numbered="true" toc="default">
-      <name>Use Cases and Requirements Served</name>
-      <t>
-   <xref target="RFC8578" format="default"/> presents a number of wireless use
-   cases including Wireless for Industrial Applications, Pro-Audio and SmartGrid.
-   <xref target="I-D.bernardos-raw-use-cases" format="default"/> adds a number
-   of use cases that demonstrate the need for RAW capabilities in new use cases
-   including Pro-Gaming and drones.
-      </t>
-      <t>
-    The use cases can be abstracted in two families, radio access protection and
-    Track protection in a wireless mesh.
-      </t>
-
-
-
-
-    <section numbered="true" toc="default">
-      <name>Radio Access Protection</name>
-
-<t>
-    In order to maintain the committed reliability at all times, a wireless
-    station may use more than one Radio Access Network (RAN) in parallel.
-</t>
-<t>
-    The RANs may be heterogeneous, e.g.,
-    5G <xref target="I-D.farkas-raw-5g"/> and
-    Wi-Fi <xref target="I-D.thubert-raw-technologies"/> for high-speed
-    communication, in which case a Layer-3 abstraction becomes useful to select
-    which of the RANs are used at a particular point of time, and the amount of
-    traffic that is distributed over each RAN.
-</t>
-<t> The idea is that the rest of the path to the destination(s) is protected
-    separately (e.g., uses non-congruent paths) and/or is a lot more reliable,
-    e.g., wired. In that case, RAW observes reliability of the path through each
-    of the RANs but only acts on the first hop.
-</t>
-
-             <figure anchor="Figranp">
-              <name>Radio Access Protection</name>
-       <artwork align="center" name="" type="" alt="">
-                                   ***   *
-                RAN 1  -----  ***     **  **
-             /              *    **        ****
-   +----+  /              *           **      ***
-   |    |-                *                      **
-   |    |--zzz- RAN 2 -- *      Internet       ***
-   |    |-                 *                  ***
-   +----+  \                *              ***
-             \               ***   **     **
-                RAN n  --------  ***   ***
-
-zzz = flapping now
-       </artwork>
-       </figure>
-
-    </section>
-    <!--Radio Access Protection-->
-
-
-
-    <section numbered="true" toc="default">
-      <name>Track Protection in a Wireless Mesh</name>
-
-<t>
-A Track
-</t>
-       <figure anchor="Figtrk">
-              <name>Track Protection</name>
-       <artwork align="center" name="" type="" alt="">
-
-         A-------B-------C-----D
-        /  \   /       /        \
-       I ----M-------N--zzzzz--- E
-        \      \   /            /
-         P--zzz--Q-------------R
-
-zzz = flapping now
-       </artwork>
-       </figure>
-    </section>
-    <!--Track Protection in a Wireless Mesh-->
-
-
-
-    </section>
-    <!-- Use Cases and Requirements Served -->
-
-    <!--  000000000000000000000    -->
-
-    <section anchor="cons" numbered="true" toc="default">
-      <name>RAW Architecture Considerations</name>
-
-    <!--  11111111111111111111    -->
 
     <section numbered="true" toc="default">
       <name>Related Work at The IETF</name>
@@ -379,8 +279,195 @@ zzz = flapping now
       </ul>
     </section>
     <!--Related Work at The IETF   -->
+    <!--  000000000000000000000    -->
 
-    <!--  111111111111111111111    -->
+    <section numbered="true" toc="default">
+      <name>Use Cases and Requirements Served</name>
+      <t>
+   <xref target="RFC8578" format="default"/> presents a number of wireless use
+   cases including Wireless for Industrial Applications, Pro-Audio and SmartGrid.
+   <xref target="I-D.bernardos-raw-use-cases" format="default"/> adds a number
+   of use cases that demonstrate the need for RAW capabilities for new
+   applications such as Pro-Gaming and drones.
+    The use cases can be abstracted in two families, radio access protection and
+    Track protection in a wireless mesh.
+      </t>
+
+
+
+
+    <section numbered="true" toc="default">
+      <name>Radio Access Protection</name>
+
+<t>
+    To maintain the committed reliability at all times, a wireless host
+    may use more than one Radio Access Network (RAN) in parallel.
+</t>
+
+<figure anchor="Figranp">
+              <name>Radio Access Protection</name>
+       <artwork align="center" name="" type="" alt="">
+                                   ***   **
+                RAN 1  -----  ***     **  ***
+             /              *    **         ****
+   +----+  /              *           **      ****
+   |    |-                *                    *****
+   |Host|--zzz- RAN 2 -- *      Internet       *****
+   |    |-                 *                  *****
+   +----+  $$ù              *              *******
+             \               ***   ***    *****
+                RAN n  --------  ***  *****
+
+zzz = flapping now  $$$ expensive
+       </artwork>
+</figure>
+<t>
+    The RANs may be heterogeneous, e.g.,
+    5G <xref target="I-D.farkas-raw-5g"/> and
+    Wi-Fi <xref target="I-D.thubert-raw-technologies"/> for high-speed
+    communication, in which case a Layer-3 abstraction becomes useful to select
+    which of the RANs are used at a particular point of time, and the amount of
+    traffic that is distributed over each RAN.
+</t>
+<t> The idea is that the rest of the path to the destination(s) is protected
+    separately (e.g., uses non-congruent paths) and/or is a lot more reliable,
+    e.g., wired. In that case, RAW observes reliability of the path through each
+    of the RANs but only operates on the first hop.
+</t>
+
+
+    </section>
+    <!--Radio Access Protection-->
+
+
+
+    <section numbered="true" toc="default">
+      <name>Track Protection in a Wireless Mesh</name>
+
+<t>
+A Track (more in <xref target="trk"/>) if a multihop multipath radio mesh with
+distribute PAREO capabilities. In that case, RAW operates through the mesh and
+makes decisions either at the Ingress or at every hop.
+</t>
+       <figure anchor="Figtrk">
+              <name>Track Protection</name>
+       <artwork align="center" name="" type="" alt="">
+         A-------B-------C-----D
+        /  \   /       /        \
+ Ingress ----M-------N--zzzzz--- Egress
+        \      \   /            /
+         P--zzz--Q-------------R
+
+zzz = flapping now
+       </artwork>
+       </figure>
+    </section>
+    <!--Track Protection in a Wireless Mesh-->
+
+
+
+    </section>
+    <!-- Use Cases and Requirements Served -->
+    <!--  000000000000000000000    -->
+
+    <section anchor="cons" numbered="true" toc="default">
+      <name>RAW Architecture Considerations</name>
+
+    <!--  11111111111111111111    -->
+
+    <section numbered="true" toc="default">
+      <name>Reliability and Availability</name>
+
+
+    <!--  22222222222222222222    -->
+    <section numbered="true" toc="default">
+      <name>Reliability Engineering</name>
+
+    <t>
+    The reliability criteria of a critical system pervade through its elements,
+    and if the system comprises a data network then the data network is also
+    subject to the inherited reliability criteria.
+    It is only natural to consider the art of Reliability Engineering and apply
+    it to wireless communicaitons in the context of RAW.
+    </t>
+
+     <t>There are 3 pillars in the art of Reliability Engineering:</t>
+     <ol>
+     <li>Elimination of single points of failure</li>
+     <li>Reliable crossover</li>
+     <li>Detection of faults as they occur</li>
+     </ol>
+
+   </section>
+      <!--Reliability Engineering-->
+    <!--  22222222222222222222    -->
+
+
+    <section numbered="true" toc="default">
+      <name>Reliability In Wireless Networks</name>
+    <t>
+    The terms Reliaility and Availability are defined for RAW in
+    <xref target="terms"/>. Practically speaking a number of nines is often used
+    to indicate the reliability of a data link, e.g., 5 nines indicate a
+    Packet Delivery Ratio (PDR) of 99.999%. This number is typical is a wired
+    environment where the loss is due to a random event such as a solar particle
+    that affects the transmission of a particular frame, but does not affect the
+    previous or next frame, nor frames transmitted on other links.
+    </t>
+    <t>
+    For a periodic pattern such as an automation control loop, this number is
+    proportional to the Mean Time Between Failure (MTBF).
+    If a single fault can have dramatic consequences, then the MTBF is the
+    expression of the chances that an unwanted event occurs. In data networks,
+    this is rarely the case. Packet loss cannot never be fully avoided and the
+    systems are built to resist to one loss, e.g., using redundancy with Retries
+    (HARQ) or Packet Replication and Elimination (PRE), or, in a typical control
+    loop, by linear interpolation from the previous measuremnents.
+
+    </t>
+    <t>
+    But the latter method can not resist to multiple consecutive losses, and a
+    high MTBF is desired as a guarantee that this will not happen, IOW that the losses-in-a-row can be bounded. In that case, what's really desired is a
+    Maximum Consecutive Failures (MCF). If the number of losses in a row passes
+    the MCF, the control loop has to abort. Engineers that build automated
+    processes use the network reliability expressed in nines or as an MTBF to
+    provide an MCF.
+    </t>
+    <t>
+    In contrast with wires networks, errors in transmission are a predominent
+    factor for packet loss in wireless.
+    A given hop will suffer from multipath fading for multiple packets in a
+    row till the something moves that changes the reflection patterns.
+    The wireless medium itself is a Shared Risk Link Group (SRLG) for nearby
+    users of the same spectrum, as an interference may affect multiple co-channel
+    transmissions between different peers within the interference domain of the
+    interferer, possibly even when they use different technologies.
+    </t>
+    <t>
+    Transmission errors are typically not independent, and there nature and
+    duration unpredictable; as long as a physical object (e.g., a metallic
+    trolley etween peers) that affects the transmission is not removed, or as
+    long as the intererer (e.g., a radar) keeps transmitting, packets in
+    a row will be affected.
+    The key word to combat losses is diversity. A single packet may be sent at
+    different times over different paths that rely on different radio frequencies
+    and different PHY technologies, e.g., narrowband ns. spread spectrum. It is
+    typically retried a nmuber of times in case of a loss, and if possible the
+    retries should again vary all possible parameters. Each form of diversity
+    combats a particular cause of loss and use of diversity must be maximised to
+    optimize the PDR.
+    </t>
+
+
+
+
+    </section>
+      <!--Reliability In Wireless Networks-->
+
+    </section>
+    <!--Reliability and Availability-->
+    <!--  11111111111111111111    -->
+
 
     <section numbered="true" toc="default">
       <name>Prerequisites</name>
@@ -500,8 +587,50 @@ zzz = flapping now
 
     <!--  11111111111111111111    -->
 
+
+   </section>
+   <!--RAW Architecture Considerations-->
+    <!--  000000000000000000000    -->
+
     <section numbered="true" toc="default">
-      <name>Track Source-Routed vs. Distributed RAW Decision</name>
+      <name>RAW Architecture Components</name>
+
+
+    <!--  111111111111111111111    -->
+
+    <section anchor="trk" numbered="true" toc="default">
+      <name>Wireless Tracks</name>
+   <t>
+    The  <xref target="I-D.ietf-6tisch-architecture">"6TiSCH Architecture"</xref>
+    introduces the concept of Track a a possibly complex path with the PAREO
+    functions operated within.</t>
+
+    <t>
+    A simple track is composed of a direct sequence of reserved hops to ensure
+    the transmission of a single packet from a source node to a destination node
+    across a multihop path.
+    </t>
+    <t>
+        A Complex Track is designed as a directed acyclic graph from a source node
+        towards a destination node to support multi-path forwarding, as introduced in
+        <xref target="I-D.ietf-6tisch-architecture">"6TiSCH Architecture"</xref>.
+        By employing PRE functions
+        <xref target="RFC8655"/>, several paths may be computed, and these paths
+        may be more or less independent. For example, a complex Track may
+        branch off and rejoin over non-congruent paths (branches).
+    </t>
+
+    <t>
+        Some more details for Deterministic Network
+        PRE techniques are presented in the following Section.
+    </t>
+
+</section>
+      <!--Wireless Tracks-->
+
+
+    <section numbered="true" toc="default">
+      <name>Source-Routed vs. Distributed Forwarding Decision</name>
       <t>
    Within a large routed topology, the route-over mesh operation builds a
    particular complex Track with one source and one or more destinations; within
@@ -546,58 +675,11 @@ zzz = flapping now
    In either case, a per-flow state is installed in all intermediate nodes to
    recognize the flow and determine the forwarding policy to be applied.
       </t>
+
     </section>
     <!-- Track Source-Routed vs. Distributed RAW Decision -->
 
-    <!--  11111111111111111111    -->
 
-   </section>
-
-   <!--RAW Architecture Considerations-->
-
-    <!--  000000000000000000000    -->
-
-    <section numbered="true" toc="default">
-      <name>RAW Architecture Components</name>
-
-    <!--  111111111111111111111    -->
-
-    <section numbered="true" toc="default">
-      <name>Reliability and Availability</name>
-    </section>
-    <!--Reliability and Availability-->
-
-    <!--  111111111111111111111    -->
-
-    <section numbered="true" toc="default">
-      <name>Wireless Tracks</name>
-   <t>
-    The  <xref target="I-D.ietf-6tisch-architecture">"6TiSCH Architecture"</xref>
-    introduces the concept of Track a a possibly complex path with the PAREO
-    functions operated within.</t>
-
-    <t>
-    A simple track is composed of a direct sequence of reserved hops to ensure
-    the transmission of a single packet from a source node to a destination node
-    across a multihop path.
-    </t>
-    <t>
-        A Complex Track is designed as a directed acyclic graph from a source node
-        towards a destination node to support multi-path forwarding, as introduced in
-        <xref target="I-D.ietf-6tisch-architecture">"6TiSCH Architecture"</xref>.
-        By employing Packet Replication and Elimination (PRE) functions
-        <xref target="RFC8655"/>, several paths may be computed, and these paths
-        may be more or less independent. For example, a complex Track may
-        branch off and rejoin over non-congruent paths (branches).
-    </t>
-
-    <t>
-        Some more details for Deterministic Network
-        PRE techniques are presented in the following Section.
-    </t>
-
-</section>
-      <!--Wireless Tracks-->
 
     <!--  111111111111111111111    -->
 
@@ -605,7 +687,7 @@ zzz = flapping now
       <name>PAREO Functions</name>
 
     <t>
-        In a nutshell, Packet Replication and Elimination (PRE) establishes several paths in a
+        In a nutshell, PRE establishes several paths in a
         network to provide redundancy and parallel transmissions to
         bound the end-to-end delay to traverse the network.
         Optionally, promiscuous listening between paths is possible, such that the nodes
@@ -800,7 +882,6 @@ zzz = flapping now
 
     </section>
     <!--RAW Architecture Components< -->
-
     <!--  000000000000000000000    -->
 
     <section anchor="SecurityConsiderations" numbered="true" toc="default">
@@ -809,7 +890,6 @@ zzz = flapping now
       </t>
     </section>
       <!--Security Considerations-->
-
     <!--  000000000000000000000    -->
 
     <section numbered="true" toc="default">
@@ -818,26 +898,25 @@ zzz = flapping now
       </t>
     </section>
       <!--IANA Considerations-->
-
     <!--  000000000000000000000    -->
 
     <section numbered="true" toc="default">
       <name>ConTributors</name>
       <dl>
     <dt>Xavi Vilajosana:</dt><dd>Wireless Networks Research Lab, Universitat Oberta de Catalunya</dd>
+    <dt>Rex Buddenberg:</dt><dd></dd>
     <dt>Remous-Aris Koutsiamanis:</dt><dd>IMT Atlantique</dd>
     <dt>Nicolas Montavont:</dt><dd>IMT Atlantique</dd>
       </dl>
     </section>
       <!--ConTributors-->
-
+    <!--  000000000000000000000    -->
 
    <section><name>Acknowledgments</name>
    <t>The authors wish to thank
    </t>
    </section>
    <!-- Acknowledgments -->
-
     <!--  000000000000000000000    -->
 
 
