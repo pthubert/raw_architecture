@@ -15,7 +15,8 @@
 <?rfc subcompact="no"?>
 <?rfc authorship="yes"?>
 <?rfc tocappendix="yes"?>
-<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-pthubert-raw-architecture-00" ipr="trust200902" obsoletes="" updates="" submissionType="IETF" xml:lang="en" version="3">
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-pthubert-raw-architecture-01"
+     ipr="trust200902" obsoletes="" updates="" submissionType="IETF" xml:lang="en" version="3">
   <!-- xml2rfc v2v3 conversion 2.32.0 -->
   <front>
     <title abbrev="RAW Architecture">Reliable and Available Wireless Architecture</title>
@@ -28,7 +29,7 @@
           <street>45 Allee des Ormes - BP1200 </street>
           <city>MOUGINS - Sophia Antipolis</city>
           <code>06254</code>
-          <country>FRANCE</country>
+          <country>France</country>
         </postal>
         <phone>+33 497 23 26 34</phone>
         <email>pthubert@cisco.com</email>
@@ -42,7 +43,7 @@
           <street>2 Rue de la Chataigneraie</street>
           <city>Cesson-Sevigne - Rennes</city>
           <code>35510</code>
-          <country>FRANCE</country>
+          <country>France</country>
         </postal>
         <phone>+33 299 12 70 04</phone>
         <email>georgios.papadopoulos@imt-atlantique.fr</email>
@@ -254,7 +255,7 @@
 </t>
 <t>
     The RANs may be heterogeneous, e.g.,
-    5G <xref target="I-D.farkas-5g-raw"/> and
+    5G <xref target="I-D.farkas-raw-5g"/> and
     Wi-Fi <xref target="I-D.thubert-raw-technologies"/> for high-speed
     communication, in which case a Layer-3 abstraction becomes useful to select
     which of the RANs are used at a particular point of time, and the amount of
@@ -892,7 +893,7 @@ zzz = flapping now
 <xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-detnet-data-plane-framework.xml"/>
 <!-- DetNet Data Plane Framework -->
 
-<xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.farkas-5g-raw.xml"/>
+<xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.farkas-raw-5g.xml"/>
 <!-- RAW 5G-->
 
 
