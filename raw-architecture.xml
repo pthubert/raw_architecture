@@ -33,6 +33,8 @@
         <email>pthubert@cisco.com</email>
       </address>
     </author>
+
+
     <author initials="G.Z." surname="Papadopoulos" fullname="Georgios Z. Papadopoulos">
       <organization>IMT Atlantique</organization>
       <address>
@@ -47,6 +49,23 @@
         <email>georgios.papadopoulos@imt-atlantique.fr</email>
       </address>
     </author>
+
+
+
+    <author initials="R." surname="Buddenberg" fullname="Rex Buddenberg">
+       <organization/>
+       <address>
+        <postal>
+           <street/><city/>
+           <region>CA</region>
+           <code/>
+            <country>USA</country>
+        </postal>
+          <phone/>
+          <email>buddenbergr@gmail.com</email>
+       </address>
+      </author>
+
     <date/>
     <area>Routing Area</area>
     <workgroup>RAW</workgroup>
@@ -158,13 +177,13 @@
    the shorter forwarding time scale where per-packet decisions are made.
    RAW operates at the forwarding time scale on one DetNet flow over one path
    that is preestablished and installed by means outside of the scope of RAW.
-   The scope of the RAW WG comprises Network plane protocol elements such as OAM
+   The scope of the RAW WG comprises Network plane protocol elements such as
+   Operations, Administration and Maintenance (OAM)
    and in-band control to improve the RAW operation at the Service and at the
-   forwarding sub-layers, e.g., controlling whether to use packet replication,
+   forwarding sub-layers. RAW controls whether to use packet replication,
    Automatic Repeat reQuest (ARQ), Hybrid ARQ (HARQ) that includes Forward Error
    Correction (FEC) and coding, with a constraint to limit the use of redundancy
-   whencccccckehblncidtvdigtbfgjiugivbrkkklehrciijk
-   it is really needed, e.g., when a spike of loss is observed.
+   as is really needed, e.g., when a spike of loss is observed.
    This is discussed in more details in <xref target="rou" format="default"/>
    and the next sections.
       </t>
@@ -175,6 +194,16 @@
     <section anchor="terms" numbered="true" toc="default">
       <name>Terminology</name>
 
+    <t>RAW reuses terminology defined for DetNet in the <xref target="RFC8655">
+    "Deterministic Networking Architecture"</xref>, e.g., PREOF for Packet
+    Replication, Elimination and Ordering Functions.
+    </t><t>
+    RAW also reuses terminology defined for 6TiSCH in <xref target=
+    "I-D.ietf-6tisch-architecture" format="default"/> such as the term Track.
+    6TiSCH defined a Track as a complex path with associated PAREO operations.
+    </t><t>
+    RAW uses the term OAM as defined in <xref target="RFC6291"/>.
+    </t>
     <t>
       RAW defines the following terms:
     </t>
@@ -190,14 +219,6 @@
         typically of a subsecond duration.
         </dd>
     </dl>
-    <t>RAW reuses terminology defined for DetNet in the <xref target="RFC8655">
-    "Deterministic Networking Architecture"</xref>, e.g., PREOF for Packet
-    Replication, Elimination and Ordering Functions.
-    </t><t>
-    RAW also reuses terminology defined for 6TiSCH in <xref target=
-    "I-D.ietf-6tisch-architecture" format="default"/> such as the term Track.
-    6TiSCH defined a Track as a complex path with associated PAREO operations.
-    </t>
 
     <t>
     In the context of the RAW work, Reliability and Availability are defined as
@@ -210,7 +231,7 @@
         is delivery within a bounded latency and a failure is when the packet
         is either lost or delivered too late.  RAW expresses reliability in
         terms of Mean Time Between Failure (MTBF) and Maximum Consecutive
-        Failures (MCF).</dd>
+        Failures (MCF). More in <xref target="NASA"/>.</dd>
         <dt>Availability:</dt><dd>Availability is a measure of the relative
         amount of time where a path operates in stated condition, in other words
         (uptime)/(uptime+downtime). Because a serial wireless path may not be
@@ -238,7 +259,7 @@
       and ETX) on individual hops.
       </li>
         <li>
-      Operations, Administration and Maintenance (OAM) work at
+      OAM work at
       <xref target="DetNet" format="default"/> such as
       <xref target="I-D.mirsky-detnet-ip-oam" format="default"/>
       for the case of the IP Data Plane observes the state of DetNet paths,
@@ -361,6 +382,11 @@ makes decisions either at the Ingress or at every hop.
 zzz = flapping now
        </artwork>
        </figure>
+       <t>The Protection may be imposed by the source based on end-to-end OAM,
+       or performed hop-by-hop, in which case the OAM must enables the
+       intermediate nodes to estimate the quality of the rest of the feasible
+       paths in the sub-Track to the destination.
+       </t>
     </section>
     <!--Track Protection in a Wireless Mesh-->
 
@@ -381,22 +407,171 @@ zzz = flapping now
 
     <!--  22222222222222222222    -->
     <section numbered="true" toc="default">
-      <name>Reliability Engineering</name>
+      <name>High Availability Engineering Principles</name>
 
     <t>
     The reliability criteria of a critical system pervade through its elements,
     and if the system comprises a data network then the data network is also
-    subject to the inherited reliability criteria.
-    It is only natural to consider the art of Reliability Engineering and apply
-    it to wireless communicaitons in the context of RAW.
+    subject to the inherited reliability and availability criteria.
+    It is only natural to consider the art of high availability engineering and
+    apply it to wireless communicaitons in the context of RAW.
     </t>
 
-     <t>There are 3 pillars in the art of Reliability Engineering:</t>
-     <ol>
-     <li>Elimination of single points of failure</li>
-     <li>Reliable crossover</li>
-     <li>Detection of faults as they occur</li>
+    <t>
+    There are three principles [pillars] of high availability engineering:
+    </t>
+     <ol spacing="compact">
+     <li>elimination of single points of failure</li>
+     <li>reliable crossover</li>
+     <li>prompt detection of failures as they occur.</li>
      </ol>
+     <t>
+     These principles are common to all high availability systems, not just ones
+     with Internet technology at the center.  Examples of both non-Internet and
+     Internet are included.
+    </t>
+
+
+    <!--  333333333333333333333   -->
+
+    <section numbered="true" toc="default">
+      <name>Elimination of Single Points of Failure</name>
+
+    <t>
+    Physical and logical components in a system happen to fail, either as the
+    effect of wear and tear, when used beyond acceptable limits, or due to a
+    software bug.
+    It is necessary to decouple component failure from system failure to avoid
+    the latter.
+    This allows failed components to be restored while the rest of the system
+    continues to function.
+    </t>
+    <t>
+    A non-Internet example is a standby generator available to power the system
+    on failure of grid power. An Internet example is more than one communication
+    several non-congruent link/path between nodes in a routable network.
+    </t>
+    <t>
+    There is a rather open-ended issue over alternate routes -- for example,
+    when links are cabled through the same conduit, they form a shared risk link
+    group (SRLG), and will share the same fate if the bundle is cut. Just how
+    distributed the infrastructure is a matter of discussion; there is no single
+    right answer.
+    It should be noted that intermediate nodes such as routers, switches, and
+    the air medium itself can become single points of failure; this must be
+    avoided, using link- and node-disjoint paths, and, for RAW, a high degree of
+    diversity in the transmissions over the air.</t>
+
+    <t>
+    From an economics standpoint, executing this principle properly generally
+    increases capitalization expense because of the redundant equipment. In a
+    constrained network where the waste of energy and bandwidth should be
+    minimized, an excessive use of redundant links must be avoided; for RAW this
+    means that the extra bandwidth must only be used as a replacement of that
+    lost due to a failure.
+    </t>
+
+    </section>
+      <!--Elimination of Single Points of Failure-->
+
+
+
+    <!--  333333333333333333333   -->
+
+
+    <section numbered="true" toc="default">
+      <name>Reliable Crossover</name>
+
+    <t>
+    Having a backup equipment has a limited value unless it can be reliably switched into use within the down-time parameters.
+    </t>
+    <t>
+    Using the backup generator example: one that does not automatically sense
+    grid power failure, start itself, and place itself on line does not
+    represent reliable crossover.
+    </t>
+    <t>
+    Routers and IGPs execute reliable crossover continuously because the routers
+    will use any alternate routes that are available <xref target="RFC0791"/>.
+    This is due to the stateless nature of IP datagrams and the dissociation of
+    the datagrams from the forwarding routes they take. The
+    <xref target="RFC5714">"IP Fast Reroute Framework"</xref> analyzes mechanisms for fast failure detection and path repair for IP Fast-Reroute,
+    and discusses the case of multiple failures and SRLG. Examples of FRR
+    techniques include Remote Loop-Free Alternate <xref target="RFC7490"/> and
+    backup label-switched path (LSP) tunnels for the local repair of LSP tunnels
+    using RSVP-TE <xref target="RFC4090"/>.
+    </t>
+    <t>
+    The DetNet PREOF leverages 1+1 redundancy whereby a packet is sent twice,
+    over non-congruent paths. This avoids the gap during the fast reroute
+    operation, but doubles the traffic in the network.
+    In the case of RAW, the expectation is that multiple transient faults may
+    happen in overlapping time windows, in which case the 1+1 redundancy with
+    delayed reestablishment of the second path will not provide the required
+    guarantees.
+    The Data Plane must be configured with a sufficient degree of
+    redundancy to select an alternate redundat path immediately upon a fault,
+    without the need for a slow intervention from the controller plane.
+    </t>
+    </section>
+      <!--Reliable Crossover-->
+
+
+
+
+
+    <!--  333333333333333333333   -->
+
+
+    <section numbered="true" toc="default">
+      <name>Prompt Notification of Failures</name>
+    <t>
+    The execution of the two above principles is likely to render a system where
+    the user will rarely see a failure. But someone needs to in order to direct
+    maintenance.
+    </t>
+    <t>
+    There are many reasons for system monitoring (FCAPS for fault, configuration,
+    accounting, performance, security is a handy mental checklist) but fault
+    monitoring is sufficient reason <xref target="RFC3411"/> describes how to
+    use SNMP to observe and correct long-term faults. <xref target="RFC3272">
+    "Overview and Principles of Internet Traffic Engineering"</xref> discusses
+    the importance of measurement for network protection, and provides abstract
+    an method for network survivability with the analysis of a traffic matrix
+    as observed by SNMP, probing techniques, FTP, IGP link state advertisements,
+    and more.
+    </t>
+    <t>
+    Using the art of SNMP, the above described backup generator would include an
+    SNMP agent that can report the status of the generator (get messages) on
+    demand, and report changes in status (e.g. startup, amount of fuel in the
+    tank) (trap messages).
+    </t>
+    <t>
+    Those measurements are needed in the context of RAW to inform the controller
+    and make the long term reactive decision to rebuild a complex  path. But RAW
+    itself operates in the Network Plane at a faster time scale. To act on the
+    Data Plane, RAW needs live information from the Operational Plane , e.g.,
+    using <xref target="RFC5880">Bidirectional Forwarding Detection</xref>
+    and its variants (bidirectional and remote BFD) to protect a link, and
+    OAM techniques to protect a path.
+    </t>
+
+<!--
+
+    Security requirements. SNMP messages need to be authentic in all cases.
+    Implementations may need to be confidential as well.
+
+
+
+[ ... dovetail this into the OAM things that need to be included. Most of the discussion seems to cluster around performance management]
+
+-->
+    </section>
+      <!--Prompt Notification of Failures-->
+
+
+
 
    </section>
       <!--Reliability Engineering-->
@@ -404,61 +579,115 @@ zzz = flapping now
 
 
     <section numbered="true" toc="default">
-      <name>Reliability In Wireless Networks</name>
+      <name>Applying Reliability Concepts to Networking</name>
     <t>
-    The terms Reliaility and Availability are defined for RAW in
-    <xref target="terms"/>. Practically speaking a number of nines is often used
-    to indicate the reliability of a data link, e.g., 5 nines indicate a
-    Packet Delivery Ratio (PDR) of 99.999%. This number is typical is a wired
+    The terms Reliaility and Availability are defined for use in RAW in
+    <xref target="terms"/> and the reader is invited to read
+    <xref target="NASA"/>
+    for more details on the general definition of Reliability.
+    Practically speaking a number of nines is often used to indicate the
+    reliability of a data link, e.g., 5 nines indicate a
+    Packet Delivery Ratio (PDR) of 99.999%.
+    </t>
+    <t>
+    This number is typical in a wired
     environment where the loss is due to a random event such as a solar particle
     that affects the transmission of a particular frame, but does not affect the
-    previous or next frame, nor frames transmitted on other links.
+    previous or next frame, nor frames transmitted on other links. Note that the
+    QoS requirements in RAW may include a bounded latency, and a packet that
+    arrives too late is a fault and not considered as delivered.
     </t>
     <t>
     For a periodic pattern such as an automation control loop, this number is
-    proportional to the Mean Time Between Failure (MTBF).
+    proportional to the Mean Time Between Failures (MTBF).
     If a single fault can have dramatic consequences, then the MTBF is the
     expression of the chances that an unwanted event occurs. In data networks,
     this is rarely the case. Packet loss cannot never be fully avoided and the
     systems are built to resist to one loss, e.g., using redundancy with Retries
     (HARQ) or Packet Replication and Elimination (PRE), or, in a typical control
     loop, by linear interpolation from the previous measuremnents.
+    </t>
+   <t>
+    But the linear interpolation method can not resist to multiple consecutive
+    losses, and a high MTBF is desired as a guarantee that this will not happen,
+    IOW that the losses-in-a-row can be bounded. In that case, what's really
+    desired is a Maximum Consecutive Failures (MCF). If the number of losses in
+    a row passes the MCF, the control loop has to abort. Engineers that build
+    automated processes may use the network reliability expressed in nines or as
+    an MTBF to provide an MCF, e.g., as described in section 7.4 of
+    <xref target="RFC8578"/>.
+    </t>
+    </section>
+      <!--Applying Reliability concepts to Networking-->
+    <!--  22222222222222222222    -->
 
+    <section numbered="true" toc="default">
+      <name>Reliability in the Context of RAW</name>
+    <t>
+    In contrast with wired networks, errors in transmission are the predominent
+    source of packet loss in wireless networks. The root cause may be of
+    multiple origins:
+    </t>
+    <dl>
+    <dt>Multipath Fading:</dt><dd>
+    <t>A destructive interference by a reflection of the original signal.
+    </t>
+    <t>A radio signal may be received directly
+    (line-of-sight) and/or as a reflection on a physical structure (echo).
+    The reflections take a longer path and are delayed by the extra distance
+    divided by the speed of light in the medium. Depending on the frequency, the
+    echo lands with a different phase which may add up to (constructive
+    interference) or destroy the signal (destructive interference).
     </t>
     <t>
-    But the latter method can not resist to multiple consecutive losses, and a
-    high MTBF is desired as a guarantee that this will not happen, IOW that the losses-in-a-row can be bounded. In that case, what's really desired is a
-    Maximum Consecutive Failures (MCF). If the number of losses in a row passes
-    the MCF, the control loop has to abort. Engineers that build automated
-    processes use the network reliability expressed in nines or as an MTBF to
-    provide an MCF.
-    </t>
-    <t>
-    In contrast with wires networks, errors in transmission are a predominent
-    factor for packet loss in wireless.
+    The affected frequencies depend on the relative position of the sender, the
+    receiver, and all the reflecting objects in the environment.
     A given hop will suffer from multipath fading for multiple packets in a
     row till the something moves that changes the reflection patterns.
+    </t>
+    </dd>
+    <dt>Co-channel Interference:</dt><dd>
+    <t>
+    Energy in the spectrum used for the transmission confuses the receiver.
+    </t>
+    <t>
     The wireless medium itself is a Shared Risk Link Group (SRLG) for nearby
     users of the same spectrum, as an interference may affect multiple co-channel
     transmissions between different peers within the interference domain of the
     interferer, possibly even when they use different technologies.
     </t>
+    </dd>
+    <dt>Obstacle in Fresnel Zone:</dt><dd>
     <t>
-    Transmission errors are typically not independent, and there nature and
-    duration unpredictable; as long as a physical object (e.g., a metallic
-    trolley etween peers) that affects the transmission is not removed, or as
-    long as the intererer (e.g., a radar) keeps transmitting, packets in
-    a row will be affected.
+    The optimal transmission happens when the Fresnel Zone between the sender
+    and the receiver is free of obstacles.
+    </t>
+    <t>
+    As long as a physical object (e.g., a metallic trolley between peers) that
+    affects the transmission is not removed, the quality of the link is affected.
+    </t>
+    </dd>
+    </dl>
+    <t>
+    In an environment that is rich of metallic structures and mobile objects, a
+    single radio link will provide a fuzzy service.
+    </t>
+    <t>
+    Transmission errors are typically not independent, and their nature and
+    duration are unpredictable; as long as a physical object (e.g., a metallic
+    trolley between peers) that affects the transmission is not removed, or as
+    long as the interferer (e.g., a radar) keeps transmitting, a continuous
+    stream of packets will be affected.
+    </t>
+    <t>
     The key word to combat losses is diversity. A single packet may be sent at
     different times over different paths that rely on different radio frequencies
-    and different PHY technologies, e.g., narrowband ns. spread spectrum. It is
-    typically retried a nmuber of times in case of a loss, and if possible the
+    and different PHY technologies, e.g., narrowband vs. spread spectrum. It is
+    typically retried a number of times in case of a loss, and if possible the
     retries should again vary all possible parameters. Each form of diversity
     combats a particular cause of loss and use of diversity must be maximised to
     optimize the PDR.
     </t>
-
-
 
 
     </section>
@@ -565,7 +794,7 @@ zzz = flapping now
    There is thus a desire to separate the long term computation of the route and
    the short term forwarding decision. In such a model, the routing operation
    computes a complex Track that enables multiple Non-Equal Cost Multi-Path
-   (N-ECMP) forwarding solutions, and leaves it to the forwarding plane to make
+   (N-ECMP) forwarding solutions, and leaves it to the Data Plane to make
    the per-packet decision of which of these possibilities should be used.
       </t>
       <t>
@@ -649,7 +878,7 @@ zzz = flapping now
    The decision to apply the RAW techniques must be done quickly, and depends on
    a very recent and precise knowledge of the forwarding conditions within the
    complex Track. There is a need for an observation method to provide the RAW
-   forwarding plane with the specific knowledge of the state of the Track for
+   Data Plane with the specific knowledge of the state of the Track for
    the type of flow of interest (e.g., for a QoS level of interest). To observe
    the whole Track in quasi real time, RAW will consider existing tools such as
    L2-triggers, DLEP, BFD and in-band and out-of-band OAM.
@@ -928,6 +1157,12 @@ zzz = flapping now
 <displayreference   target="I-D.thubert-bier-replication-elimination" to="BIER-PREF"/>
 <displayreference   target="I-D.mirsky-detnet-ip-oam"                 to="DetNet-IP-OAM"/>
 <displayreference   target="I-D.ietf-detnet-data-plane-framework"     to="DetNet-DP-FW"/>
+<displayreference   target="RFC3272"                                  to="TE"/>
+<displayreference   target="RFC5880"                                  to="BFD"/>
+<displayreference   target="RFC3411"                                  to="STD 62"/>
+<displayreference   target="RFC7490"                                  to="RLFA-FRR"/>
+<displayreference   target="RFC5714"                                  to="FRR"/>
+
     <references>
       <name>References</name>
       <references>
@@ -942,6 +1177,12 @@ zzz = flapping now
 
 <xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.bernardos-raw-use-cases.xml"/>
 <!-- RAW use cases -->
+
+<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5880.xml"/>
+<!-- Bidirectional Forwarding Detection  -->
+
+<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6291.xml"/>
+<!-- Guidelines for the Use of the "OAM" Acronym in the IETF  -->
 
 <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8578.xml"/>
 <!-- Deterministic Networking Use Cases -->
@@ -963,6 +1204,24 @@ zzz = flapping now
         <name>Informative References</name>
 
 
+<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.0791.xml"/>
+<!-- IP -->
+
+<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.3272.xml"/>
+<!-- TE -->
+
+<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.3411.xml"/>
+<!-- An Architecture for Describing Simple Network Management Protocol (SNMP) Management Frameworks -->
+
+<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.4090.xml"/>
+<!-- Fast Reroute Extensions to RSVP-TE -->
+
+<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5714.xml"/>
+<!--  IP Fast Reroute Framework -->
+
+<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7490.xml"/>
+<!--   Remote Loop-Free Alternate (LFA) Fast Reroute (FRR) -->
+
 <xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.thubert-bier-replication-elimination.xml"/>
 <!-- BIER-TE extensions for Packet Replication and Elimination Function (PREF) and OAM -->
 
@@ -976,6 +1235,16 @@ zzz = flapping now
 <!-- RAW 5G-->
 
 
+        <reference anchor="NASA" target="https://kscddms.ksc.nasa.gov/Reliability/Documents/150814-3bWhatIsReliability.pdf">
+          <front>
+            <title>RELIABILITY: Definition &amp; Quantitative Illustration</title>
+            <author  initials="T." surname="Adams" fullname="Tim Adams" >
+              <organization>NASA</organization>
+            </author>
+            <date/>
+          </front>
+        </reference>
+
         <reference anchor="MANET" target="https://dataTracker.ietf.org/doc/charter-ietf-manet/">
           <front>
             <title> Mobile Ad hoc Networking</title>
@@ -985,6 +1254,7 @@ zzz = flapping now
             <date/>
           </front>
         </reference>
+
         <reference anchor="DetNet" target="https://dataTracker.ietf.org/doc/charter-ietf-detnet/">
           <front>
             <title>Deterministic Networking</title>

@@ -5,8 +5,9 @@
 RAW                                                      P. Thubert, Ed.
 Internet-Draft                                             Cisco Systems
 Intended status: Informational                         G.Z. Papadopoulos
-Expires: 4 October 2020                                   IMT Atlantique
-                                                            2 April 2020
+Expires: 9 October 2020                                   IMT Atlantique
+                                                           R. Buddenberg
+                                                            7 April 2020
 
 
          Reliable and Available Wireless Architecture/Framework
@@ -42,7 +43,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 4 October 2020.
+   This Internet-Draft will expire on 9 October 2020.
 
 Copyright Notice
 
@@ -52,8 +53,7 @@ Copyright Notice
 
 
 
-
-Thubert & Papadopoulos   Expires 4 October 2020                 [Page 1]
+Thubert, et al.          Expires 9 October 2020                 [Page 1]
 
 Internet-Draft         RAW Architecture/Framework             April 2020
 
@@ -69,50 +69,34 @@ Internet-Draft         RAW Architecture/Framework             April 2020
 
 Table of Contents
 
-   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
+   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
    2.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .   5
-   3.  Related Work at The IETF  . . . . . . . . . . . . . . . . . .   6
+   3.  Related Work at The IETF  . . . . . . . . . . . . . . . . . .   5
    4.  Use Cases and Requirements Served . . . . . . . . . . . . . .   6
-     4.1.  Radio Access Protection . . . . . . . . . . . . . . . . .   7
+     4.1.  Radio Access Protection . . . . . . . . . . . . . . . . .   6
      4.2.  Track Protection in a Wireless Mesh . . . . . . . . . . .   7
    5.  RAW Architecture Considerations . . . . . . . . . . . . . . .   8
      5.1.  Reliability and Availability  . . . . . . . . . . . . . .   8
-       5.1.1.  Reliability Engineering . . . . . . . . . . . . . . .   8
-       5.1.2.  Reliability In Wireless Networks  . . . . . . . . . .   8
-     5.2.  Prerequisites . . . . . . . . . . . . . . . . . . . . . .   9
-     5.3.  Routing Time Scale vs. Forwarding Time Scale  . . . . . .  10
-   6.  RAW Architecture Components . . . . . . . . . . . . . . . . .  11
-     6.1.  Wireless Tracks . . . . . . . . . . . . . . . . . . . . .  11
-     6.2.  Source-Routed vs. Distributed Forwarding Decision . . . .  12
-     6.3.  PAREO Functions . . . . . . . . . . . . . . . . . . . . .  12
-       6.3.1.  Packet Replication  . . . . . . . . . . . . . . . . .  13
-       6.3.2.  Packet Elimination  . . . . . . . . . . . . . . . . .  14
-       6.3.3.  Promiscuous Overhearing . . . . . . . . . . . . . . .  14
-   7.  Security Considerations . . . . . . . . . . . . . . . . . . .  15
-   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  15
-   9.  ConTributors  . . . . . . . . . . . . . . . . . . . . . . . .  15
-   10. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  15
-   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  15
-     11.1.  Normative References . . . . . . . . . . . . . . . . . .  15
-     11.2.  Informative References . . . . . . . . . . . . . . . . .  16
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  17
-
-
-
-
-
-
-
-
-
-
-
-
-
-Thubert & Papadopoulos   Expires 4 October 2020                 [Page 2]
-
-Internet-Draft         RAW Architecture/Framework             April 2020
-
+       5.1.1.  High Availability Engineering Principles  . . . . . .   8
+       5.1.2.  Applying Reliability Concepts to Networking . . . . .  10
+       5.1.3.  Reliability in the Context of RAW . . . . . . . . . .  11
+     5.2.  Prerequisites . . . . . . . . . . . . . . . . . . . . . .  12
+     5.3.  Routing Time Scale vs. Forwarding Time Scale  . . . . . .  13
+   6.  RAW Architecture Components . . . . . . . . . . . . . . . . .  14
+     6.1.  Wireless Tracks . . . . . . . . . . . . . . . . . . . . .  14
+     6.2.  Source-Routed vs. Distributed Forwarding Decision . . . .  15
+     6.3.  PAREO Functions . . . . . . . . . . . . . . . . . . . . .  15
+       6.3.1.  Packet Replication  . . . . . . . . . . . . . . . . .  16
+       6.3.2.  Packet Elimination  . . . . . . . . . . . . . . . . .  17
+       6.3.3.  Promiscuous Overhearing . . . . . . . . . . . . . . .  17
+   7.  Security Considerations . . . . . . . . . . . . . . . . . . .  18
+   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  18
+   9.  ConTributors  . . . . . . . . . . . . . . . . . . . . . . . .  18
+   10. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  18
+   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  18
+     11.1.  Normative References . . . . . . . . . . . . . . . . . .  18
+     11.2.  Informative References . . . . . . . . . . . . . . . . .  19
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  21
 
 1.  Introduction
 
@@ -122,6 +106,14 @@ Internet-Draft         RAW Architecture/Framework             April 2020
    physical resources to maintain the amount of traffic within a
    budgetted volume of data per unit of time that fits the physical
    capabilities of the underlying technology, and the use of time-shared
+
+
+
+Thubert, et al.          Expires 9 October 2020                 [Page 2]
+
+Internet-Draft         RAW Architecture/Framework             April 2020
+
+
    resources (bandwidth and buffers) per circuit, and/or by shaping and/
    or scheduling the packets at every hop.
 
@@ -162,14 +154,6 @@ Internet-Draft         RAW Architecture/Framework             April 2020
    traffic that can be transmitted on a link while conforming to a RAW
    Service Level Agreement (SLA) that may vary rapidly.
 
-
-
-
-Thubert & Papadopoulos   Expires 4 October 2020                 [Page 3]
-
-Internet-Draft         RAW Architecture/Framework             April 2020
-
-
    The wireless and wired media are fundamentally different at the
    physical level, and while the generic "Deterministic Networking
    Problem Statement" [RFC8557] applies to both the wired and the
@@ -177,6 +161,14 @@ Internet-Draft         RAW Architecture/Framework             April 2020
    support time-sensitive networking over wires, as a RAW solution has
    to address less consistent transmissions, energy conservation and
    shared spectrum efficiency.
+
+
+
+
+Thubert, et al.          Expires 9 October 2020                 [Page 3]
+
+Internet-Draft         RAW Architecture/Framework             April 2020
+
 
    The development of RAW technologies has been lagging behind
    deterministic efforts for wired systems both at the IEEE and the
@@ -215,25 +207,36 @@ Internet-Draft         RAW Architecture/Framework             April 2020
    are made.  RAW operates at the forwarding time scale on one DetNet
    flow over one path that is preestablished and installed by means
    outside of the scope of RAW.  The scope of the RAW WG comprises
-   Network plane protocol elements such as OAM and in-band control to
-   improve the RAW operation at the Service and at the forwarding sub-
-   layers, e.g., controlling whether to use packet replication,
+   Network plane protocol elements such as Operations, Administration
+   and Maintenance (OAM) and in-band control to improve the RAW
+   operation at the Service and at the forwarding sub-layers.  RAW
+   controls whether to use packet replication, Automatic Repeat reQuest
+   (ARQ), Hybrid ARQ (HARQ) that includes Forward Error Correction (FEC)
+   and coding, with a constraint to limit the use of redundancy as is
+   really needed, e.g., when a spike of loss is observed.  This is
+   discussed in more details in Section 5.3 and the next sections.
 
 
 
-Thubert & Papadopoulos   Expires 4 October 2020                 [Page 4]
+
+
+
+Thubert, et al.          Expires 9 October 2020                 [Page 4]
 
 Internet-Draft         RAW Architecture/Framework             April 2020
 
 
-   Automatic Repeat reQuest (ARQ), Hybrid ARQ (HARQ) that includes
-   Forward Error Correction (FEC) and coding, with a constraint to limit
-   the use of redundancy
-   whencccccckehblncidtvdigtbfgjiugivbrkkklehrciijk it is really needed,
-   e.g., when a spike of loss is observed.  This is discussed in more
-   details in Section 5.3 and the next sections.
-
 2.  Terminology
+
+   RAW reuses terminology defined for DetNet in the "Deterministic
+   Networking Architecture" [RFC8655], e.g., PREOF for Packet
+   Replication, Elimination and Ordering Functions.
+
+   RAW also reuses terminology defined for 6TiSCH in [6TiSCH-ARCH] such
+   as the term Track.  6TiSCH defined a Track as a complex path with
+   associated PAREO operations.
+
+   RAW uses the term OAM as defined in [RFC6291].
 
    RAW defines the following terms:
 
@@ -247,14 +250,6 @@ Internet-Draft         RAW Architecture/Framework             April 2020
       connectivity is interrupted for short transient times, typically
       of a subsecond duration.
 
-   RAW reuses terminology defined for DetNet in the "Deterministic
-   Networking Architecture" [RFC8655], e.g., PREOF for Packet
-   Replication, Elimination and Ordering Functions.
-
-   RAW also reuses terminology defined for 6TiSCH in [6TiSCH-ARCH] such
-   as the term Track.  6TiSCH defined a Track as a complex path with
-   associated PAREO operations.
-
    In the context of the RAW work, Reliability and Availability are
    defined as follows:
 
@@ -264,7 +259,7 @@ Internet-Draft         RAW Architecture/Framework             April 2020
       delivery within a bounded latency and a failure is when the packet
       is either lost or delivered too late.  RAW expresses reliability
       in terms of Mean Time Between Failure (MTBF) and Maximum
-      Consecutive Failures (MCF).
+      Consecutive Failures (MCF).  More in [NASA].
 
    Availability:  Availability is a measure of the relative amount of
       time where a path operates in stated condition, in other words
@@ -274,32 +269,32 @@ Internet-Draft         RAW Architecture/Framework             April 2020
       availability implies a path that is a lot more complex than what
       DetNet typically envisages (a Track).
 
-
-
-
-Thubert & Papadopoulos   Expires 4 October 2020                 [Page 5]
-
-Internet-Draft         RAW Architecture/Framework             April 2020
-
-
 3.  Related Work at The IETF
 
    RAW intersects with protocols or practices in development at the IETF
    as follows:
+
+
+
+
+Thubert, et al.          Expires 9 October 2020                 [Page 5]
+
+Internet-Draft         RAW Architecture/Framework             April 2020
+
 
    *  The Dynamic Link Exchange Protocol (DLEP) [RFC8175] from [MANET]
       can be leveraged at each hop to derive generic radio metrics
       (e.g., based on LQI, RSSI, queueing delays and ETX) on individual
       hops.
 
-   *  Operations, Administration and Maintenance (OAM) work at [DetNet]
-      such as [DetNet-IP-OAM] for the case of the IP Data Plane observes
-      the state of DetNet paths, typically MPLS and IPv6 pseudowires
-      [DetNet-DP-FW], in the direction of the traffic.  RAW needs
-      feedback that flows on the reverse path and gathers instantaneous
-      values from the radio receivers at each hop to inform back the
-      source and replicating relays so they can make optimized
-      forwarding decisions.  The work named ICAN may be related as well.
+   *  OAM work at [DetNet] such as [DetNet-IP-OAM] for the case of the
+      IP Data Plane observes the state of DetNet paths, typically MPLS
+      and IPv6 pseudowires [DetNet-DP-FW], in the direction of the
+      traffic.  RAW needs feedback that flows on the reverse path and
+      gathers instantaneous values from the radio receivers at each hop
+      to inform back the source and replicating relays so they can make
+      optimized forwarding decisions.  The work named ICAN may be
+      related as well.
 
    *  [BFD] detect faults in the path between an ingress and an egress
       forwarding engines, but is unaware of the complexity of a path
@@ -330,18 +325,18 @@ Internet-Draft         RAW Architecture/Framework             April 2020
    drones.  The use cases can be abstracted in two families, radio
    access protection and Track protection in a wireless mesh.
 
-
-
-
-Thubert & Papadopoulos   Expires 4 October 2020                 [Page 6]
-
-Internet-Draft         RAW Architecture/Framework             April 2020
-
-
 4.1.  Radio Access Protection
 
    To maintain the committed reliability at all times, a wireless host
    may use more than one Radio Access Network (RAN) in parallel.
+
+
+
+
+Thubert, et al.          Expires 9 October 2020                 [Page 6]
+
+Internet-Draft         RAW Architecture/Framework             April 2020
+
 
                                               ***   **
                            RAN 1  -----  ***     **  ***
@@ -386,10 +381,15 @@ Internet-Draft         RAW Architecture/Framework             April 2020
 
                          Figure 2: Track Protection
 
+   The Protection may be imposed by the source based on end-to-end OAM,
+   or performed hop-by-hop, in which case the OAM must enables the
+   intermediate nodes to estimate the quality of the rest of the
+   feasible paths in the sub-Track to the destination.
 
 
 
-Thubert & Papadopoulos   Expires 4 October 2020                 [Page 7]
+
+Thubert, et al.          Expires 9 October 2020                 [Page 7]
 
 Internet-Draft         RAW Architecture/Framework             April 2020
 
@@ -398,36 +398,152 @@ Internet-Draft         RAW Architecture/Framework             April 2020
 
 5.1.  Reliability and Availability
 
-5.1.1.  Reliability Engineering
+5.1.1.  High Availability Engineering Principles
 
    The reliability criteria of a critical system pervade through its
    elements, and if the system comprises a data network then the data
-   network is also subject to the inherited reliability criteria.  It is
-   only natural to consider the art of Reliability Engineering and apply
-   it to wireless communicaitons in the context of RAW.
+   network is also subject to the inherited reliability and availability
+   criteria.  It is only natural to consider the art of high
+   availability engineering and apply it to wireless communicaitons in
+   the context of RAW.
 
-   There are 3 pillars in the art of Reliability Engineering:
+   There are three principles [pillars] of high availability
+   engineering:
 
-   1.  Elimination of single points of failure
+   1.  elimination of single points of failure
+   2.  reliable crossover
+   3.  prompt detection of failures as they occur.
 
-   2.  Reliable crossover
+   These principles are common to all high availability systems, not
+   just ones with Internet technology at the center.  Examples of both
+   non-Internet and Internet are included.
 
-   3.  Detection of faults as they occur
+5.1.1.1.  Elimination of Single Points of Failure
 
-5.1.2.  Reliability In Wireless Networks
+   Physical and logical components in a system happen to fail, either as
+   the effect of wear and tear, when used beyond acceptable limits, or
+   due to a software bug.  It is necessary to decouple component failure
+   from system failure to avoid the latter.  This allows failed
+   components to be restored while the rest of the system continues to
+   function.
 
-   The terms Reliaility and Availability are defined for RAW in
-   Section 2.  Practically speaking a number of nines is often used to
-   indicate the reliability of a data link, e.g., 5 nines indicate a
-   Packet Delivery Ratio (PDR) of 99.999%. This number is typical is a
-   wired environment where the loss is due to a random event such as a
-   solar particle that affects the transmission of a particular frame,
-   but does not affect the previous or next frame, nor frames
-   transmitted on other links.
+   A non-Internet example is a standby generator available to power the
+   system on failure of grid power.  An Internet example is more than
+   one communication several non-congruent link/path between nodes in a
+   routable network.
+
+   There is a rather open-ended issue over alternate routes -- for
+   example, when links are cabled through the same conduit, they form a
+   shared risk link group (SRLG), and will share the same fate if the
+   bundle is cut.  Just how distributed the infrastructure is a matter
+   of discussion; there is no single right answer.  It should be noted
+   that intermediate nodes such as routers, switches, and the air medium
+   itself can become single points of failure; this must be avoided,
+   using link- and node-disjoint paths, and, for RAW, a high degree of
+   diversity in the transmissions over the air.
+
+
+
+
+Thubert, et al.          Expires 9 October 2020                 [Page 8]
+
+Internet-Draft         RAW Architecture/Framework             April 2020
+
+
+   From an economics standpoint, executing this principle properly
+   generally increases capitalization expense because of the redundant
+   equipment.  In a constrained network where the waste of energy and
+   bandwidth should be minimized, an excessive use of redundant links
+   must be avoided; for RAW this means that the extra bandwidth must
+   only be used as a replacement of that lost due to a failure.
+
+5.1.1.2.  Reliable Crossover
+
+   Having a backup equipment has a limited value unless it can be
+   reliably switched into use within the down-time parameters.
+
+   Using the backup generator example: one that does not automatically
+   sense grid power failure, start itself, and place itself on line does
+   not represent reliable crossover.
+
+   Routers and IGPs execute reliable crossover continuously because the
+   routers will use any alternate routes that are available [RFC0791].
+   This is due to the stateless nature of IP datagrams and the
+   dissociation of the datagrams from the forwarding routes they take.
+   The "IP Fast Reroute Framework" [FRR] analyzes mechanisms for fast
+   failure detection and path repair for IP Fast-Reroute, and discusses
+   the case of multiple failures and SRLG.  Examples of FRR techniques
+   include Remote Loop-Free Alternate [RLFA-FRR] and backup label-
+   switched path (LSP) tunnels for the local repair of LSP tunnels using
+   RSVP-TE [RFC4090].
+
+   The DetNet PREOF leverages 1+1 redundancy whereby a packet is sent
+   twice, over non-congruent paths.  This avoids the gap during the fast
+   reroute operation, but doubles the traffic in the network.  In the
+   case of RAW, the expectation is that multiple transient faults may
+   happen in overlapping time windows, in which case the 1+1 redundancy
+   with delayed reestablishment of the second path will not provide the
+   required guarantees.  The Data Plane must be configured with a
+   sufficient degree of redundancy to select an alternate redundat path
+   immediately upon a fault, without the need for a slow intervention
+   from the controller plane.
+
+5.1.1.3.  Prompt Notification of Failures
+
+   The execution of the two above principles is likely to render a
+   system where the user will rarely see a failure.  But someone needs
+   to in order to direct maintenance.
+
+   There are many reasons for system monitoring (FCAPS for fault,
+   configuration, accounting, performance, security is a handy mental
+   checklist) but fault monitoring is sufficient reason [STD 62]
+   describes how to use SNMP to observe and correct long-term faults.
+
+
+
+Thubert, et al.          Expires 9 October 2020                 [Page 9]
+
+Internet-Draft         RAW Architecture/Framework             April 2020
+
+
+   "Overview and Principles of Internet Traffic Engineering" [TE]
+   discusses the importance of measurement for network protection, and
+   provides abstract an method for network survivability with the
+   analysis of a traffic matrix as observed by SNMP, probing techniques,
+   FTP, IGP link state advertisements, and more.
+
+   Using the art of SNMP, the above described backup generator would
+   include an SNMP agent that can report the status of the generator
+   (get messages) on demand, and report changes in status (e.g. startup,
+   amount of fuel in the tank) (trap messages).
+
+   Those measurements are needed in the context of RAW to inform the
+   controller and make the long term reactive decision to rebuild a
+   complex path.  But RAW itself operates in the Network Plane at a
+   faster time scale.  To act on the Data Plane, RAW needs live
+   information from the Operational Plane , e.g., using Bidirectional
+   Forwarding Detection [BFD] and its variants (bidirectional and remote
+   BFD) to protect a link, and OAM techniques to protect a path.
+
+5.1.2.  Applying Reliability Concepts to Networking
+
+   The terms Reliaility and Availability are defined for use in RAW in
+   Section 2 and the reader is invited to read [NASA] for more details
+   on the general definition of Reliability.  Practically speaking a
+   number of nines is often used to indicate the reliability of a data
+   link, e.g., 5 nines indicate a Packet Delivery Ratio (PDR) of
+   99.999%.
+
+   This number is typical in a wired environment where the loss is due
+   to a random event such as a solar particle that affects the
+   transmission of a particular frame, but does not affect the previous
+   or next frame, nor frames transmitted on other links.  Note that the
+   QoS requirements in RAW may include a bounded latency, and a packet
+   that arrives too late is a fault and not considered as delivered.
 
    For a periodic pattern such as an automation control loop, this
-   number is proportional to the Mean Time Between Failure (MTBF).  If a
-   single fault can have dramatic consequences, then the MTBF is the
+   number is proportional to the Mean Time Between Failures (MTBF).  If
+   a single fault can have dramatic consequences, then the MTBF is the
    expression of the chances that an unwanted event occurs.  In data
    networks, this is rarely the case.  Packet loss cannot never be fully
    avoided and the systems are built to resist to one loss, e.g., using
@@ -435,43 +551,87 @@ Internet-Draft         RAW Architecture/Framework             April 2020
    (PRE), or, in a typical control loop, by linear interpolation from
    the previous measuremnents.
 
-   But the latter method can not resist to multiple consecutive losses,
-   and a high MTBF is desired as a guarantee that this will not happen,
-   IOW that the losses-in-a-row can be bounded.  In that case, what's
-   really desired is a Maximum Consecutive Failures (MCF).  If the
-   number of losses in a row passes the MCF, the control loop has to
-   abort.  Engineers that build automated processes use the network
-   reliability expressed in nines or as an MTBF to provide an MCF.
+   But the linear interpolation method can not resist to multiple
+   consecutive losses, and a high MTBF is desired as a guarantee that
+   this will not happen, IOW that the losses-in-a-row can be bounded.
 
 
 
-Thubert & Papadopoulos   Expires 4 October 2020                 [Page 8]
+Thubert, et al.          Expires 9 October 2020                [Page 10]
 
 Internet-Draft         RAW Architecture/Framework             April 2020
 
 
-   In contrast with wires networks, errors in transmission are a
-   predominent factor for packet loss in wireless.  A given hop will
-   suffer from multipath fading for multiple packets in a row till the
-   something moves that changes the reflection patterns.  The wireless
-   medium itself is a Shared Risk Link Group (SRLG) for nearby users of
-   the same spectrum, as an interference may affect multiple co-channel
-   transmissions between different peers within the interference domain
-   of the interferer, possibly even when they use different
-   technologies.
+   In that case, what's really desired is a Maximum Consecutive Failures
+   (MCF).  If the number of losses in a row passes the MCF, the control
+   loop has to abort.  Engineers that build automated processes may use
+   the network reliability expressed in nines or as an MTBF to provide
+   an MCF, e.g., as described in section 7.4 of [RFC8578].
 
-   Transmission errors are typically not independent, and there nature
-   and duration unpredictable; as long as a physical object (e.g., a
-   metallic trolley etween peers) that affects the transmission is not
-   removed, or as long as the intererer (e.g., a radar) keeps
-   transmitting, packets in a row will be affected.  The key word to
-   combat losses is diversity.  A single packet may be sent at different
-   times over different paths that rely on different radio frequencies
-   and different PHY technologies, e.g., narrowband ns. spread spectrum.
-   It is typically retried a nmuber of times in case of a loss, and if
-   possible the retries should again vary all possible parameters.  Each
-   form of diversity combats a particular cause of loss and use of
-   diversity must be maximised to optimize the PDR.
+5.1.3.  Reliability in the Context of RAW
+
+   In contrast with wired networks, errors in transmission are the
+   predominent source of packet loss in wireless networks.  The root
+   cause may be of multiple origins:
+
+   Multipath Fading:  A destructive interference by a reflection of the
+      original signal.
+
+      A radio signal may be received directly (line-of-sight) and/or as
+      a reflection on a physical structure (echo).  The reflections take
+      a longer path and are delayed by the extra distance divided by the
+      speed of light in the medium.  Depending on the frequency, the
+      echo lands with a different phase which may add up to
+      (constructive interference) or destroy the signal (destructive
+      interference).
+
+      The affected frequencies depend on the relative position of the
+      sender, the receiver, and all the reflecting objects in the
+      environment.  A given hop will suffer from multipath fading for
+      multiple packets in a row till the something moves that changes
+      the reflection patterns.
+
+   Co-channel Interference:  Energy in the spectrum used for the
+      transmission confuses the receiver.
+
+      The wireless medium itself is a Shared Risk Link Group (SRLG) for
+      nearby users of the same spectrum, as an interference may affect
+      multiple co-channel transmissions between different peers within
+      the interference domain of the interferer, possibly even when they
+      use different technologies.
+
+   Obstacle in Fresnel Zone:  The optimal transmission happens when the
+      Fresnel Zone between the sender and the receiver is free of
+      obstacles.
+
+      As long as a physical object (e.g., a metallic trolley between
+      peers) that affects the transmission is not removed, the quality
+      of the link is affected.
+
+   In an environment that is rich of metallic structures and mobile
+   objects, a single radio link will provide a fuzzy service.
+
+
+
+Thubert, et al.          Expires 9 October 2020                [Page 11]
+
+Internet-Draft         RAW Architecture/Framework             April 2020
+
+
+   Transmission errors are typically not independent, and their nature
+   and duration are unpredictable; as long as a physical object (e.g., a
+   metallic trolley between peers) that affects the transmission is not
+   removed, or as long as the interferer (e.g., a radar) keeps
+   transmitting, a continuous stream of packets will be affected.
+
+   The key word to combat losses is diversity.  A single packet may be
+   sent at different times over different paths that rely on different
+   radio frequencies and different PHY technologies, e.g., narrowband
+   vs. spread spectrum.  It is typically retried a number of times in
+   case of a loss, and if possible the retries should again vary all
+   possible parameters.  Each form of diversity combats a particular
+   cause of loss and use of diversity must be maximised to optimize the
+   PDR.
 
 5.2.  Prerequisites
 
@@ -498,16 +658,21 @@ Internet-Draft         RAW Architecture/Framework             April 2020
    radio layer can be programmed with abstract parameters, and can
    return an abstract view of the state of the Link to help forwarding
    decision (think DLEP from MANET).  In the layered approach, how the
+   radio manages its PHY layer is out of control and out of scope.
+   Whether it is single hop or meshed is also unknown and out of scope.
 
 
 
-Thubert & Papadopoulos   Expires 4 October 2020                 [Page 9]
+
+
+
+
+
+
+Thubert, et al.          Expires 9 October 2020                [Page 12]
 
 Internet-Draft         RAW Architecture/Framework             April 2020
 
-
-   radio manages its PHY layer is out of control and out of scope.
-   Whether it is single hop or meshed is also unknown and out of scope.
 
 5.3.  Routing Time Scale vs. Forwarding Time Scale
 
@@ -555,15 +720,16 @@ Internet-Draft         RAW Architecture/Framework             April 2020
 
                            Figure 3: Time Scales
 
+   In the case of wireless, the changes that affect the forwarding
+   decision can happen frequently and often for short durations, e.g., a
 
 
-Thubert & Papadopoulos   Expires 4 October 2020                [Page 10]
+
+Thubert, et al.          Expires 9 October 2020                [Page 13]
 
 Internet-Draft         RAW Architecture/Framework             April 2020
 
 
-   In the case of wireless, the changes that affect the forwarding
-   decision can happen frequently and often for short durations, e.g., a
    mobile object moves between a transmitter and a receiver, and will
    cancel the line of sight transmission for a few seconds, or a radar
    measures the depth of a pool and interferes on a particular channel
@@ -573,8 +739,8 @@ Internet-Draft         RAW Architecture/Framework             April 2020
    route and the short term forwarding decision.  In such a model, the
    routing operation computes a complex Track that enables multiple Non-
    Equal Cost Multi-Path (N-ECMP) forwarding solutions, and leaves it to
-   the forwarding plane to make the per-packet decision of which of
-   these possibilities should be used.
+   the Data Plane to make the per-packet decision of which of these
+   possibilities should be used.
 
    In the case of wires, the concept is known in traffic engineering
    where an alternate path can be used upon the detection of a failure
@@ -613,7 +779,9 @@ Internet-Draft         RAW Architecture/Framework             April 2020
 
 
 
-Thubert & Papadopoulos   Expires 4 October 2020                [Page 11]
+
+
+Thubert, et al.          Expires 9 October 2020                [Page 14]
 
 Internet-Draft         RAW Architecture/Framework             April 2020
 
@@ -634,10 +802,10 @@ Internet-Draft         RAW Architecture/Framework             April 2020
    The decision to apply the RAW techniques must be done quickly, and
    depends on a very recent and precise knowledge of the forwarding
    conditions within the complex Track.  There is a need for an
-   observation method to provide the RAW forwarding plane with the
-   specific knowledge of the state of the Track for the type of flow of
-   interest (e.g., for a QoS level of interest).  To observe the whole
-   Track in quasi real time, RAW will consider existing tools such as
+   observation method to provide the RAW Data Plane with the specific
+   knowledge of the state of the Track for the type of flow of interest
+   (e.g., for a QoS level of interest).  To observe the whole Track in
+   quasi real time, RAW will consider existing tools such as
    L2-triggers, DLEP, BFD and in-band and out-of-band OAM.
 
    One possible way of making the RAW forwarding decisions is to make
@@ -669,7 +837,7 @@ Internet-Draft         RAW Architecture/Framework             April 2020
 
 
 
-Thubert & Papadopoulos   Expires 4 October 2020                [Page 12]
+Thubert, et al.          Expires 9 October 2020                [Page 15]
 
 Internet-Draft         RAW Architecture/Framework             April 2020
 
@@ -725,7 +893,7 @@ Internet-Draft         RAW Architecture/Framework             April 2020
 
 
 
-Thubert & Papadopoulos   Expires 4 October 2020                [Page 13]
+Thubert, et al.          Expires 9 October 2020                [Page 16]
 
 Internet-Draft         RAW Architecture/Framework             April 2020
 
@@ -781,7 +949,7 @@ Internet-Draft         RAW Architecture/Framework             April 2020
 
 
 
-Thubert & Papadopoulos   Expires 4 October 2020                [Page 14]
+Thubert, et al.          Expires 9 October 2020                [Page 17]
 
 Internet-Draft         RAW Architecture/Framework             April 2020
 
@@ -837,7 +1005,7 @@ Internet-Draft         RAW Architecture/Framework             April 2020
 
 
 
-Thubert & Papadopoulos   Expires 4 October 2020                [Page 15]
+Thubert, et al.          Expires 9 October 2020                [Page 18]
 
 Internet-Draft         RAW Architecture/Framework             April 2020
 
@@ -856,6 +1024,16 @@ Internet-Draft         RAW Architecture/Framework             April 2020
               Draft, draft-bernardos-raw-use-cases-03, 8 March 2020,
               <https://tools.ietf.org/html/draft-bernardos-raw-use-
               cases-03>.
+
+   [BFD]      Katz, D. and D. Ward, "Bidirectional Forwarding Detection
+              (BFD)", RFC 5880, DOI 10.17487/RFC5880, June 2010,
+              <https://www.rfc-editor.org/info/rfc5880>.
+
+   [RFC6291]  Andersson, L., van Helvoort, H., Bonica, R., Romascanu,
+              D., and S. Mansfield, "Guidelines for the Use of the "OAM"
+              Acronym in the IETF", BCP 161, RFC 6291,
+              DOI 10.17487/RFC6291, June 2011,
+              <https://www.rfc-editor.org/info/rfc6291>.
 
    [RFC8578]  Grossman, E., Ed., "Deterministic Networking Use Cases",
               RFC 8578, DOI 10.17487/RFC8578, May 2019,
@@ -877,6 +1055,42 @@ Internet-Draft         RAW Architecture/Framework             April 2020
 
 11.2.  Informative References
 
+   [RFC0791]  Postel, J., "Internet Protocol", STD 5, RFC 791,
+              DOI 10.17487/RFC0791, September 1981,
+              <https://www.rfc-editor.org/info/rfc791>.
+
+
+
+Thubert, et al.          Expires 9 October 2020                [Page 19]
+
+Internet-Draft         RAW Architecture/Framework             April 2020
+
+
+   [TE]       Awduche, D., Chiu, A., Elwalid, A., Widjaja, I., and X.
+              Xiao, "Overview and Principles of Internet Traffic
+              Engineering", RFC 3272, DOI 10.17487/RFC3272, May 2002,
+              <https://www.rfc-editor.org/info/rfc3272>.
+
+   [STD 62]   Harrington, D., Presuhn, R., and B. Wijnen, "An
+              Architecture for Describing Simple Network Management
+              Protocol (SNMP) Management Frameworks", STD 62, RFC 3411,
+              DOI 10.17487/RFC3411, December 2002,
+              <https://www.rfc-editor.org/info/rfc3411>.
+
+   [RFC4090]  Pan, P., Ed., Swallow, G., Ed., and A. Atlas, Ed., "Fast
+              Reroute Extensions to RSVP-TE for LSP Tunnels", RFC 4090,
+              DOI 10.17487/RFC4090, May 2005,
+              <https://www.rfc-editor.org/info/rfc4090>.
+
+   [FRR]      Shand, M. and S. Bryant, "IP Fast Reroute Framework",
+              RFC 5714, DOI 10.17487/RFC5714, January 2010,
+              <https://www.rfc-editor.org/info/rfc5714>.
+
+   [RLFA-FRR] Bryant, S., Filsfils, C., Previdi, S., Shand, M., and N.
+              So, "Remote Loop-Free Alternate (LFA) Fast Reroute (FRR)",
+              RFC 7490, DOI 10.17487/RFC7490, April 2015,
+              <https://www.rfc-editor.org/info/rfc7490>.
+
    [BIER-PREF]
               Thubert, P., Eckert, T., Brodard, Z., and H. Jiang, "BIER-
               TE extensions for Packet Replication and Elimination
@@ -890,14 +1104,6 @@ Internet-Draft         RAW Architecture/Framework             April 2020
               Administration and Maintenance (OAM) for Deterministic
               Networks (DetNet) with IP Data Plane", Work in Progress,
               Internet-Draft, draft-mirsky-detnet-ip-oam-02, 23 March
-
-
-
-Thubert & Papadopoulos   Expires 4 October 2020                [Page 16]
-
-Internet-Draft         RAW Architecture/Framework             April 2020
-
-
               2020, <https://tools.ietf.org/html/draft-mirsky-detnet-ip-
               oam-02>.
 
@@ -908,12 +1114,24 @@ Internet-Draft         RAW Architecture/Framework             April 2020
               3 February 2020, <https://tools.ietf.org/html/draft-ietf-
               detnet-data-plane-framework-04>.
 
+
+
+
+Thubert, et al.          Expires 9 October 2020                [Page 20]
+
+Internet-Draft         RAW Architecture/Framework             April 2020
+
+
    [I-D.farkas-raw-5g]
               Farkas, J., Dudda, T., Shapin, A., and S. Sandberg, "5G -
               Ultra-Reliable Wireless Technology with Low Latency", Work
               in Progress, Internet-Draft, draft-farkas-raw-5g-00, 1
               April 2020,
               <https://tools.ietf.org/html/draft-farkas-raw-5g-00>.
+
+   [NASA]     Adams, T., "RELIABILITY: Definition & Quantitative
+              Illustration", <https://kscddms.ksc.nasa.gov/Reliability/
+              Documents/150814-3bWhatIsReliability.pdf>.
 
    [MANET]    IETF, "Mobile Ad hoc Networking",
               <https://dataTracker.ietf.org/doc/charter-ietf-manet/>.
@@ -946,25 +1164,31 @@ Authors' Addresses
    Email: pthubert@cisco.com
 
 
-
-
-
-Thubert & Papadopoulos   Expires 4 October 2020                [Page 17]
-
-Internet-Draft         RAW Architecture/Framework             April 2020
-
-
    Georgios Z. Papadopoulos
    IMT Atlantique
    Office B00 - 114A
    2 Rue de la Chataigneraie
    35510 Cesson-Sevigne - Rennes
+
+
+
+
+Thubert, et al.          Expires 9 October 2020                [Page 21]
+
+Internet-Draft         RAW Architecture/Framework             April 2020
+
+
    France
 
    Phone: +33 299 12 70 04
    Email: georgios.papadopoulos@imt-atlantique.fr
 
 
+   Rex Buddenberg
+   CA
+   United States of America
+
+   Email: buddenbergr@gmail.com
 
 
 
@@ -1005,4 +1229,4 @@ Internet-Draft         RAW Architecture/Framework             April 2020
 
 
 
-Thubert & Papadopoulos   Expires 4 October 2020                [Page 18]
+Thubert, et al.          Expires 9 October 2020                [Page 22]
