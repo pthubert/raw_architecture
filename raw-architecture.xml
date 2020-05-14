@@ -397,7 +397,7 @@ zzz = flapping now
     <!--  000000000000000000000    -->
 
     <section anchor="cons" numbered="true" toc="default">
-      <name>RAW Architecture Considerations</name>
+      <name>RAW Considerations</name>
 
     <!--  11111111111111111111    -->
 
@@ -691,7 +691,7 @@ zzz = flapping now
 
 
     </section>
-      <!--Reliability In Wireless Networks-->
+      <!--Reliability in the Context of RAW-->
 
     </section>
     <!--Reliability and Availability-->
@@ -699,7 +699,7 @@ zzz = flapping now
 
 
     <section numbered="true" toc="default">
-      <name>Prerequisites</name>
+      <name>RAW Prerequisites</name>
       <t>
    A prerequisite to the RAW work is that an end-to-end routing function
    computes a complex sub-topology along which forwarding can happen between a
@@ -817,45 +817,6 @@ zzz = flapping now
     <!--  11111111111111111111    -->
 
 
-   </section>
-   <!--RAW Architecture Considerations-->
-    <!--  000000000000000000000    -->
-
-    <section numbered="true" toc="default">
-      <name>RAW Architecture Components</name>
-
-
-    <!--  111111111111111111111    -->
-
-    <section anchor="trk" numbered="true" toc="default">
-      <name>Wireless Tracks</name>
-   <t>
-    The  <xref target="I-D.ietf-6tisch-architecture">"6TiSCH Architecture"</xref>
-    introduces the concept of Track a a possibly complex path with the PAREO
-    functions operated within.</t>
-
-    <t>
-    A simple track is composed of a direct sequence of reserved hops to ensure
-    the transmission of a single packet from a source node to a destination node
-    across a multihop path.
-    </t>
-    <t>
-        A Complex Track is designed as a directed acyclic graph from a source node
-        towards a destination node to support multi-path forwarding, as introduced in
-        <xref target="I-D.ietf-6tisch-architecture">"6TiSCH Architecture"</xref>.
-        By employing PRE functions
-        <xref target="RFC8655"/>, several paths may be computed, and these paths
-        may be more or less independent. For example, a complex Track may
-        branch off and rejoin over non-congruent paths (branches).
-    </t>
-
-    <t>
-        Some more details for Deterministic Network
-        PRE techniques are presented in the following Section.
-    </t>
-
-</section>
-      <!--Wireless Tracks-->
 
 
     <section numbered="true" toc="default">
@@ -911,6 +872,17 @@ zzz = flapping now
 
 
     <!--  111111111111111111111    -->
+
+   </section>
+   <!--RAW Considerations-->
+    <!--  000000000000000000000    -->
+
+    <section numbered="true" toc="default">
+      <name>RAW Architecture Elements</name>
+
+
+    <!--  111111111111111111111    -->
+
 
     <section numbered="true" toc="default">
       <name>PAREO Functions</name>
@@ -981,8 +953,8 @@ zzz = flapping now
     </t>
 
 
-
-<section title="Packet Replication">
+    <section numbered="true" toc="default">
+      <name>Packet Replication</name>
 
     <t>
         The objective of PRE is to provide deterministic networking properties:
@@ -1044,7 +1016,10 @@ zzz = flapping now
 
 
 
-<section title="Packet Elimination">
+
+    <section numbered="true" toc="default">
+      <name>Packet Elimination</name>
+
 
     <t>
         The replication operation increases the traffic load in the
@@ -1068,7 +1043,11 @@ zzz = flapping now
 
 
 
-<section title="Promiscuous Overhearing">
+
+    <section numbered="true" toc="default">
+      <name>Promiscuous Overhearing</name>
+
+
 
     <t>
         Considering that the wireless medium is broadcast by nature, any neighbor of
@@ -1100,6 +1079,32 @@ zzz = flapping now
             ]]></artwork>
         </figure>
 
+
+</section>
+
+
+
+
+
+
+    <section numbered="true" toc="default">
+      <name>Constructive Interference</name>
+
+<t>
+    Constructive Interference can be seen as the reverse of Promiscuous
+    Overhearing, and refers to the case where two senders transmit the exact
+    same signal in a fashion that the emitted symbols add up at the receiver and
+    permit a reception that would not be possible with a single sender at the
+    same PHY mode and  the same power level.
+</t><t>
+    Constructive Interference was proposed on 5G, Wi-Fi7 and even tested on
+    IEEE 802.14.5.  The hard piece is to synchronize the senders to the point
+    that the signals are emitted at slightly different time to offset the
+    difference of propagation delay that corresponds to the difference of
+    distance of the transmitters to the receiver at the speed of light to the
+    point that the symbols are superposed long enough to be recognizable.
+</t>
+
 </section>
 
 
@@ -1109,9 +1114,53 @@ zzz = flapping now
 
     <!--  111111111111111111111    -->
 
+    <section anchor="trk" numbered="true" toc="default">
+      <name>Wireless Tracks</name>
+   <t>
+    The  <xref target="I-D.ietf-6tisch-architecture">"6TiSCH Architecture"</xref>
+    introduces the concept of Track a a possibly complex path with the PAREO
+    functions operated within.</t>
+
+    <t>
+    A simple track is composed of a direct sequence of reserved hops to ensure
+    the transmission of a single packet from a source node to a destination node
+    across a multihop path.
+    </t>
+    <t>
+        A Complex Track is designed as a directed acyclic graph from a source node
+        towards a destination node to support multi-path forwarding, as introduced in
+        <xref target="I-D.ietf-6tisch-architecture">"6TiSCH Architecture"</xref>.
+        By employing PRE functions
+        <xref target="RFC8655"/>, several paths may be computed, and these paths
+        may be more or less independent. For example, a complex Track may
+        branch off and rejoin over non-congruent paths (branches).
+    </t>
+
+    <t>
+        Some more details for Deterministic Network
+        PRE techniques are presented in the following Section.
+    </t>
+
+</section>
+      <!--Wireless Tracks-->
+
+    <!--  111111111111111111111    -->
+
+
     </section>
-    <!--RAW Architecture Components< -->
+    <!--RAW Elements -->
     <!--  000000000000000000000    -->
+
+
+    <section anchor="elems" numbered="true" toc="default">
+      <name>RAW Operations</name>
+
+
+    </section>
+    <!--RAW Operations< -->
+    <!--  000000000000000000000    -->
+
+
 
     <section anchor="SecurityConsiderations" numbered="true" toc="default">
       <name>Security Considerations</name>
