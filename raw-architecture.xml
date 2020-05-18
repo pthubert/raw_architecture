@@ -310,8 +310,7 @@
    <xref target="I-D.bernardos-raw-use-cases" format="default"/> adds a number
    of use cases that demonstrate the need for RAW capabilities for new
    applications such as Pro-Gaming and drones.
-    The use cases can be abstracted in two families, radio access protection and
-    Track protection in a wireless mesh.
+    The use cases can be abstracted in two families, Loose Tracks, e.g., for first op Radio Access Protection and Strict Tracks, e.g., for End-to-End Protection in a wireless mesh.
       </t>
 
 
@@ -363,15 +362,16 @@ zzz = flapping now  $$$ expensive
 
 
     <section numbered="true" toc="default">
-      <name>Track Protection in a Wireless Mesh</name>
+      <name>End-to-End Protection in a Wireless Mesh</name>
 
 <t>
-A Track (more in <xref target="trk"/>) if a multihop multipath radio mesh with
-distribute PAREO capabilities. In that case, RAW operates through the mesh and
-makes decisions either at the Ingress or at every hop.
+    In radio technologies that support mesh networking (e.g., Wi-Fi and TSCH),
+    a Track is a complex path with distributed PAREO capabilities. In that case,
+    RAW operates through the multipath and makes decisions either at the Ingress
+    or at every hop (more in <xref target="trk"/>).
 </t>
        <figure anchor="Figtrk">
-              <name>Track Protection</name>
+              <name>End-to-End Protection</name>
        <artwork align="center" name="" type="" alt="">
          A-------B-------C-----D
         /  \   /       /        \
@@ -388,7 +388,7 @@ zzz = flapping now
        paths in the sub-Track to the destination.
        </t>
     </section>
-    <!--Track Protection in a Wireless Mesh-->
+    <!--End-to-End Protection in a Wireless Mesh-->
 
 
 
@@ -670,7 +670,7 @@ zzz = flapping now
     </dl>
     <t>
     In an environment that is rich of metallic structures and mobile objects, a
-    single radio link will provide a fuzzy service.
+    single radio link will provide a fuzzy service, meaning that it cannot be trusted to transport the traffic reliably over a long period of time.
     </t>
     <t>
     Transmission errors are typically not independent, and their nature and
@@ -919,9 +919,9 @@ zzz = flapping now
         To do so, each Node (i.e., source and intermediate Node) transmits the
         data packet multiple times in unicast to each parent.
         For instance, in <xref target="fig_replication"/>, the source Node S is
-        transmitting the packet to both parents, Nodes A and B, in two different
-        timeslots within the same TSCH slotframe. An example TSCH schedule is shown in <xref target="fig_replication_schedule"/>.
-        Thus, the packet eventually obtains parallel paths to the destination.
+        transmitting the packet to both parents, Nodes A and B, at two different
+        times. An example schedule is shown in <xref target="tab_replication_schedule"/>.
+        Thus, the packet can use non-congruent paths to the destination.
     </t>
 
 
@@ -939,20 +939,46 @@ zzz = flapping now
             ]]></artwork>
         </figure>
 
-        <figure anchor="fig_replication_schedule" align="center"
-            title="Packet Replication: Sample TSCH schedule">
-            <artwork align="center"><![CDATA[
-                                Timeslot
-+---------++------+------+------+------+------+------+------+
-| Channel || 0    | 1    | 2    | 3    | 4    | 5    | 6    |
-+---------++======+======+======+======+======+======+======+
-| 0       || S->A | S->B | B->C | B->D | C->F | E->R | F->R |
-+---------++------+------+------+------+------+------+------+
-| 1       ||      | A->C | A->D | C->E | D->E | D->F |      |
-+---------++------+------+------+------+------+------+------+
 
-            ]]></artwork>
-        </figure>
+    <table anchor="tab_replication_schedule"><name>Packet Replication: Sample schedule</name>
+   <thead>
+          <tr>
+		   <th align='center'>Channel</th>
+		   <th align='center'>0</th>
+		   <th align='center'>1</th>
+		   <th align='center'>2</th>
+		   <th align='center'>3</th>
+		   <th align='center'>4</th>
+		   <th align='center'>5</th>
+		   <th align='center'>6</th>
+          </tr>
+
+   </thead><tbody>
+
+			<tr><td>0</td>
+    			<td align='center'>S->A</td>
+    			<td align='center'>S->B</td>
+    			<td align='center'>B->C</td>
+    			<td align='center'>B->D</td>
+    			<td align='center'>C->F</td>
+    			<td align='center'>E->R</td>
+    			<td align='center'>F->R</td>
+            </tr>
+
+
+			<tr><td>1</td>
+    			<td align='center'> </td>
+    			<td align='center'>A->C</td>
+    			<td align='center'>A->D</td>
+    			<td align='center'>C->E</td>
+    			<td align='center'>D->E</td>
+    			<td align='center'>D->F</td>
+    			<td align='center'> </td>
+            </tr>
+
+    </tbody>
+    </table>
+
 
 <!-- [XV] here you are only considering duplication at the source. While would be better IMHO to duplicate before those links that show lower performance. Would you also consider duplication at inner hops?  -->
 <!-- [GP] Yes, definitely, there is replication (duplication) at inner hops.  -->
@@ -1168,13 +1194,114 @@ zzz = flapping now
 
 <section anchor="psepce" numbered="true" toc="default">
     <name>PCE vs. PSE</name>
+    <t>
+    <xref target="rou"/> shows that the time scale at which RAW needs to operate is not that of the Controller Plane that needs to deal with a possibly large whole network and make global optimization across multiple flows that may contend for limited resources.
+    </t><t>
+    RAW separates the path computation time scale at which a complex path is recomputed from the path selection time scale at which the forwarding decision is taken for one or a few packets.
+    RAW operates at the path selection time scale.  The RAW problem is to decide, within the redundant solutions that are proposed by the PCE, which will be used for each packet to provide a Reliable and Available service while minimizing the waste of resources.
+    </t><t>
+    To that effect, RAW defines the Path Selection Engine (PSE) that is the counter-part of the PCE to perform rapid local adjustments of the forwarding tables to avoid excessive use of the resource diversity that the PCE selects.
+    The PSE enables to exploit the richer forwarding capabilities with PAREO and scheduled transmissions at a faster time scale over the smaller domain that
+    is the Track, either Loose or Strict.
+    </t>
+
+    <table anchor="PCEPSEtable"><name>PCE vs. PSE</name>
+   <thead>
+          <tr>
+           <th> </th>
+		   <th align='center'>PCE (Not in Scope)</th>
+		   <th align='center'>PSE (In Scope)</th>
+          </tr>
+
+   </thead><tbody>
+
+			<tr><td>Operation</td>
+    			<td align='center'>Centralized</td>
+    			<td align='center'>Source-Routed or Distributed</td>
+            </tr>
+
+
+			<tr><td>Communication
+</td>
+    			<td align='center'>Slow, expensive</td>
+    			<td align='center'>Fast, local</td>
+            </tr>
+
+
+			<tr><td>Time Scale</td>
+    			<td align='center'>Long (hours, days)</td>
+    			<td align='center'>Short (seconds, sub-second)</td>
+            </tr>
+
+
+			<tr><td>Network Size</td>
+    			<td align='center'>Large, many Tracks to optimize globally</td>
+    			<td align='center'>Small, within one Track</td>
+            </tr>
+
+
+			<tr><td>Considered Metrics</td>
+    			<td align='center'>Averaged, Statistical, Shade of grey</td>
+    			<td align='center'>Instant values / boolean condition</td>
+            </tr>
+
+
+
+    </tbody>
+    </table>
+
 </section>
     <!--PCE vs. PSE-->
 
+ <!--
 <section anchor="stack" numbered="true" toc="default">
     <name>RAW Stack </name>
 </section>
-    <!--RAW stack-->
+   RAW stack-->
+
+<section anchor="aom" numbered="true" toc="default">
+    <name>RAW OAM </name><t>
+    The RAW OAM operation in the Network Plane observes a subset of the links
+    along that redundant path and the RAW PSE makes the decision on which PAREO
+    function in actioned at which RAW Node, for a packet or a small collection
+    of packets.
+     </t><t>
+    In the case of a End-to-End Protection in a Wireless Mesh, the Track is strict and congruent
+    with the path so all links are observed. Conversely, in the case of Radio
+    Access Protection, the Track is Loose and in that case only the first hop is observed; the rest of the path is abstracted and considered infinitely reliable, meaning that the loss of a packet that was sent over one of the possible first hops is attributed to that first hop, even what a particular loss effectively happens farther down the path.
+    </t>
+<figure anchor="Figranp2">
+              <name>Observed Links in Radio Access Protection</name>
+       <artwork align="center" name="" type="" alt="">
+<![CDATA[
+                                   ***   **
+                RAN 1  -----  ***     **  ***
+             /              *    **         ****
++-------+  /              *           **      ****    +------+
+|Ingress|-                *                    *****  |Egress|
+|  End  |------ RAN 2 -- *      Internet       ****---| End  |
+|System |-                 *                  *****   |System|
++-------+  \              *              *******      +------+
+             \               ***   ***    *****
+                RAN n  --------  ***  *****
+
+        <------------------> <-------------------->
+           Observed by OAM       Opaque to OAM
+]]>
+       </artwork>
+</figure>
+    <t>
+    The Links that are not observed by OAM are opaque to it, meaning that the
+    OAM information is carried and possibly echoed as data. In the example above,
+    the Internet is opaque and not controlled by RAW, but RAW measures the
+    end-to-end latency and delivery ratio for packets sent over each if RAN 1,
+    RAN 2 and RAN 3, and determines whether a packet should be sent over either
+    or a collection of those access links.
+    </t>
+</section>
+    <!--RAW OAM-->
+
+
 
     <section numbered="true" toc="default">
       <name>Source-Routed vs. Distributed Forwarding Decision</name>
@@ -1226,54 +1353,64 @@ zzz = flapping now
     </section>
     <!-- Track Source-Routed vs. Distributed RAW Decision -->
 
-<section anchor="aom" numbered="true" toc="default">
-    <name>RAW OAM </name><t>
-    The RAW OAM operation in the Network Plane observes a subset of the links
-    along that redundant path and the RAW PSE makes the decision on which PAREO
-    function in actioned at which RAW Node, for a packet or a small collection
-    of packets.
-     </t><t>
-    In the case of a Track Protection in a Wireless Mesh, the Track is congruent
-    with the path and all links are observed. Conversely, in the case of Radio
-    Access Protection, only the first hop is observed, and the rest of the path
-    is abstracted and considered infinitely reliable, meaning that the loss of
-    a packet that was sent over one of the possible first hops is attributed to
-    that first hop, even what a particular loss effectively happens farther down
-    the path.
-    </t>
-<figure anchor="Figranp2">
-              <name>Observed Links in Radio Access Protection</name>
-       <artwork align="center" name="" type="" alt="">
-<![CDATA[
-                                   ***   **
-                RAN 1  -----  ***     **  ***
-             /              *    **         ****
-+-------+  /              *           **      ****    +------+
-|Ingress|-                *                    *****  |Egress|
-|  End  |------ RAN 2 -- *      Internet       ****---| End  |
-|System |-                 *                  *****   |System|
-+-------+  \              *              *******      +------+
-             \               ***   ***    *****
-                RAN n  --------  ***  *****
-
-        <------------------> <-------------------->
-           Observed by OAM       Opaque to OAM
-]]>
-       </artwork>
-</figure>
-    <t>
-    The Links that are not observed by OAM are opaque to it, meaning that the
-    OAM information is carried and possibly echoed as data. In the example above,
-    the Internet is opaque and not controlled by RAW, but RAW measures the
-    end-to-end latency and delivery ratio for packets sent over each if RAN 1,
-    RAN 2 and RAN 3, and determines whether a packet should be sent over either
-    or a collection of those access links.
-    </t>
-</section>
-    <!--RAW OAM-->
 
 <section anchor="flowid" numbered="true" toc="default">
     <name>Flow Identification</name>
+
+<t>
+    Section 4.7 of the DetNet Architecture <xref target="RFC8655"/> ties the
+    app-flow identification which is an appliation layer concept with the
+    network path identification that depends on the networking technology by
+    "exporting of flow identification", e.g., to a MPLS label.
+</t><t>
+    With RAW, this exporting operation is injective but not bijective.
+    e.g., a flow is fully placed within one RAW Track, but not all packets along
+    that Track are necessarily part of the same flow. For instance, out-of-band
+    OAM packets must circulate in the exact same fashion as the flows that they
+    observe. It results that the flow identification that maps to to app-flow
+    at the network layer must be separate from the path identification that is
+    used to forward a packet.
+</t>
+
+<figure anchor="Figflowvstrack">
+              <name>Flow Injection</name>
+       <artwork align="center" name="" type="" alt="">
+<![CDATA[
+
+            Flow 1 (6-tuple) ----+
+                                 |
+       Flow 2 (6-tuple)  ---+    |
+                            |    |
+    OAM     -----------+    |    |
+                       |    |    |
+                       |    |    |
+                  |    |    |    |    |
+                  |    v    v    v    |
+                  |                   |
+                  +---------+---------+
+                            |
+                            |
+                            +------------> Track 1
+                                   (IP address, instanceId)
+]]>
+       </artwork>
+</figure>
+
+<t>
+
+    Section 3.4 of the DetNet data-plane framework <xref target="I-D.ietf-detnet-data-plane-framework" format="default"/> indicates that for
+    a DetNet IP Data Plane, a flow is identified by an IPv6 6-tuple.
+    With RAW, that 6-tuple is not what indicates the Track, in other words, the
+    flow ID is not the Track ID.
+</t><t>
+    For instance, the 6TiSCH Architecture
+    <xref target="I-D.ietf-6tisch-architecture" format="default"/>
+    uses a combination of the address of the Ingress End System and an instance
+    identifier in a Hop-by-hop option to indicate a Track.
+    Packets that are tagged with the same (address, instance ID) tuple will
+    experience the same forwarding behavior regardless of the IPv6 6-tuple, and
+    regardless of whether they transport application flows or OAM.
+</t>
 </section>
     <!--Flow Identification-->
 
@@ -1300,7 +1437,7 @@ zzz = flapping now
     <!--  000000000000000000000    -->
 
     <section numbered="true" toc="default">
-      <name>ConTributors</name>
+      <name>Contributors</name>
       <dl>
     <dt>Xavi Vilajosana:</dt><dd>Wireless Networks Research Lab, Universitat Oberta de Catalunya</dd>
     <dt>Rex Buddenberg:</dt><dd></dd>
@@ -1312,7 +1449,7 @@ zzz = flapping now
     <!--  000000000000000000000    -->
 
    <section><name>Acknowledgments</name>
-   <t>The authors wish to thank
+   <t>TBD
    </t>
    </section>
    <!-- Acknowledgments -->

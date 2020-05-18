@@ -5,9 +5,9 @@
 RAW                                                      P. Thubert, Ed.
 Internet-Draft                                             Cisco Systems
 Intended status: Informational                         G.Z. Papadopoulos
-Expires: 16 November 2020                                 IMT Atlantique
+Expires: 19 November 2020                                 IMT Atlantique
                                                            R. Buddenberg
-                                                             15 May 2020
+                                                             18 May 2020
 
 
          Reliable and Available Wireless Architecture/Framework
@@ -43,7 +43,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 16 November 2020.
+   This Internet-Draft will expire on 19 November 2020.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Thubert, et al.         Expires 16 November 2020                [Page 1]
+Thubert, et al.         Expires 19 November 2020                [Page 1]
 
 Internet-Draft         RAW Architecture/Framework               May 2020
 
@@ -74,7 +74,7 @@ Table of Contents
    3.  Related Work at The IETF  . . . . . . . . . . . . . . . . . .   6
    4.  Use Cases and Requirements Served . . . . . . . . . . . . . .   6
      4.1.  Radio Access Protection . . . . . . . . . . . . . . . . .   7
-     4.2.  Track Protection in a Wireless Mesh . . . . . . . . . . .   7
+     4.2.  End-to-End Protection in a Wireless Mesh  . . . . . . . .   7
    5.  RAW Considerations  . . . . . . . . . . . . . . . . . . . . .   8
      5.1.  Reliability and Availability  . . . . . . . . . . . . . .   8
        5.1.1.  High Availability Engineering Principles  . . . . . .   8
@@ -91,25 +91,25 @@ Table of Contents
      6.2.  Wireless Tracks . . . . . . . . . . . . . . . . . . . . .  17
    7.  RAW Architecture  . . . . . . . . . . . . . . . . . . . . . .  17
      7.1.  PCE vs. PSE . . . . . . . . . . . . . . . . . . . . . . .  19
-     7.2.  RAW Stack . . . . . . . . . . . . . . . . . . . . . . . .  19
-     7.3.  Source-Routed vs. Distributed Forwarding Decision . . . .  19
-     7.4.  RAW OAM . . . . . . . . . . . . . . . . . . . . . . . . .  20
-     7.5.  Flow Identification . . . . . . . . . . . . . . . . . . .  21
-   8.  Security Considerations . . . . . . . . . . . . . . . . . . .  21
-   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  21
-   10. ConTributors  . . . . . . . . . . . . . . . . . . . . . . . .  21
-   11. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  21
-   12. References  . . . . . . . . . . . . . . . . . . . . . . . . .  21
-     12.1.  Normative References . . . . . . . . . . . . . . . . . .  21
-     12.2.  Informative References . . . . . . . . . . . . . . . . .  22
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  24
+     7.2.  RAW OAM . . . . . . . . . . . . . . . . . . . . . . . . .  20
+     7.3.  Source-Routed vs. Distributed Forwarding Decision . . . .  20
+     7.4.  Flow Identification . . . . . . . . . . . . . . . . . . .  21
+   8.  Security Considerations . . . . . . . . . . . . . . . . . . .  22
+   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  22
+   10. Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  22
+   11. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  23
+   12. References  . . . . . . . . . . . . . . . . . . . . . . . . .  23
+     12.1.  Normative References . . . . . . . . . . . . . . . . . .  23
+     12.2.  Informative References . . . . . . . . . . . . . . . . .  24
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  26
 
 
 
 
 
 
-Thubert, et al.         Expires 16 November 2020                [Page 2]
+
+Thubert, et al.         Expires 19 November 2020                [Page 2]
 
 Internet-Draft         RAW Architecture/Framework               May 2020
 
@@ -165,7 +165,7 @@ Internet-Draft         RAW Architecture/Framework               May 2020
 
 
 
-Thubert, et al.         Expires 16 November 2020                [Page 3]
+Thubert, et al.         Expires 19 November 2020                [Page 3]
 
 Internet-Draft         RAW Architecture/Framework               May 2020
 
@@ -221,7 +221,7 @@ Internet-Draft         RAW Architecture/Framework               May 2020
 
 
 
-Thubert, et al.         Expires 16 November 2020                [Page 4]
+Thubert, et al.         Expires 19 November 2020                [Page 4]
 
 Internet-Draft         RAW Architecture/Framework               May 2020
 
@@ -277,7 +277,7 @@ Internet-Draft         RAW Architecture/Framework               May 2020
 
 
 
-Thubert, et al.         Expires 16 November 2020                [Page 5]
+Thubert, et al.         Expires 19 November 2020                [Page 5]
 
 Internet-Draft         RAW Architecture/Framework               May 2020
 
@@ -327,13 +327,13 @@ Internet-Draft         RAW Architecture/Framework               May 2020
    for Industrial Applications, Pro-Audio and SmartGrid.
    [RAW-USE-CASES] adds a number of use cases that demonstrate the need
    for RAW capabilities for new applications such as Pro-Gaming and
-   drones.  The use cases can be abstracted in two families, radio
-   access protection and Track protection in a wireless mesh.
+   drones.  The use cases can be abstracted in two families, Loose
+   Tracks, e.g., for first op Radio Access Protection and Strict Tracks,
+   e.g., for End-to-End Protection in a wireless mesh.
 
 
 
-
-Thubert, et al.         Expires 16 November 2020                [Page 6]
+Thubert, et al.         Expires 19 November 2020                [Page 6]
 
 Internet-Draft         RAW Architecture/Framework               May 2020
 
@@ -370,11 +370,12 @@ Internet-Draft         RAW Architecture/Framework               May 2020
    of the path through each of the RANs but only operates on the first
    hop.
 
-4.2.  Track Protection in a Wireless Mesh
+4.2.  End-to-End Protection in a Wireless Mesh
 
-   A Track (more in Section 6.2) if a multihop multipath radio mesh with
-   distribute PAREO capabilities.  In that case, RAW operates through
-   the mesh and makes decisions either at the Ingress or at every hop.
+   In radio technologies that support mesh networking (e.g., Wi-Fi and
+   TSCH), a Track is a complex path with distributed PAREO capabilities.
+   In that case, RAW operates through the multipath and makes decisions
+   either at the Ingress or at every hop (more in Section 6.2).
 
                            A-------B-------C-----D
                           /  \   /       /        \
@@ -384,12 +385,11 @@ Internet-Draft         RAW Architecture/Framework               May 2020
 
                   zzz = flapping now
 
-                         Figure 2: Track Protection
+                      Figure 2: End-to-End Protection
 
 
 
-
-Thubert, et al.         Expires 16 November 2020                [Page 7]
+Thubert, et al.         Expires 19 November 2020                [Page 7]
 
 Internet-Draft         RAW Architecture/Framework               May 2020
 
@@ -445,7 +445,7 @@ Internet-Draft         RAW Architecture/Framework               May 2020
 
 
 
-Thubert, et al.         Expires 16 November 2020                [Page 8]
+Thubert, et al.         Expires 19 November 2020                [Page 8]
 
 Internet-Draft         RAW Architecture/Framework               May 2020
 
@@ -501,7 +501,7 @@ Internet-Draft         RAW Architecture/Framework               May 2020
 
 
 
-Thubert, et al.         Expires 16 November 2020                [Page 9]
+Thubert, et al.         Expires 19 November 2020                [Page 9]
 
 Internet-Draft         RAW Architecture/Framework               May 2020
 
@@ -557,7 +557,7 @@ Internet-Draft         RAW Architecture/Framework               May 2020
 
 
 
-Thubert, et al.         Expires 16 November 2020               [Page 10]
+Thubert, et al.         Expires 19 November 2020               [Page 10]
 
 Internet-Draft         RAW Architecture/Framework               May 2020
 
@@ -613,13 +613,15 @@ Internet-Draft         RAW Architecture/Framework               May 2020
 
 
 
-Thubert, et al.         Expires 16 November 2020               [Page 11]
+Thubert, et al.         Expires 19 November 2020               [Page 11]
 
 Internet-Draft         RAW Architecture/Framework               May 2020
 
 
    In an environment that is rich of metallic structures and mobile
-   objects, a single radio link will provide a fuzzy service.
+   objects, a single radio link will provide a fuzzy service, meaning
+   that it cannot be trusted to transport the traffic reliably over a
+   long period of time.
 
    Transmission errors are typically not independent, and their nature
    and duration are unpredictable; as long as a physical object (e.g., a
@@ -667,9 +669,7 @@ Internet-Draft         RAW Architecture/Framework               May 2020
 
 
 
-
-
-Thubert, et al.         Expires 16 November 2020               [Page 12]
+Thubert, et al.         Expires 19 November 2020               [Page 12]
 
 Internet-Draft         RAW Architecture/Framework               May 2020
 
@@ -725,7 +725,7 @@ Internet-Draft         RAW Architecture/Framework               May 2020
 
 
 
-Thubert, et al.         Expires 16 November 2020               [Page 13]
+Thubert, et al.         Expires 19 November 2020               [Page 13]
 
 Internet-Draft         RAW Architecture/Framework               May 2020
 
@@ -781,7 +781,7 @@ Internet-Draft         RAW Architecture/Framework               May 2020
 
 
 
-Thubert, et al.         Expires 16 November 2020               [Page 14]
+Thubert, et al.         Expires 19 November 2020               [Page 14]
 
 Internet-Draft         RAW Architecture/Framework               May 2020
 
@@ -821,9 +821,9 @@ Internet-Draft         RAW Architecture/Framework               May 2020
    Node (i.e., source and intermediate Node) transmits the data packet
    multiple times in unicast to each parent.  For instance, in Figure 5,
    the source Node S is transmitting the packet to both parents, Nodes A
-   and B, in two different timeslots within the same TSCH slotframe.  An
-   example TSCH schedule is shown in Figure 6.  Thus, the packet
-   eventually obtains parallel paths to the destination.
+   and B, at two different times.  An example schedule is shown in
+   Table 1.  Thus, the packet can use non-congruent paths to the
+   destination.
 
                           ===> (A) => (C) => (E) ===
                         //        \\//   \\//       \\
@@ -837,22 +837,20 @@ Internet-Draft         RAW Architecture/Framework               May 2020
 
 
 
-Thubert, et al.         Expires 16 November 2020               [Page 15]
+Thubert, et al.         Expires 19 November 2020               [Page 15]
 
 Internet-Draft         RAW Architecture/Framework               May 2020
 
 
-                                       Timeslot
-       +---------++------+------+------+------+------+------+------+
-       | Channel || 0    | 1    | 2    | 3    | 4    | 5    | 6    |
-       +---------++======+======+======+======+======+======+======+
-       | 0       || S->A | S->B | B->C | B->D | C->F | E->R | F->R |
-       +---------++------+------+------+------+------+------+------+
-       | 1       ||      | A->C | A->D | C->E | D->E | D->F |      |
-       +---------++------+------+------+------+------+------+------+
+       +---------+------+------+------+------+------+------+------+
+       | Channel |  0   |  1   |  2   |  3   |  4   |  5   |  6   |
+       +=========+======+======+======+======+======+======+======+
+       | 0       | S->A | S->B | B->C | B->D | C->F | E->R | F->R |
+       +---------+------+------+------+------+------+------+------+
+       | 1       |      | A->C | A->D | C->E | D->E | D->F |      |
+       +---------+------+------+------+------+------+------+------+
 
-
-             Figure 6: Packet Replication: Sample TSCH schedule
+               Table 1: Packet Replication: Sample schedule
 
 6.1.2.  Packet Elimination
 
@@ -871,7 +869,7 @@ Internet-Draft         RAW Architecture/Framework               May 2020
    Considering that the wireless medium is broadcast by nature, any
    neighbor of a transmitter may overhear a transmission.  By employing
    the Promiscuous Overhearing operation, a DP and some AP(s) eventually
-   have more chances to receive the data packets.  In Figure 7, when
+   have more chances to receive the data packets.  In Figure 6, when
    Node A is transmitting to its DP (Node C), the AP (Node D) and its
    sibling (Node B) may decode this data packet as well.  As a result,
    by employing corellated paths, a Node may have multiple opportunities
@@ -886,14 +884,16 @@ Internet-Draft         RAW Architecture/Framework               May 2020
                       ===> (B) ====> (D) ====> (F) ====
 
 
-           Figure 7: Unicast to DP with Overhearing: by employing
+           Figure 6: Unicast to DP with Overhearing: by employing
       Promiscuous Overhearing, DP, AP and the sibling Nodes have more
                opportunities to receive the same data packet.
 
 
 
 
-Thubert, et al.         Expires 16 November 2020               [Page 16]
+
+
+Thubert, et al.         Expires 19 November 2020               [Page 16]
 
 Internet-Draft         RAW Architecture/Framework               May 2020
 
@@ -949,7 +949,7 @@ Internet-Draft         RAW Architecture/Framework               May 2020
 
 
 
-Thubert, et al.         Expires 16 November 2020               [Page 17]
+Thubert, et al.         Expires 19 November 2020               [Page 17]
 
 Internet-Draft         RAW Architecture/Framework               May 2020
 
@@ -977,7 +977,7 @@ Internet-Draft         RAW Architecture/Framework               May 2020
            --z   radio                      wired
             z--  link                   --- link
 
-                            Figure 8: RAW Nodes
+                            Figure 7: RAW Nodes
 
    The Link-Layer metrics are reported to the PCE in a time-aggregated,
    e.g., statistical fashion.  Example Link-Layer metrics include
@@ -1005,14 +1005,107 @@ Internet-Draft         RAW Architecture/Framework               May 2020
 
 
 
-Thubert, et al.         Expires 16 November 2020               [Page 18]
+Thubert, et al.         Expires 19 November 2020               [Page 18]
 
 Internet-Draft         RAW Architecture/Framework               May 2020
 
 
 7.1.  PCE vs. PSE
 
-7.2.  RAW Stack
+   Section 5.3 shows that the time scale at which RAW needs to operate
+   is not that of the Controller Plane that needs to deal with a
+   possibly large whole network and make global optimization across
+   multiple flows that may contend for limited resources.
+
+   RAW separates the path computation time scale at which a complex path
+   is recomputed from the path selection time scale at which the
+   forwarding decision is taken for one or a few packets.  RAW operates
+   at the path selection time scale.  The RAW problem is to decide,
+   within the redundant solutions that are proposed by the PCE, which
+   will be used for each packet to provide a Reliable and Available
+   service while minimizing the waste of resources.
+
+   To that effect, RAW defines the Path Selection Engine (PSE) that is
+   the counter-part of the PCE to perform rapid local adjustments of the
+   forwarding tables to avoid excessive use of the resource diversity
+   that the PCE selects.  The PSE enables to exploit the richer
+   forwarding capabilities with PAREO and scheduled transmissions at a
+   faster time scale over the smaller domain that is the Track, either
+   Loose or Strict.
+
+      +---------------+------------------------+-------------------+
+      |               |   PCE (Not in Scope)   |   PSE (In Scope)  |
+      +===============+========================+===================+
+      | Operation     |      Centralized       |  Source-Routed or |
+      |               |                        |    Distributed    |
+      +---------------+------------------------+-------------------+
+      | Communication |    Slow, expensive     |    Fast, local    |
+      +---------------+------------------------+-------------------+
+      | Time Scale    |   Long (hours, days)   |  Short (seconds,  |
+      |               |                        |    sub-second)    |
+      +---------------+------------------------+-------------------+
+      | Network Size  | Large, many Tracks to  | Small, within one |
+      |               |   optimize globally    |       Track       |
+      +---------------+------------------------+-------------------+
+      | Considered    | Averaged, Statistical, |  Instant values / |
+      | Metrics       |     Shade of grey      | boolean condition |
+      +---------------+------------------------+-------------------+
+
+                           Table 2: PCE vs. PSE
+
+
+
+
+
+
+
+
+
+Thubert, et al.         Expires 19 November 2020               [Page 19]
+
+Internet-Draft         RAW Architecture/Framework               May 2020
+
+
+7.2.  RAW OAM
+
+   The RAW OAM operation in the Network Plane observes a subset of the
+   links along that redundant path and the RAW PSE makes the decision on
+   which PAREO function in actioned at which RAW Node, for a packet or a
+   small collection of packets.
+
+   In the case of a End-to-End Protection in a Wireless Mesh, the Track
+   is strict and congruent with the path so all links are observed.
+   Conversely, in the case of Radio Access Protection, the Track is
+   Loose and in that case only the first hop is observed; the rest of
+   the path is abstracted and considered infinitely reliable, meaning
+   that the loss of a packet that was sent over one of the possible
+   first hops is attributed to that first hop, even what a particular
+   loss effectively happens farther down the path.
+
+                                         ***   **
+                      RAN 1  -----  ***     **  ***
+                   /              *    **         ****
+      +-------+  /              *           **      ****    +------+
+      |Ingress|-                *                    *****  |Egress|
+      |  End  |------ RAN 2 -- *      Internet       ****---| End  |
+      |System |-                 *                  *****   |System|
+      +-------+  \              *              *******      +------+
+                   \               ***   ***    *****
+                      RAN n  --------  ***  *****
+
+              <------------------> <-------------------->
+                 Observed by OAM       Opaque to OAM
+
+
+            Figure 8: Observed Links in Radio Access Protection
+
+   The Links that are not observed by OAM are opaque to it, meaning that
+   the OAM information is carried and possibly echoed as data.  In the
+   example above, the Internet is opaque and not controlled by RAW, but
+   RAW measures the end-to-end latency and delivery ratio for packets
+   sent over each if RAN 1, RAN 2 and RAN 3, and determines whether a
+   packet should be sent over either or a collection of those access
+   links.
 
 7.3.  Source-Routed vs. Distributed Forwarding Decision
 
@@ -1021,6 +1114,13 @@ Internet-Draft         RAW Architecture/Framework               May 2020
    destinations; within the Track, packets may follow different paths
    and may be subject to RAW forwarding operations that include
    replication, elimination, retries, overhearing and reordering.
+
+
+
+Thubert, et al.         Expires 19 November 2020               [Page 20]
+
+Internet-Draft         RAW Architecture/Framework               May 2020
+
 
    The RAW forwarding decisions include the selection of points of
    replication and elimination, how many retries can take place, and a
@@ -1055,74 +1155,59 @@ Internet-Draft         RAW Architecture/Framework               May 2020
    Nodes to recognize the flow and determine the forwarding policy to be
    applied.
 
+7.4.  Flow Identification
+
+   Section 4.7 of the DetNet Architecture [RFC8655] ties the app-flow
+   identification which is an appliation layer concept with the network
+   path identification that depends on the networking technology by
+   "exporting of flow identification", e.g., to a MPLS label.
+
+   With RAW, this exporting operation is injective but not bijective.
+   e.g., a flow is fully placed within one RAW Track, but not all
+   packets along that Track are necessarily part of the same flow.  For
+   instance, out-of-band OAM packets must circulate in the exact same
+   fashion as the flows that they observe.  It results that the flow
+   identification that maps to to app-flow at the network layer must be
+   separate from the path identification that is used to forward a
+   packet.
 
 
 
-
-
-
-Thubert, et al.         Expires 16 November 2020               [Page 19]
+Thubert, et al.         Expires 19 November 2020               [Page 21]
 
 Internet-Draft         RAW Architecture/Framework               May 2020
 
 
-7.4.  RAW OAM
-
-   The RAW OAM operation in the Network Plane observes a subset of the
-   links along that redundant path and the RAW PSE makes the decision on
-   which PAREO function in actioned at which RAW Node, for a packet or a
-   small collection of packets.
-
-   In the case of a Track Protection in a Wireless Mesh, the Track is
-   congruent with the path and all links are observed.  Conversely, in
-   the case of Radio Access Protection, only the first hop is observed,
-   and the rest of the path is abstracted and considered infinitely
-   reliable, meaning that the loss of a packet that was sent over one of
-   the possible first hops is attributed to that first hop, even what a
-   particular loss effectively happens farther down the path.
-
-                                         ***   **
-                      RAN 1  -----  ***     **  ***
-                   /              *    **         ****
-      +-------+  /              *           **      ****    +------+
-      |Ingress|-                *                    *****  |Egress|
-      |  End  |------ RAN 2 -- *      Internet       ****---| End  |
-      |System |-                 *                  *****   |System|
-      +-------+  \              *              *******      +------+
-                   \               ***   ***    *****
-                      RAN n  --------  ***  *****
-
-              <------------------> <-------------------->
-                 Observed by OAM       Opaque to OAM
+                    Flow 1 (6-tuple) ----+
+                                         |
+               Flow 2 (6-tuple)  ---+    |
+                                    |    |
+            OAM     -----------+    |    |
+                               |    |    |
+                               |    |    |
+                          |    |    |    |    |
+                          |    v    v    v    |
+                          |                   |
+                          +---------+---------+
+                                    |
+                                    |
+                                    +------------> Track 1
+                                           (IP address, instanceId)
 
 
-            Figure 9: Observed Links in Radio Access Protection
+                          Figure 9: Flow Injection
 
-   The Links that are not observed by OAM are opaque to it, meaning that
-   the OAM information is carried and possibly echoed as data.  In the
-   example above, the Internet is opaque and not controlled by RAW, but
-   RAW measures the end-to-end latency and delivery ratio for packets
-   sent over each if RAN 1, RAN 2 and RAN 3, and determines whether a
-   packet should be sent over either or a collection of those access
-   links.
+   Section 3.4 of the DetNet data-plane framework [DetNet-DP-FW]
+   indicates that for a DetNet IP Data Plane, a flow is identified by an
+   IPv6 6-tuple.  With RAW, that 6-tuple is not what indicates the
+   Track, in other words, the flow ID is not the Track ID.
 
-
-
-
-
-
-
-
-
-
-
-
-Thubert, et al.         Expires 16 November 2020               [Page 20]
-
-Internet-Draft         RAW Architecture/Framework               May 2020
-
-
-7.5.  Flow Identification
+   For instance, the 6TiSCH Architecture [6TiSCH-ARCH] uses a
+   combination of the address of the Ingress End System and an instance
+   identifier in a Hop-by-hop option to indicate a Track.  Packets that
+   are tagged with the same (address, instance ID) tuple will experience
+   the same forwarding behavior regardless of the IPv6 6-tuple, and
+   regardless of whether they transport application flows or OAM.
 
 8.  Security Considerations
 
@@ -1131,7 +1216,7 @@ Internet-Draft         RAW Architecture/Framework               May 2020
 
    This document has no IANA actions.
 
-10.  ConTributors
+10.  Contributors
 
    Xavi Vilajosana:  Wireless Networks Research Lab, Universitat Oberta
       de Catalunya
@@ -1142,9 +1227,16 @@ Internet-Draft         RAW Architecture/Framework               May 2020
 
    Nicolas Montavont:  IMT Atlantique
 
+
+
+Thubert, et al.         Expires 19 November 2020               [Page 22]
+
+Internet-Draft         RAW Architecture/Framework               May 2020
+
+
 11.  Acknowledgments
 
-   The authors wish to thank
+   TBD
 
 12.  References
 
@@ -1164,19 +1256,6 @@ Internet-Draft         RAW Architecture/Framework               May 2020
               technologies-04, 6 January 2020,
               <https://tools.ietf.org/html/draft-thubert-raw-
               technologies-04>.
-
-
-
-
-
-
-
-
-
-Thubert, et al.         Expires 16 November 2020               [Page 21]
-
-Internet-Draft         RAW Architecture/Framework               May 2020
-
 
    [RAW-USE-CASES]
               Papadopoulos, G., Thubert, P., Theoleyre, F., and C.
@@ -1204,6 +1283,13 @@ Internet-Draft         RAW Architecture/Framework               May 2020
               RFC 8578, DOI 10.17487/RFC8578, May 2019,
               <https://www.rfc-editor.org/info/rfc8578>.
 
+
+
+Thubert, et al.         Expires 19 November 2020               [Page 23]
+
+Internet-Draft         RAW Architecture/Framework               May 2020
+
+
    [RFC8175]  Ratliff, S., Jury, S., Satterwhite, D., Taylor, R., and B.
               Berry, "Dynamic Link Exchange Protocol (DLEP)", RFC 8175,
               DOI 10.17487/RFC8175, June 2017,
@@ -1223,16 +1309,6 @@ Internet-Draft         RAW Architecture/Framework               May 2020
    [RFC0791]  Postel, J., "Internet Protocol", STD 5, RFC 791,
               DOI 10.17487/RFC0791, September 1981,
               <https://www.rfc-editor.org/info/rfc791>.
-
-
-
-
-
-
-Thubert, et al.         Expires 16 November 2020               [Page 22]
-
-Internet-Draft         RAW Architecture/Framework               May 2020
-
 
    [TE]       Awduche, D., Chiu, A., Elwalid, A., Widjaja, I., and X.
               Xiao, "Overview and Principles of Internet Traffic
@@ -1262,6 +1338,14 @@ Internet-Draft         RAW Architecture/Framework               May 2020
    [BIER-PREF]
               Thubert, P., Eckert, T., Brodard, Z., and H. Jiang, "BIER-
               TE extensions for Packet Replication and Elimination
+
+
+
+Thubert, et al.         Expires 19 November 2020               [Page 24]
+
+Internet-Draft         RAW Architecture/Framework               May 2020
+
+
               Function (PREF) and OAM", Work in Progress, Internet-
               Draft, draft-thubert-bier-replication-elimination-03, 3
               March 2018, <https://tools.ietf.org/html/draft-thubert-
@@ -1281,14 +1365,6 @@ Internet-Draft         RAW Architecture/Framework               May 2020
               Internet-Draft, draft-ietf-detnet-data-plane-framework-06,
               6 May 2020, <https://tools.ietf.org/html/draft-ietf-
               detnet-data-plane-framework-06>.
-
-
-
-
-Thubert, et al.         Expires 16 November 2020               [Page 23]
-
-Internet-Draft         RAW Architecture/Framework               May 2020
-
 
    [I-D.farkas-raw-5g]
               Farkas, J., Dudda, T., Shapin, A., and S. Sandberg, "5G -
@@ -1319,6 +1395,13 @@ Internet-Draft         RAW Architecture/Framework               May 2020
    [CCAMP]    IETF, "Common Control and Measurement Plane",
               <https://dataTracker.ietf.org/doc/charter-ietf-ccamp/>.
 
+
+
+Thubert, et al.         Expires 19 November 2020               [Page 25]
+
+Internet-Draft         RAW Architecture/Framework               May 2020
+
+
 Authors' Addresses
 
    Pascal Thubert (editor)
@@ -1330,20 +1413,6 @@ Authors' Addresses
 
    Phone: +33 497 23 26 34
    Email: pthubert@cisco.com
-
-
-
-
-
-
-
-
-
-
-
-Thubert, et al.         Expires 16 November 2020               [Page 24]
-
-Internet-Draft         RAW Architecture/Framework               May 2020
 
 
    Georgios Z. Papadopoulos
@@ -1384,17 +1453,4 @@ Internet-Draft         RAW Architecture/Framework               May 2020
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-Thubert, et al.         Expires 16 November 2020               [Page 25]
+Thubert, et al.         Expires 19 November 2020               [Page 26]
