@@ -34,7 +34,6 @@
       </address>
     </author>
 
-
     <author initials="G.Z." surname="Papadopoulos" fullname="Georgios Z. Papadopoulos">
       <organization>IMT Atlantique</organization>
       <address>
@@ -94,8 +93,8 @@
    including the self-induced multipath fading, adds another dimension to the
    statistical effects that affect the delivery. Scheduling transmissions can
    alleviate those effects by leveraging diversity in the spatial, time, code,
-   and frequency domains, and provide a Reliable and Available service while
-   preserving energy and optimizing the use of the shared spectrum.
+   and frequency domains, and provide a Reliable and Available Wireless (RAW)
+   service while preserving energy and optimizing the use of the shared spectrum.
 
       </t>
       <t>
@@ -111,12 +110,11 @@
       <t>
    The <xref target="RFC8655">"Deterministic Networking Architecture"</xref> is
    composed of three planes: the Application (User) Plane, the Controller Plane,
-   and the Network Plane. Reliable and Available Wireless (RAW) extends  RAW
-   to focus on issues that are mostly a co"ern on wireless links, and inherits
-   the architecture and the planes. A RAW Network Plane is thus a Network Plane
-   inherited by RAW from DetNet, composed of one or multiple hops of homogeneous
-   or heterogeneous technologies, e.g. a Wi-Fi6 Mesh or one-hop CBRS access links
-   federated by a 5G backhaul.
+   and the Network Plane. RAW extends DetNet to focus on issues that are mostly
+   a concern on wireless links, and inherits the architecture and the planes.
+   A RAW Network Plane is thus a Network Plane inherited by RAW from DetNet,
+   composed of one or multiple hops of homogeneous or heterogeneous technologies, e.g. a Wi-Fi6 Mesh or one-hop CBRS access links federated by a 5G backhaul.
+
    </t><t>
    RAW networking aims at providing highly available and reliable end-to-end
    performances in a network with scheduled wireless segments. Uncontrolled
@@ -151,16 +149,7 @@
    or meshed, are unknown at the IP layer and not part of the RAW abstraction.
 
       </t>
-      <t>
-   Still, in order to focus on real-worlds issues and assert the feasibility of
-   the proposed capabilities, RAW will focus on selected technologies that can
-   be scheduled at the lower layers: IEEE Std. 802.15.4 timeslotted channel
-   hopping (TSCH), 3GPP 5G ultra-reliable low latency communications (URLLC),
-   IEEE 802.11ax/be where 802.11be is extreme high throughput (EHT), and L-band
-   Digital Aeronautical  Communications System (LDACS).
-   See <xref target="I-D.thubert-raw-technologies" format="default"/> for more.
 
-      </t>
       <t>
    The establishment of a path is not in-scope for RAW. It may be the product of
    a centralized Controller Plane as described for DetNet. As opposed to wired
@@ -170,23 +159,21 @@
    solutions along a complex path and to leave it to the Network Plane to
    select which of those forwarding solutions are to be used for a given packet
    based on the current conditions.
-
       </t>
       <t>
    RAW distinguishes the longer time scale at which routes are computed from the
    the shorter forwarding time scale where per-packet decisions are made.
-   RAW operates at the forwarding time scale on one DetNet flow over one path
-   that is preestablished and installed by means outside of the scope of RAW.
-   The scope of the RAW WG comprises Network plane protocol elements such as
-   Operations, Administration and Maintenance (OAM)
-   and in-band control to improve the RAW operation at the Service and at the
-   forwarding sub-layers. RAW controls whether to use packet replication,
-   Automatic Repeat reQuest (ARQ), Hybrid ARQ (HARQ) that includes Forward Error
-   Correction (FEC) and coding, with a constraint to limit the use of redundancy
-   as is really needed, e.g., when a spike of loss is observed.
-   This is discussed in more details in <xref target="rou" format="default"/>
-   and the next sections.
+   RAW operates within the Network Plane at the forwarding time scale on one
+   DetNet flow over a complex path called a Track. The Track is preestablished
+   and installed by means outside of the scope of RAW; it may be strict or loose depending on whether each or just a subset of the hops are observed and
+   controlled by RAW.
       </t>
+      <t>
+   The scope of the RAW WG comprises Network plane protocol elements such as
+   Operations, Administration and Maintenance (OAM) to observe some or all hops along a Track, as well as the end-to-end packet delivery, and in-band control
+   to optimize the use of redundancy to achieve the required SLA.
+      </t>
+
     </section>
     <!-- Introduction -->
     <!--  000000000000000000000    -->
@@ -200,7 +187,12 @@
     </t><t>
     RAW also reuses terminology defined for 6TiSCH in <xref target=
     "I-D.ietf-6tisch-architecture" format="default"/> such as the term Track.
-    6TiSCH defined a Track as a complex path with associated PAREO operations.
+    A Track as a complex path with associated PAREO operations. The concept is
+    abstract to the underlaying technology and applies to any fully or partially
+    wireless mesh, including, e.g., a Wi-Fi mesh.
+    RAW specifies strict and loose Tracks depending on whether the path is fully
+    controlled by RAW or traverses an opaque network where RAW cannot observe
+    and control the individual hops.
     </t><t>
     RAW uses the term OAM as defined in <xref target="RFC6291"/>.
     </t>
@@ -304,13 +296,26 @@
 
     <section numbered="true" toc="default">
       <name>Use Cases and Requirements Served</name>
+            <t>
+   In order to focus on real-worlds issues and assert the feasibility of
+   the proposed capabilities, RAW focuses on selected technologies that can
+   be scheduled at the lower layers: IEEE Std. 802.15.4 timeslotted channel
+   hopping (TSCH), 3GPP 5G ultra-reliable low latency communications (URLLC),
+   IEEE 802.11ax/be where 802.11be is extreme high throughput (EHT), and L-band
+   Digital Aeronautical  Communications System (LDACS).
+   See <xref target="I-D.thubert-raw-technologies" format="default"/> for more.
+
+      </t>
       <t>
-   <xref target="RFC8578" format="default"/> presents a number of wireless use
-   cases including Wireless for Industrial Applications, Pro-Audio and SmartGrid.
+    <xref target="RFC8578" format="default">"Deterministic Networking Use Cases"
+    </xref> presents a number of wireless use cases including Wireless, such as
+    application to Industrial Applications, Pro-Audio, and SmartGrid Automation.
    <xref target="I-D.bernardos-raw-use-cases" format="default"/> adds a number
    of use cases that demonstrate the need for RAW capabilities for new
    applications such as Pro-Gaming and drones.
-    The use cases can be abstracted in two families, Loose Tracks, e.g., for first op Radio Access Protection and Strict Tracks, e.g., for End-to-End Protection in a wireless mesh.
+   The use cases can be abstracted in two families, Loose Protection, e.g.,
+   protecting the first hop in Radio Access Protection and Strict Protection,
+   e.g., providing End-to-End Protection in a wireless mesh.
       </t>
 
 
@@ -320,7 +325,7 @@
       <name>Radio Access Protection</name>
 
 <t>
-    To maintain the committed reliability at all times, a wireless host
+    To maintain the required SLA at all times, a wireless Host
     may use more than one Radio Access Network (RAN) in parallel.
 </t>
 
@@ -329,12 +334,12 @@
        <artwork align="center" name="" type="" alt="">
                                    ***   **
                 RAN 1  -----  ***     **  ***
-             /              *    **         ****
-   +----+  /              *           **      ****
-   |    |-                *                    *****
-   |Host|--zzz- RAN 2 -- *      Internet       *****
-   |    |-                 *                  *****
-   +----+  $$ù              *              *******
+             /              *    **     *   ****
+   +----+  /              *                  ****
+   |    |-                *        Core        ****
+   |Host|--zzz- RAN 2 -- *          /       *****
+   |    |-                 *     Backbone      ****
+   +----+  $$ù              *               *****
              \               ***   ***    *****
                 RAN n  --------  ***  *****
 
@@ -349,10 +354,18 @@ zzz = flapping now  $$$ expensive
     which of the RANs are used at a particular point of time, and the amount of
     traffic that is distributed over each RAN.
 </t>
-<t> The idea is that the rest of the path to the destination(s) is protected
-    separately (e.g., uses non-congruent paths) and/or is a lot more reliable,
-    e.g., wired. In that case, RAW observes reliability of the path through each
-    of the RANs but only operates on the first hop.
+<t>
+    The idea is that the rest of the path to the destination(s) is protected
+    separately (e.g., uses non-congruent paths, leverages DetNet / TSN, etc...)
+    and is a lot more reliable, e.g., wired. In that case, RAW observes the
+    reliability of the end-to-end operation through each of the RANs but only
+    observes and controls the wireless operation the first hop.
+</t>
+<t> A variation of that use case has a pair of wireless Hosts connected over a
+    wired core / backbone network. In that case, RAW observes and
+    controls the ingress and egress RANs, while neglecting the hops in the core.
+    The resulting loose Track may be instanciated, e.g., using tunneling or
+    loose source routing between the RANs.
 </t>
 
 
@@ -447,28 +460,28 @@ zzz = flapping now
     continues to function.
     </t>
     <t>
-    A non-Internet example is a standby generator available to power the system
-    on failure of grid power. An Internet example is more than one communication
-    several non-congruent link/path between Nodes in a routable network.
+    IP Routers leverage routing protocols to compute alternate routes in case
+    of a failure. There is a rather open-ended issue over alternate routes --
+    for example, when links are cabled through the same conduit, they form a
+    shared risk link group (SRLG), and will share the same fate if the bundle is
+    cut. The same effect can happen with virtual links that end up in a same physical transport through the games of encapsulation. In a same fashion,
+    an interferer or an obstacle may affect multiple wireless transmissions at
+    the same time, even between different sets of peers.
     </t>
     <t>
-    There is a rather open-ended issue over alternate routes -- for example,
-    when links are cabled through the same conduit, they form a shared risk link
-    group (SRLG), and will share the same fate if the bundle is cut. Just how
-    distributed the infrastructure is a matter of discussion; there is no single
-    right answer.
-    It should be noted that intermediate Nodes such as routers, switches, and
-    the air medium itself can become single points of failure; this must be
-    avoided, using link- and Node-disjoint paths, and, for RAW, a high degree of
-    diversity in the transmissions over the air.</t>
-
+    Intermediate network Nodes such as routers, switches and APs, wire bundles
+    and the air medium itself can become single points of failure. For High
+    Availability, it is thus required to use physically link- and Node-disjoint
+    paths; in the wireless space, it is also required to use the highest
+    possible degree of diversity in the transmissions over the air to combat the
+    additional causes of transmission loss.
+    </t>
     <t>
     From an economics standpoint, executing this principle properly generally
     increases capitalization expense because of the redundant equipment. In a
     constrained network where the waste of energy and bandwidth should be
     minimized, an excessive use of redundant links must be avoided; for RAW this
-    means that the extra bandwidth must only be used as a replacement of that
-    lost due to a failure.
+    means that the extra bandwidth must be used wisely and with parcimony.
     </t>
 
     </section>
@@ -484,33 +497,33 @@ zzz = flapping now
 
     <t>
     Having a backup equipment has a limited value unless it can be reliably switched into use within the down-time parameters.
-    </t>
-    <t>
-    Using the backup generator example: one that does not automatically sense
-    grid power failure, start itself, and place itself on line does not
-    represent reliable crossover.
-    </t>
-    <t>
-    Routers and IGPs execute reliable crossover continuously because the routers
-    will use any alternate routes that are available <xref target="RFC0791"/>.
-    This is due to the stateless nature of IP datagrams and the dissociation of
-    the datagrams from the forwarding routes they take. The
-    <xref target="RFC5714">"IP Fast Reroute Framework"</xref> analyzes mechanisms for fast failure detection and path repair for IP Fast-Reroute,
+    IP Routers execute reliable crossover continuously because
+    the routers will use any alternate routes that are available <xref target=
+    "RFC0791"/>. This is due to the stateless nature of IP datagrams and the
+    dissociation of the datagrams from the forwarding routes they take.
+    The <xref target="RFC5714">"IP Fast Reroute Framework"</xref> analyzes
+    mechanisms for fast failure detection and path repair for IP Fast-Reroute,
     and discusses the case of multiple failures and SRLG. Examples of FRR
     techniques include Remote Loop-Free Alternate <xref target="RFC7490"/> and
     backup label-switched path (LSP) tunnels for the local repair of LSP tunnels
     using RSVP-TE <xref target="RFC4090"/>.
     </t>
     <t>
-    The DetNet PREOF leverages 1+1 redundancy whereby a packet is sent twice,
-    over non-congruent paths. This avoids the gap during the fast reroute
+    Deterministic flows, on the contrary, are attached to specific paths where
+    dedicated resources are reserved for each flow. This is why each DetNet path
+    must inherently provide sufficient redundancy to provide the guaranteed SLA
+    at all times.
+    The DetNet PREOF typically leverages 1+1 redundancy whereby a packet is sent
+    twice, over non-congruent paths. This avoids the gap during the fast reroute
     operation, but doubles the traffic in the network.
+    </t>
+    <t>
     In the case of RAW, the expectation is that multiple transient faults may
     happen in overlapping time windows, in which case the 1+1 redundancy with
     delayed reestablishment of the second path will not provide the required
     guarantees.
     The Data Plane must be configured with a sufficient degree of
-    redundancy to select an alternate redundat path immediately upon a fault,
+    redundancy to select an alternate redundant path immediately upon a fault,
     without the need for a slow intervention from the controller plane.
     </t>
     </section>
@@ -533,20 +546,22 @@ zzz = flapping now
     <t>
     There are many reasons for system monitoring (FCAPS for fault, configuration,
     accounting, performance, security is a handy mental checklist) but fault
-    monitoring is sufficient reason <xref target="RFC3411"/> describes how to
-    use SNMP to observe and correct long-term faults. <xref target="RFC3272">
+    monitoring is sufficient reason.
+    </t>
+    <t>
+    <xref target="RFC3411">"An Architecture for Describing
+    Simple Network Management Protocol (SNMP) Management Frameworks"</xref>
+    describes how to use SNMP to observe and correct long-term faults.
+    </t>
+    <t>
+    <xref target="RFC3272">
     "Overview and Principles of Internet Traffic Engineering"</xref> discusses
     the importance of measurement for network protection, and provides abstract
     an method for network survivability with the analysis of a traffic matrix
     as observed by SNMP, probing techniques, FTP, IGP link state advertisements,
     and more.
     </t>
-    <t>
-    Using the art of SNMP, the above described backup generator would include an
-    SNMP agent that can report the status of the generator (get messages) on
-    demand, and report changes in status (e.g. startup, amount of fuel in the
-    tank) (trap messages).
-    </t>
+
     <t>
     Those measurements are needed in the context of RAW to inform the controller
     and make the long term reactive decision to rebuild a complex  path. But RAW
@@ -598,24 +613,29 @@ zzz = flapping now
     arrives too late is a fault and not considered as delivered.
     </t>
     <t>
-    For a periodic pattern such as an automation control loop, this number is
-    proportional to the Mean Time Between Failures (MTBF).
-    If a single fault can have dramatic consequences, then the MTBF is the
-    expression of the chances that an unwanted event occurs. In data networks,
+    For a periodic networking pattern such as an automation control loop, this
+    number is proportional to the Mean Time Between Failures (MTBF).
+    When a single fault can have dramatic consequences, the MTBF expresses the
+    chances that the unwanted fault event occurs. In data networks,
     this is rarely the case. Packet loss cannot never be fully avoided and the
     systems are built to resist to one loss, e.g., using redundancy with Retries
     (HARQ) or Packet Replication and Elimination (PRE), or, in a typical control
     loop, by linear interpolation from the previous measuremnents.
     </t>
    <t>
-    But the linear interpolation method can not resist to multiple consecutive
+    But the linear interpolation method can not resist multiple consecutive
     losses, and a high MTBF is desired as a guarantee that this will not happen,
-    IOW that the losses-in-a-row can be bounded. In that case, what's really
-    desired is a Maximum Consecutive Failures (MCF). If the number of losses in
-    a row passes the MCF, the control loop has to abort. Engineers that build
-    automated processes may use the network reliability expressed in nines or as
-    an MTBF to provide an MCF, e.g., as described in section 7.4 of
-    <xref target="RFC8578"/>.
+    IOW that the number of losses-in-a-row can be bounded. In that case, what is
+    really desired is a Maximum Consecutive Failures (MCF).
+    If the number of losses in a row passes the MCF, the control loop has to
+    abort and the system, e.g., the production line, may need to enter an
+    emergency stop condition.
+    </t>
+   <t>
+    Engineers that build automated processes may use the network reliability
+    expressed in nines or as an MTBF as a proxy to indicate an MCF, e.g., as
+    described in section 7.4 of the <xref target="RFC8578">"Deterministic
+    Networking Use Cases"</xref>.
     </t>
     </section>
       <!--Applying Reliability concepts to Networking-->
@@ -698,8 +718,8 @@ zzz = flapping now
     <!--  11111111111111111111    -->
 
 
-    <section numbered="true" toc="default">
-      <name>RAW Prerequisites</name>
+    <section  anchor="scope" numbered="true" toc="default">
+      <name>RAW Scope and Prerequisites</name>
       <t>
    A prerequisite to the RAW work is that an end-to-end routing function
    computes a complex sub-topology along which forwarding can happen between a
@@ -712,8 +732,8 @@ zzz = flapping now
    possibly others.
       </t>
       <t>
-   How the routing operation computes the Track is out of scope for RAW.
-   The scope of the RAW operation is one Track, and the goal of the RAW
+   How the routing operation (e.g., PCE) computes the Track is out of scope for
+   RAW. The scope of the RAW operation is one Track, and the goal of the RAW
    operation is to optimize the use of the Track at the forwarding timescale
    to maintain the expected service while optimizing the usage of constrained
    resources such as energy and spectrum.
@@ -735,7 +755,7 @@ zzz = flapping now
 
     <!--  111111111111111111111    -->
 
-    <section anchor="rou" numbered="true" toc="default">
+    <section anchor="timescale" numbered="true" toc="default">
       <name>Routing Time Scale vs. Forwarding Time Scale</name>
       <t>
    With DetNet, the end-to-end routing can be centralized and can reside
@@ -834,10 +854,31 @@ zzz = flapping now
 
     <!--  111111111111111111111    -->
 
+      <t>
+   A RAW Network Plane may be strict or loose, depending
+   on whether RAW observes and takes actions on all hops or not. For instance,
+   the packets between two wireless entities may be relayed over a wired
+   infrastructure such as a Wi-Fi extended service set (ESS) or a 5G Core; in
+   that case, RAW observes and control the transmission over the wireless first
+   and last hops, as well as end-to-end metrics such as latency, jitter, and
+   delivery ratio. This operation is loose since the structure and properties of
+   the wired infrastructure are ignored, and may be either controlled by other means such as DetNet/TSN, or neglected in the face of the wireless hops.
+
+      </t>
 
     <section numbered="true" toc="default">
       <name>PAREO Functions</name>
-
+      <t>
+    RAW may control whether and how to use packet replication and elimination
+    (PRE), Automatic Repeat reQuest (ARQ), Hybrid ARQ (HARQ) that includes
+    Forward Error Correction (FEC) and coding, and other wireless-specific
+    techniques such as overhearing and constructive interferences, in order to
+    increase the reliabiility and availability of the end-to-end transmission.
+    Collectively, those function are called PAREO for Packet (hybrid) ARQ, Replication, Elimination and Ordering. By tuning dynamically the use of
+    PAREO functions, RAW avoids the waste of critical resources such as spectrum
+    and energy while ensuring that the guaranteed SLA is provided, e.g., by
+    adding redundancy when a spike of loss is observed.
+    </t>
     <t>
         In a nutshell, PRE establishes several paths in a
         network to provide redundancy and parallel transmissions to
@@ -1195,7 +1236,10 @@ zzz = flapping now
 <section anchor="psepce" numbered="true" toc="default">
     <name>PCE vs. PSE</name>
     <t>
-    <xref target="rou"/> shows that the time scale at which RAW needs to operate is not that of the Controller Plane that needs to deal with a possibly large whole network and make global optimization across multiple flows that may contend for limited resources.
+    <xref target="timescale"/> shows that the time scale at which RAW needs to
+    operate is not that of the Controller Plane that needs to deal with a
+    possibly large whole network and make global optimization across multiple
+    flows that may contend for limited resources.
     </t><t>
     RAW separates the path computation time scale at which a complex path is recomputed from the path selection time scale at which the forwarding decision is taken for one or a few packets.
     RAW operates at the path selection time scale.  The RAW problem is to decide, within the redundant solutions that are proposed by the PCE, which will be used for each packet to provide a Reliable and Available service while minimizing the waste of resources.
