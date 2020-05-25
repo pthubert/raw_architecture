@@ -11,7 +11,7 @@ Expires: 26 November 2020                                 IMT Atlantique
 
 
          Reliable and Available Wireless Architecture/Framework
-                   draft-pthubert-raw-architecture-03
+                   draft-pthubert-raw-architecture-04
 
 Abstract
 
@@ -1322,7 +1322,7 @@ Internet-Draft         RAW Architecture/Framework               May 2020
    Xavi Vilajosana:  Wireless Networks Research Lab, Universitat Oberta
       de Catalunya
 
-   Rex Buddenberg:  
+   Rex Buddenberg:
 
    Remous-Aris Koutsiamanis:  IMT Atlantique
 
