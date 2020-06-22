@@ -5,9 +5,9 @@
 RAW                                                      P. Thubert, Ed.
 Internet-Draft                                             Cisco Systems
 Intended status: Informational                         G.Z. Papadopoulos
-Expires: 26 November 2020                                 IMT Atlantique
+Expires: 21 December 2020                                 IMT Atlantique
                                                            R. Buddenberg
-                                                             25 May 2020
+                                                            19 June 2020
 
 
          Reliable and Available Wireless Architecture/Framework
@@ -43,7 +43,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 26 November 2020.
+   This Internet-Draft will expire on 21 December 2020.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Thubert, et al.         Expires 26 November 2020                [Page 1]
+Thubert, et al.         Expires 21 December 2020                [Page 1]
 
-Internet-Draft         RAW Architecture/Framework               May 2020
+Internet-Draft         RAW Architecture/Framework              June 2020
 
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Thubert, et al.         Expires 26 November 2020                [Page 2]
+Thubert, et al.         Expires 21 December 2020                [Page 2]
 
-Internet-Draft         RAW Architecture/Framework               May 2020
+Internet-Draft         RAW Architecture/Framework              June 2020
 
 
 1.  Introduction
@@ -126,49 +126,23 @@ Internet-Draft         RAW Architecture/Framework               May 2020
    or scheduling the packets at every hop.
 
    Wireless networks operate on a shared medium where uncontrolled
-   interference, including the self-induced multipath fading, adds
-   another dimension to the statistical effects that affect the
-   delivery.  Scheduling transmissions can alleviate those effects by
-   leveraging diversity in the spatial, time, code, and frequency
-   domains, and provide a Reliable and Available Wireless (RAW) service
-   while preserving energy and optimizing the use of the shared
-   spectrum.
+   interference, including the self-induced multipath fading, cause
+   random transmission losses and add new dimensions to the statistical
+   effects that affect the delivery.  Scheduling can alleviate those
+   effects by enabling diverse transmissions in the spatial, time, code,
+   and frequency domains.  Reliable and Available Wireless (RAW)
+   leverages scheduling and all possible forms of diversity to defeat
+   the possible causes of transmission loss while preserving energy and
+   optimizing the use of the shared spectrum.
 
-   Deterministic Networking is an attempt to mostly eliminate packet
-   loss for a committed bandwidth with a guaranteed worst-case end-to-
-   end latency, even when co-existing with best-effort traffic in a
-   shared network.  This innovation is enabled by recent developments in
-   technologies including IEEE 802.1 TSN (for Ethernet LANs) and IETF
-   DetNet (for wired IP networks).  It is getting traction in various
-   industries including manufacturing, online gaming, professional A/V,
-   cellular radio and others, making possible many cost and performance
-   optimizations.
-
-   The "Deterministic Networking Architecture" [RFC8655] is composed of
-   three planes: the Application (User) Plane, the Controller Plane, and
-   the Network Plane.  RAW extends DetNet to focus on issues that are
-   mostly a concern on wireless links, and inherits the architecture and
-   the planes.  A RAW Network Plane is thus a Network Plane inherited by
-   RAW from DetNet, composed of one or multiple hops of homogeneous or
-   heterogeneous technologies, e.g. a Wi-Fi6 Mesh or one-hop CBRS access
-   links federated by a 5G backhaul.
-
-   RAW networking aims at providing highly available and reliable end-
-   to-end performances in a network with scheduled wireless segments.
-   Uncontrolled interference and transmission obstacles may impede the
-   transmission, and techniques such as beamforming with Multi-User MIMO
-   can only alleviate some of those issues, so the term "deterministic"
-   is usually not associated with short range radios, in particular in
-   the ISM band.  This uncertainty places limits to the amount of
-   traffic that can be transmitted on a link while conforming to a RAW
-   Service Level Agreement (SLA) that may vary rapidly.
-
-
-
-Thubert, et al.         Expires 26 November 2020                [Page 3]
-
-Internet-Draft         RAW Architecture/Framework               May 2020
-
+   Deterministic Networking is an attempt to emulate the properties of a
+   serial link over a switched fabric, by providing a bounded latency
+   and eliminating congestion loss, even when co-existing with best-
+   effort traffic.  This innovation was introduced on wired networks
+   with IEEE 802.1 TSN (for Ethernet LANs) and IETF DetNet.  It is
+   getting traction in various industries including professional A/V,
+   manufacturing, online gaming, and smartgrid automation, enabling cost
+   and performance optimizations (e.g., vs. loads of P2P cables).
 
    The wireless and wired media are fundamentally different at the
    physical level, and while the generic "Deterministic Networking
@@ -178,19 +152,46 @@ Internet-Draft         RAW Architecture/Framework               May 2020
    to address less consistent transmissions, energy conservation and
    shared spectrum efficiency.
 
-   The development of RAW technologies has been lagging behind
-   deterministic efforts for wired systems both at the IEEE and the
-   IETF.  But recent efforts at the IEEE and 3GPP indicate that wireless
-   is finally catching up at the lower layer and that it is now possible
-   for the IETF to extend DetNet for wireless segments that are capable
-   of scheduled wireless transmissions.
+   Uncontrolled interference and transmission obstacles may impede the
+   wireless transmission, causing rapid variations of the throughput and
+   packet delivery ratio (PDR) of the link.  This uncertainty limits the
+   volume and/or duration of traffic that can be safely transmitted on
+   the same link while conforming to a RAW Service Level Agreement
+   (SLA).  Techniques such as beamforming with Multi-User MIMO can only
+   alleviate some of those issues, and the term deterministic is usually
+   not associated with a short range radio link, in particular one
+   operated in the ISM band.
 
-   The intent for RAW is to provide DetNet elements that are specialized
-   for short range radios.  From this inheritance, RAW stays agnostic to
-   the radio layer underneath though the capability to schedule
-   transmissions is assumed.  How the PHY is programmed to do so, and
-   whether the radio is single-hop or meshed, are unknown at the IP
-   layer and not part of the RAW abstraction.
+
+
+
+Thubert, et al.         Expires 21 December 2020                [Page 3]
+
+Internet-Draft         RAW Architecture/Framework              June 2020
+
+
+   This increased complexity explains why the development of
+   deterministic wireless technologies has been lagging behind the
+   similar efforts for wired systems, both at the IEEE and the IETF.
+   But recent progress on scheduled radios such as TSCH and OFDMA
+   indicates that wireless is finally catching up at the lower layers.
+   Sitting at the layer above, RAW takes up the challenge of providing
+   highly available and reliable end-to-end performances in a network
+   with scheduled wireless segments.
+
+   RAW provides DetNet elements that are specialized for short range
+   radios.  From this inheritance, RAW stays agnostic to the radio layer
+   underneath though the capability to schedule transmissions is
+   assumed.  How the PHY is programmed to do so, and whether the radio
+   is single-hop or meshed, are unknown at the IP layer and not part of
+   the RAW abstraction.
+
+   The "Deterministic Networking Architecture" [RFC8655] is composed of
+   three planes: the Application (User) Plane, the Controller Plane, and
+   the Network Plane.  The RAW Architecture extends the DetNet Network
+   Plane, to accomodate one or multiple hops of homogeneous or
+   heterogeneous wireless technologies, e.g. a Wi-Fi6 Mesh or parallel
+   CBRS access links federated by a 5G backhaul.
 
    The establishment of a path is not in-scope for RAW.  It may be the
    product of a centralized Controller Plane as described for DetNet.
@@ -210,20 +211,19 @@ Internet-Draft         RAW Architecture/Framework               May 2020
    scope of RAW; it may be strict or loose depending on whether each or
    just a subset of the hops are observed and controlled by RAW.
 
-   The scope of the RAW WG comprises Network plane protocol elements
-   such as Operations, Administration and Maintenance (OAM) to observe
-   some or all hops along a Track, as well as the end-to-end packet
-   delivery, and in-band control to optimize the use of redundancy to
-   achieve the required SLA.
+   The RAW Architecture covers Network Plane protocol elements such as
+   Operations, Administration and Maintenance (OAM) to observe some or
+   all hops along a Track as well as the end-to-end packet delivery, and
+   in-band control to optimize the use of redundancy to achieve the
+   required SLA with minimal use of constrained resources.
 
 
 
 
 
-
-Thubert, et al.         Expires 26 November 2020                [Page 4]
+Thubert, et al.         Expires 21 December 2020                [Page 4]
 
-Internet-Draft         RAW Architecture/Framework               May 2020
+Internet-Draft         RAW Architecture/Framework              June 2020
 
 
 2.  Terminology
@@ -277,9 +277,9 @@ Internet-Draft         RAW Architecture/Framework               May 2020
 
 
 
-Thubert, et al.         Expires 26 November 2020                [Page 5]
+Thubert, et al.         Expires 21 December 2020                [Page 5]
 
-Internet-Draft         RAW Architecture/Framework               May 2020
+Internet-Draft         RAW Architecture/Framework              June 2020
 
 
 3.  Related Work at The IETF
@@ -333,9 +333,9 @@ Internet-Draft         RAW Architecture/Framework               May 2020
 
 
 
-Thubert, et al.         Expires 26 November 2020                [Page 6]
+Thubert, et al.         Expires 21 December 2020                [Page 6]
 
-Internet-Draft         RAW Architecture/Framework               May 2020
+Internet-Draft         RAW Architecture/Framework              June 2020
 
 
    "Deterministic Networking Use Cases" [RFC8578] presents a number of
@@ -389,9 +389,9 @@ Internet-Draft         RAW Architecture/Framework               May 2020
 
 
 
-Thubert, et al.         Expires 26 November 2020                [Page 7]
+Thubert, et al.         Expires 21 December 2020                [Page 7]
 
-Internet-Draft         RAW Architecture/Framework               May 2020
+Internet-Draft         RAW Architecture/Framework              June 2020
 
 
 4.2.  End-to-End Protection in a Wireless Mesh
@@ -445,9 +445,9 @@ Internet-Draft         RAW Architecture/Framework               May 2020
 
 
 
-Thubert, et al.         Expires 26 November 2020                [Page 8]
+Thubert, et al.         Expires 21 December 2020                [Page 8]
 
-Internet-Draft         RAW Architecture/Framework               May 2020
+Internet-Draft         RAW Architecture/Framework              June 2020
 
 
 5.1.1.1.  Elimination of Single Points of Failure
@@ -501,9 +501,9 @@ Internet-Draft         RAW Architecture/Framework               May 2020
 
 
 
-Thubert, et al.         Expires 26 November 2020                [Page 9]
+Thubert, et al.         Expires 21 December 2020                [Page 9]
 
-Internet-Draft         RAW Architecture/Framework               May 2020
+Internet-Draft         RAW Architecture/Framework              June 2020
 
 
    Deterministic flows, on the contrary, are attached to specific paths
@@ -557,9 +557,9 @@ Internet-Draft         RAW Architecture/Framework               May 2020
 
 
 
-Thubert, et al.         Expires 26 November 2020               [Page 10]
+Thubert, et al.         Expires 21 December 2020               [Page 10]
 
-Internet-Draft         RAW Architecture/Framework               May 2020
+Internet-Draft         RAW Architecture/Framework              June 2020
 
 
 5.1.2.  Applying Reliability Concepts to Networking
@@ -609,16 +609,15 @@ Internet-Draft         RAW Architecture/Framework               May 2020
    The root cause for the loss may be of multiple origins, calling for
    the use of different forms of diversity:
 
-
-
-
-
-Thubert, et al.         Expires 26 November 2020               [Page 11]
-
-Internet-Draft         RAW Architecture/Framework               May 2020
-
-
    Multipath Fading:  A destructive interference by a reflection of the
+
+
+
+Thubert, et al.         Expires 21 December 2020               [Page 11]
+
+Internet-Draft         RAW Architecture/Framework              June 2020
+
+
       original signal.
 
       A radio signal may be received directly (line-of-sight) and/or as
@@ -663,21 +662,17 @@ Internet-Draft         RAW Architecture/Framework               May 2020
    removed, or as long as the interferer (e.g., a radar) keeps
    transmitting, a continuous stream of packets will be affected.
 
-
-
-
-
-
-
-Thubert, et al.         Expires 26 November 2020               [Page 12]
-
-Internet-Draft         RAW Architecture/Framework               May 2020
-
-
    The key technique to combat those unpredictable losses is diversity.
    Different forms of diversity are necessary to combat different causes
    of loss and the use of diversity must be maximised to optimize the
    PDR.
+
+
+
+Thubert, et al.         Expires 21 December 2020               [Page 12]
+
+Internet-Draft         RAW Architecture/Framework              June 2020
+
 
    A single packet may be sent at different times (time diversity) over
    diverse paths (spatial diversity) that rely on diverse radio channels
@@ -725,9 +720,14 @@ Internet-Draft         RAW Architecture/Framework               May 2020
 
 
 
-Thubert, et al.         Expires 26 November 2020               [Page 13]
+
+
+
+
+
+Thubert, et al.         Expires 21 December 2020               [Page 13]
 
-Internet-Draft         RAW Architecture/Framework               May 2020
+Internet-Draft         RAW Architecture/Framework              June 2020
 
 
 5.3.  Routing Time Scale vs. Forwarding Time Scale
@@ -781,9 +781,9 @@ Internet-Draft         RAW Architecture/Framework               May 2020
 
 
 
-Thubert, et al.         Expires 26 November 2020               [Page 14]
+Thubert, et al.         Expires 21 December 2020               [Page 14]
 
-Internet-Draft         RAW Architecture/Framework               May 2020
+Internet-Draft         RAW Architecture/Framework              June 2020
 
 
    In the case of wireless, the changes that affect the forwarding
@@ -837,9 +837,9 @@ Internet-Draft         RAW Architecture/Framework               May 2020
 
 
 
-Thubert, et al.         Expires 26 November 2020               [Page 15]
+Thubert, et al.         Expires 21 December 2020               [Page 15]
 
-Internet-Draft         RAW Architecture/Framework               May 2020
+Internet-Draft         RAW Architecture/Framework              June 2020
 
 
    A simple Track is composed of a direct sequence of reserved hops to
@@ -893,9 +893,9 @@ Internet-Draft         RAW Architecture/Framework               May 2020
 
 
 
-Thubert, et al.         Expires 26 November 2020               [Page 16]
+Thubert, et al.         Expires 21 December 2020               [Page 16]
 
-Internet-Draft         RAW Architecture/Framework               May 2020
+Internet-Draft         RAW Architecture/Framework              June 2020
 
 
    For instance, when the source sends to Node A, Node B may listen
@@ -949,9 +949,9 @@ Internet-Draft         RAW Architecture/Framework               May 2020
 
 
 
-Thubert, et al.         Expires 26 November 2020               [Page 17]
+Thubert, et al.         Expires 21 December 2020               [Page 17]
 
-Internet-Draft         RAW Architecture/Framework               May 2020
+Internet-Draft         RAW Architecture/Framework              June 2020
 
 
 6.2.2.  Packet Elimination
@@ -1005,9 +1005,9 @@ Internet-Draft         RAW Architecture/Framework               May 2020
 
 
 
-Thubert, et al.         Expires 26 November 2020               [Page 18]
+Thubert, et al.         Expires 21 December 2020               [Page 18]
 
-Internet-Draft         RAW Architecture/Framework               May 2020
+Internet-Draft         RAW Architecture/Framework              June 2020
 
 
    Constructive Interference was proposed on 5G, Wi-Fi7 and even tested
@@ -1061,9 +1061,9 @@ Internet-Draft         RAW Architecture/Framework               May 2020
 
 
 
-Thubert, et al.         Expires 26 November 2020               [Page 19]
+Thubert, et al.         Expires 21 December 2020               [Page 19]
 
-Internet-Draft         RAW Architecture/Framework               May 2020
+Internet-Draft         RAW Architecture/Framework              June 2020
 
 
    The Link-Layer metrics are reported to the PCE in a time-aggregated,
@@ -1117,9 +1117,9 @@ Internet-Draft         RAW Architecture/Framework               May 2020
 
 
 
-Thubert, et al.         Expires 26 November 2020               [Page 20]
+Thubert, et al.         Expires 21 December 2020               [Page 20]
 
-Internet-Draft         RAW Architecture/Framework               May 2020
+Internet-Draft         RAW Architecture/Framework              June 2020
 
 
       +---------------+------------------------+-------------------+
@@ -1173,9 +1173,9 @@ Internet-Draft         RAW Architecture/Framework               May 2020
 
 
 
-Thubert, et al.         Expires 26 November 2020               [Page 21]
+Thubert, et al.         Expires 21 December 2020               [Page 21]
 
-Internet-Draft         RAW Architecture/Framework               May 2020
+Internet-Draft         RAW Architecture/Framework              June 2020
 
 
    In the case of the Radio Access Protection, only the first hop is
@@ -1229,9 +1229,9 @@ Internet-Draft         RAW Architecture/Framework               May 2020
 
 
 
-Thubert, et al.         Expires 26 November 2020               [Page 22]
+Thubert, et al.         Expires 21 December 2020               [Page 22]
 
-Internet-Draft         RAW Architecture/Framework               May 2020
+Internet-Draft         RAW Architecture/Framework              June 2020
 
 
    reliability) for that packet and a recent observation of the rest of
@@ -1285,9 +1285,9 @@ Internet-Draft         RAW Architecture/Framework               May 2020
 
 
 
-Thubert, et al.         Expires 26 November 2020               [Page 23]
+Thubert, et al.         Expires 21 December 2020               [Page 23]
 
-Internet-Draft         RAW Architecture/Framework               May 2020
+Internet-Draft         RAW Architecture/Framework              June 2020
 
 
    For instance, the 6TiSCH Architecture [6TiSCH-ARCHI] uses a
@@ -1322,8 +1322,6 @@ Internet-Draft         RAW Architecture/Framework               May 2020
    Xavi Vilajosana:  Wireless Networks Research Lab, Universitat Oberta
       de Catalunya
 
-   Rex Buddenberg:
-
    Remous-Aris Koutsiamanis:  IMT Atlantique
 
    Nicolas Montavont:  IMT Atlantique
@@ -1341,9 +1339,11 @@ Internet-Draft         RAW Architecture/Framework               May 2020
 
 
 
-Thubert, et al.         Expires 26 November 2020               [Page 24]
+
+
+Thubert, et al.         Expires 21 December 2020               [Page 24]
 
-Internet-Draft         RAW Architecture/Framework               May 2020
+Internet-Draft         RAW Architecture/Framework              June 2020
 
 
    [6TiSCH-ARCHI]
@@ -1397,9 +1397,9 @@ Internet-Draft         RAW Architecture/Framework               May 2020
 
 
 
-Thubert, et al.         Expires 26 November 2020               [Page 25]
+Thubert, et al.         Expires 21 December 2020               [Page 25]
 
-Internet-Draft         RAW Architecture/Framework               May 2020
+Internet-Draft         RAW Architecture/Framework              June 2020
 
 
    [RFC8557]  Finn, N. and P. Thubert, "Deterministic Networking Problem
@@ -1453,9 +1453,9 @@ Internet-Draft         RAW Architecture/Framework               May 2020
 
 
 
-Thubert, et al.         Expires 26 November 2020               [Page 26]
+Thubert, et al.         Expires 21 December 2020               [Page 26]
 
-Internet-Draft         RAW Architecture/Framework               May 2020
+Internet-Draft         RAW Architecture/Framework              June 2020
 
 
    [DetNet-IP-OAM]
@@ -1509,9 +1509,9 @@ Authors' Addresses
 
 
 
-Thubert, et al.         Expires 26 November 2020               [Page 27]
+Thubert, et al.         Expires 21 December 2020               [Page 27]
 
-Internet-Draft         RAW Architecture/Framework               May 2020
+Internet-Draft         RAW Architecture/Framework              June 2020
 
 
    45 Allee des Ormes - BP1200
@@ -1565,4 +1565,4 @@ Internet-Draft         RAW Architecture/Framework               May 2020
 
 
 
-Thubert, et al.         Expires 26 November 2020               [Page 28]
+Thubert, et al.         Expires 21 December 2020               [Page 28]

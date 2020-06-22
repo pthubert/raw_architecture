@@ -90,40 +90,23 @@
       </t>
       <t>
    Wireless networks operate on a shared medium where uncontrolled interference,
-   including the self-induced multipath fading, adds another dimension to the
-   statistical effects that affect the delivery. Scheduling transmissions can
-   alleviate those effects by leveraging diversity in the spatial, time, code,
-   and frequency domains, and provide a Reliable and Available Wireless (RAW)
-   service while preserving energy and optimizing the use of the shared spectrum.
+   including the self-induced multipath fading, cause random transmission losses
+   and add new dimensions to the statistical effects that affect the delivery.
+   Scheduling can alleviate those effects by enabling diverse transmissions
+   in the spatial, time, code, and frequency domains. Reliable and Available
+   Wireless (RAW) leverages scheduling and all possible forms of diversity to
+   defeat the possible causes of transmission loss while preserving energy
+   and optimizing the use of the shared spectrum.
 
       </t>
       <t>
-   Deterministic Networking is an attempt to mostly eliminate packet loss for a
-   committed bandwidth with a guaranteed worst-case end-to-end latency, even
-   when co-existing with best-effort traffic in a shared network.
-   This innovation is enabled by recent developments in technologies including
-   IEEE 802.1 TSN (for Ethernet LANs) and IETF DetNet (for wired IP networks).
-   It is getting traction in various industries including manufacturing, online
-   gaming, professional A/V, cellular radio and others, making possible
-   many cost and performance optimizations.
-      </t>
-      <t>
-   The <xref target="RFC8655">"Deterministic Networking Architecture"</xref> is
-   composed of three planes: the Application (User) Plane, the Controller Plane,
-   and the Network Plane. RAW extends DetNet to focus on issues that are mostly
-   a concern on wireless links, and inherits the architecture and the planes.
-   A RAW Network Plane is thus a Network Plane inherited by RAW from DetNet,
-   composed of one or multiple hops of homogeneous or heterogeneous technologies, e.g. a Wi-Fi6 Mesh or one-hop CBRS access links federated by a 5G backhaul.
+   Deterministic Networking is an attempt to emulate the properties of a serial
+   link over a switched fabric, by providing a bounded latency and eliminating congestion loss, even when co-existing with best-effort traffic.
+   This innovation was introduced on wired networks with IEEE 802.1 TSN (for Ethernet LANs) and IETF DetNet.
+   It is getting traction in various industries including professional A/V, manufacturing, online gaming, and smartgrid automation, enabling cost and
+   performance optimizations (e.g., vs. loads of P2P cables).
 
-   </t><t>
-   RAW networking aims at providing highly available and reliable end-to-end
-   performances in a network with scheduled wireless segments. Uncontrolled
-   interference and transmission obstacles may impede the transmission, and
-   techniques such as beamforming with Multi-User MIMO can only alleviate some
-   of those issues, so the term "deterministic" is usually not associated with
-   short range radios, in particular in the ISM band. This uncertainty places
-   limits to the amount of traffic that can be transmitted on a link while
-   conforming to a RAW Service Level Agreement (SLA) that may vary rapidly.
+
    </t><t>
    The wireless and wired media are fundamentally different at the physical
    level, and while the generic <xref target="RFC8557">"Deterministic Networking
@@ -132,22 +115,38 @@
    networking over wires, as a RAW solution has to address less consistent
    transmissions, energy conservation and shared spectrum efficiency.
 
+   </t><t>
+   Uncontrolled interference and transmission obstacles may impede the wireless transmission, causing rapid variations of the throughput and packet delivery
+   ratio (PDR) of the link. This uncertainty limits the volume and/or duration
+   of traffic that can be safely transmitted on the same link while conforming
+   to a RAW Service Level Agreement (SLA). Techniques such as beamforming with
+   Multi-User MIMO can only alleviate some of those issues, and the term deterministic is usually not associated with a short range radio link, in
+   particular one operated in the ISM band.
       </t>
       <t>
-   The development of RAW technologies has been lagging behind deterministic
-   efforts for wired systems both at the IEEE and the IETF. But recent efforts
-   at the IEEE and 3GPP indicate that wireless is finally catching up at the
-   lower layer and that it is now possible for the IETF to extend DetNet for
-   wireless segments that are capable of scheduled wireless transmissions.
+   This increased complexity explains why the development of deterministic
+   wireless technologies has been lagging behind the similar efforts for wired systems, both at the IEEE and the IETF. But recent progress on scheduled
+   radios such as TSCH and OFDMA indicates that wireless is finally catching up
+   at the lower layers. Sitting at the layer above,
+   RAW takes up the challenge of providing highly available and reliable
+   end-to-end performances in a network with scheduled wireless segments.
 
       </t>
       <t>
-   The intent for RAW is to provide DetNet elements that are specialized for
-   short range radios. From this inheritance, RAW stays agnostic to the radio
+   RAW provides DetNet elements that are specialized for short range radios.
+   From this inheritance, RAW stays agnostic to the radio
    layer underneath though the capability to schedule transmissions is assumed.
    How the PHY is programmed to do so, and whether the radio is single-hop
    or meshed, are unknown at the IP layer and not part of the RAW abstraction.
 
+      </t>
+      <t>
+   The <xref target="RFC8655">"Deterministic Networking Architecture"</xref> is
+   composed of three planes: the Application (User) Plane, the Controller Plane,
+   and the Network Plane. The RAW Architecture extends the DetNet Network Plane,
+   to accomodate one or multiple hops of homogeneous or heterogeneous wireless
+   technologies, e.g. a Wi-Fi6 Mesh or parallel CBRS access links federated by a
+   5G backhaul.
       </t>
 
       <t>
@@ -169,9 +168,10 @@
    controlled by RAW.
       </t>
       <t>
-   The scope of the RAW WG comprises Network plane protocol elements such as
-   Operations, Administration and Maintenance (OAM) to observe some or all hops along a Track, as well as the end-to-end packet delivery, and in-band control
-   to optimize the use of redundancy to achieve the required SLA.
+   The RAW Architecture covers Network Plane protocol elements such as
+   Operations, Administration and Maintenance (OAM) to observe some or all hops along a Track as well as the end-to-end packet delivery, and in-band control
+   to optimize the use of redundancy to achieve the required SLA with minimal
+   use of constrained resources.
       </t>
 
     </section>
@@ -1336,6 +1336,92 @@ ingress    |      |      |    egress
     <!--RAW OAM-->
 
 
+<section anchor="flowid" numbered="true" toc="default">
+    <name>Flow Identification vs. Path Identification</name>
+
+<t>
+    Section 4.7 of the DetNet Architecture <xref target="RFC8655"/> ties the
+    app-flow identification which is an appliation layer concept with the
+    network path identification that depends on the networking technology by
+    "exporting of flow identification", e.g., to a MPLS label.
+</t><t>
+    With RAW, this exporting operation is injective but not bijective.
+    e.g., a flow is fully placed within one RAW Track, but not all packets along
+    that Track are necessarily part of the same flow. For instance, out-of-band
+    OAM packets must circulate in the exact same fashion as the flows that they
+    observe. It results that the flow identification that maps to to app-flow
+    at the network layer must be separate from the path identification that is
+    used to forward a packet.
+</t><t>
+
+    Section 3.4 of the DetNet data-plane framework <xref target="I-D.ietf-detnet-data-plane-framework" format="default"/> indicates that for
+    a DetNet IP Data Plane, a flow is identified by an IPv6 6-tuple.
+    With RAW, that 6-tuple is not what indicates the Track, in other words, the
+    flow ID is not the Track ID.
+</t><t>
+    For instance, the 6TiSCH Architecture
+    <xref target="I-D.ietf-6tisch-architecture" format="default"/>
+    uses a combination of the address of the Egress End System and an instance
+    identifier in a Hop-by-hop option to indicate a Track. This way, if a packet
+    "escapes" the Track, it will reach the Track Egress point through normal
+    routing and be treated at the service layer through, say, elimination and
+    reordering.
+</t><t>
+    Packets that are tagged with the same (address, instance ID) tuple will
+    experience the same RAW service regardless of the IPv6 6-tuple, and
+    regardless of whether they transport application flows or OAM. That RAW
+    service includes forwarding over a subset of the Links that form the Track.
+    It results that the packets that are routed through a Track will not
+    necessarily traverse the same Links.
+</t><t>
+    To that effect, RAW enables a combination of subTracks within the Track.
+    Each packet is forwarded within the subTrack that provides the best
+    adequation with the SLA of the flow and the energy and bandwidth constraints
+    of the network.
+</t>
+
+<figure anchor="Figflowvstrack">
+          <name>Flow Injection</name>
+       <artwork align="center" name="" type="" alt="">
+<![CDATA[
+
+            Flow 1 (6-tuple) ----+
+                                 |
+       Flow 2 (6-tuple)  ---+    |
+                            |    |
+    OAM     -----------+    |    |
+                       |    |    |
+                       |    |    |
+                  |    |    |    |    |
+                  |    v    v    v    |
+                  |                   |
+                  +---------+---------+
+                            |
+                            |
+            Track i (Egress IP Address, instanceId)
+                            |
+                            |
+                            |
+            +---------+-----+--....-------+
+            |         |                   |
+            |         |                   |
+     subTrack 1    subTrack 2          subTrack n
+            |         |                   |
+            |         |                   |
+            V         V                   V
+         +-----------------------------------+
+         |                                   |
+         |         Destination               |
+         |                                   |
+         +-----------------------------------+
+
+
+]]>
+       </artwork>
+</figure>
+
+</section>
+    <!--Flow Identification vs. Path Identification-->
 
     <section numbered="true" toc="default">
       <name>Source-Routed vs. Distributed Forwarding Decision</name>
@@ -1389,65 +1475,6 @@ ingress    |      |      |    egress
     <!-- Track Source-Routed vs. Distributed RAW Decision -->
 
 
-<section anchor="flowid" numbered="true" toc="default">
-    <name>Flow Identification</name>
-
-<t>
-    Section 4.7 of the DetNet Architecture <xref target="RFC8655"/> ties the
-    app-flow identification which is an appliation layer concept with the
-    network path identification that depends on the networking technology by
-    "exporting of flow identification", e.g., to a MPLS label.
-</t><t>
-    With RAW, this exporting operation is injective but not bijective.
-    e.g., a flow is fully placed within one RAW Track, but not all packets along
-    that Track are necessarily part of the same flow. For instance, out-of-band
-    OAM packets must circulate in the exact same fashion as the flows that they
-    observe. It results that the flow identification that maps to to app-flow
-    at the network layer must be separate from the path identification that is
-    used to forward a packet.
-</t>
-
-<figure anchor="Figflowvstrack">
-          <name>Flow Injection</name>
-       <artwork align="center" name="" type="" alt="">
-<![CDATA[
-
-            Flow 1 (6-tuple) ----+
-                                 |
-       Flow 2 (6-tuple)  ---+    |
-                            |    |
-    OAM     -----------+    |    |
-                       |    |    |
-                       |    |    |
-                  |    |    |    |    |
-                  |    v    v    v    |
-                  |                   |
-                  +---------+---------+
-                            |
-                            |
-                            +------------> Track 1
-                                   (IP address, instanceId)
-]]>
-       </artwork>
-</figure>
-
-<t>
-
-    Section 3.4 of the DetNet data-plane framework <xref target="I-D.ietf-detnet-data-plane-framework" format="default"/> indicates that for
-    a DetNet IP Data Plane, a flow is identified by an IPv6 6-tuple.
-    With RAW, that 6-tuple is not what indicates the Track, in other words, the
-    flow ID is not the Track ID.
-</t><t>
-    For instance, the 6TiSCH Architecture
-    <xref target="I-D.ietf-6tisch-architecture" format="default"/>
-    uses a combination of the address of the Ingress End System and an instance
-    identifier in a Hop-by-hop option to indicate a Track.
-    Packets that are tagged with the same (address, instance ID) tuple will
-    experience the same forwarding behavior regardless of the IPv6 6-tuple, and
-    regardless of whether they transport application flows or OAM.
-</t>
-</section>
-    <!--Flow Identification-->
 
 </section>
     <!--RAW Architecture -->
@@ -1499,7 +1526,6 @@ ingress    |      |      |    egress
       <name>Contributors</name>
       <dl>
     <dt>Xavi Vilajosana:</dt><dd>Wireless Networks Research Lab, Universitat Oberta de Catalunya</dd>
-    <dt>Rex Buddenberg:</dt><dd></dd>
     <dt>Remous-Aris Koutsiamanis:</dt><dd>IMT Atlantique</dd>
     <dt>Nicolas Montavont:</dt><dd>IMT Atlantique</dd>
       </dl>
