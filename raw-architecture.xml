@@ -265,7 +265,7 @@
       </li>
     <li>
       <xref target="BFD" format="default"/> detect faults in the path between an
-      ingress and an egress forwarding engines, but is unaware of the complexity
+      Ingress and an Egress forwarding engines, but is unaware of the complexity
       of a path with replication, and expects bidirectionality. BFD considers
       delivery as success whereas with RAW the bounded latency can be as
       important as the delivery itself.
@@ -363,7 +363,7 @@
 </t>
 <t> A variation of that use case has a pair of wireless Hosts connected over a
     wired core / backbone network. In that case, RAW observes and
-    controls the ingress and egress RANs, while neglecting the hops in the core.
+    controls the Ingress and Egress RANs, while neglecting the hops in the core.
     The resulting loose Track may be instanciated, e.g., using tunneling or
     loose source routing between the RANs.
 </t>
@@ -596,7 +596,7 @@ zzz = flapping now
     <section numbered="true" toc="default">
       <name>Applying Reliability Concepts to Networking</name>
     <t>
-    The terms Reliaility and Availability are defined for use in RAW in
+    The terms Reliability and Availability are defined for use in RAW in
     <xref target="terms"/> and the reader is invited to read
     <xref target="NASA"/>
     for more details on the general definition of Reliability.
@@ -623,7 +623,7 @@ zzz = flapping now
     loop, by linear interpolation from the previous measuremnents.
     </t>
    <t>
-    But the linear interpolation method can not resist multiple consecutive
+    But the linear interpolation method cannot resist multiple consecutive
     losses, and a high MTBF is desired as a guarantee that this will not happen,
     IOW that the number of losses-in-a-row can be bounded. In that case, what is
     really desired is a Maximum Consecutive Failures (MCF).
@@ -644,7 +644,7 @@ zzz = flapping now
     <section numbered="true" toc="default">
       <name>Reliability in the Context of RAW</name>
     <t>
-    In contrast with wired networks, errors in transmission are the predominent
+    In contrast with wired networks, errors in transmission are the predominant
     source of packet loss in wireless networks.
     </t>
     <t>
@@ -886,21 +886,27 @@ zzz = flapping now
       <name>Wireless Tracks</name>
    <t>
     The  <xref target="I-D.ietf-6tisch-architecture">"6TiSCH Architecture"</xref>
-    introduces the concept of Track a possibly complex path with the PAREO
-    functions operated within. RAW extends the concept to any wireless mesh
-    technology, including, e.g., Wi-Fi.</t>
-
-    <t>
+    introduces the concept of Track. RAW extends the concept to any wireless mesh
+    technology, including, e.g., Wi-Fi.
     A simple Track is composed of a direct sequence of reserved hops to ensure
     the transmission of a single packet from a source Node to a destination Node
     across a multihop path.
     </t>
     <t>
-    A Complex Track is designed as a directed acyclic graph from a source Node
-    towards a destination Node to support multi-path forwarding. By employing
-    PRE functions <xref target="RFC8655"/>, several paths may be computed, and
-    these paths may be more or less independent. For example, a complex Track
-    may branch off and rejoin over non-congruent paths (branches).
+    A Complex Track provides multiple non-equal cost multipath (NECM) forwarding
+    solutions. The Complex Track enables to support multi-path redundant forwarding
+    by employing PRE functions <xref target="RFC8655"/> and the ingress and
+    within the Track.
+    For example, a Complex Track  may branch off and rejoin over non-congruent
+    segments.
+    </t>
+    <t>
+    In the context of RAW, some links or segments in the Track may be reversible,
+    meaning that they can be used in either direction. In that case, an indication
+    in the packet signals the direction of the reversible links or segments that
+    the packet traverses and thus places a constraint that prevents loops from
+    occuring. An indidual packet follows a destination-oriented directed acyclic
+    graph (DODAG) towards a destination Node inside the Complex Track.
     </t>
 
 </section>
@@ -943,7 +949,7 @@ zzz = flapping now
 
           (A) -- (C) -- (E)
         /                   \
-ingress    |      |      |    egress
+Ingress    |      |      |    Egress
         \                   /
           (B) -- (D) -- (F)
 
@@ -982,9 +988,9 @@ ingress    |      |      |    egress
     <t>
     By employing a Packet Replication procedure, a Node forwards
     a copy of each data packet to more than one successor.
-    To do so, each Node (i.e., ingress and intermediate Node) sends the
+    To do so, each Node (i.e., Ingress and intermediate Node) sends the
     data packet multiple times as separate unicast transmissions.
-    For instance, in <xref target="fig_replication"/>, the ingress Node is
+    For instance, in <xref target="fig_replication"/>, the Ingress Node is
     transmitting the packet to both successors, nodes A and B, at two different
     times.
     </t>
@@ -996,7 +1002,7 @@ ingress    |      |      |    egress
 
              ===> (A) => (C) => (E) ===
            //        \\//   \\//       \\
-   ingress           //\\   //\\          egress
+   Ingress           //\\   //\\          Egress
            \\       //  \\ //  \\      //
              ===> (B) => (D) => (F) ===
 
@@ -1090,8 +1096,10 @@ ingress    |      |      |    egress
     well.
     As a result, by employing corellated paths, a Node may have multiple
     opportunities to receive a given data packet.
+    <!--
     This feature not only enhances the end-to-end reliability but also it reduces the
     end-to-end delay and increases energy efficiency.
+    -->
     </t>
 
 
@@ -1101,7 +1109,7 @@ ingress    |      |      |    egress
 
            ===> (A) ====> (C) ====> (E) ====
          //     ^ | \\                      \\
-  ingress       | |   \\                      egress
+  Ingress       | |   \\                      Egress
          \\     | v     \\                  //
            ===> (B) ====> (D) ====> (F) ====
 
@@ -1155,7 +1163,8 @@ ingress    |      |      |    egress
 
     <t>
     RAW inherits the conceptual model described in section 4 of the DetNet
-    Architecture <xref target="RFC8655"/>.
+    Architecture <xref target="RFC8655"/>. RAW extends the DetNet service
+    layer to provide additional agility against transmission loss.
     </t><t>
     A Controller Plane Function (CPF) called the
     Path Computation Element (PCE) <xref target="RFC4655"/> interacts with
@@ -1163,8 +1172,8 @@ ingress    |      |      |    egress
     to the radio interface, in particular the PAREO diversity mechanisms.
     </t><t>
     The PCE defines a complex Track between an Ingress End System and an Egress
-    End System, and indicates to the RAW Nodes where the PAREO operations may be actioned in the Network Plane. The Track may be loosely expressed in order to
-    traverse a non-RAW subnetwork. In that case, the expectation is that the
+    End System, and indicates to the RAW Nodes where the PAREO operations may be actionned in the Network Plane. The Track may be expressed loosely to enable
+    traversing a non-RAW subnetwork. In that case, the expectation is that the
     non-RAW subnetwork can be neglected in the RAW computation, that is,
     considered infinitely fast, reliable and/or available in comparison with the
     links between RAW nodes.
@@ -1185,11 +1194,11 @@ ingress    |      |      |    egress
                  RAW  --z   RAW  --z   RAW  --z   RAW
              z-- Node  z--  Node  z--  Node  z--  Node --z
   Ingress --z    /          /                           z-- Egress
-  End           \          \                                End
-  Node   ---z   /          /       .....                z-- Node
-           z-- RAW  --z   RAW   ( non-RAW ) --- RAW ---z
+  End           \          \         .. .                   End
+  Node   ---z   /          /       .. ..  .             z-- Node
+           z-- RAW  --z   RAW     ( non-RAW ) -- RAW --z
                Node  z--  Node --- ( Nodes  )   Node
-                                      ...
+                                      ... .
   --z   wireless           wired
    z--  link           --- link
 </artwork>
@@ -1199,39 +1208,52 @@ ingress    |      |      |    egress
     The Link-Layer metrics are reported to the PCE in a time-aggregated, e.g.,
     statistical fashion. Example Link-Layer metrics include typical Link
     bandwidth (the medium speed depends dynamically on the PHY mode and the
-    number of users sharing the spectrum) and average availability and
-    reliability figures such as Packet Delivery Ratio (PDR) over long periods
-    of time.
+    number of users sharing the spectrum) and average and mean squared deviation
+    of availability and reliability figures such as Packet Delivery Ratio (PDR)
+    over long periods of time.
     </t><t>
     Based on those metrics, the PCE installs the Track with enough
     redundant forwarding solutions to ensure that the Network Plane can reliably
     deliver the packets within a System Level Agreement (SLA) associated to the
-    flow. The SLA defines end-to-end reliability and availability figures, where
-    reliability may be expressed a successful delivery within a bounded delay.
-    Once a Track is established, end-to-end subpath and overall reliability and
-    availability metrics are also reported to the PCE to assure that the SLA is
-    continuously met and to have it recompute the Track if not.
+    flows that it transports.
+    The SLA defines end-to-end reliability and availability requirements, where
+    reliability may be expressed as a successful delivery in order and within a
+    bounded delay of at least one copy of a packet.
     </t><t>
-    Depending on the SLA, the Track or a leg of the Track may include non-RAW
-    Nodes, either interleaved inside the Track, or more typically till the Egress End Node. RAW observes the Lower-Layer Links between RAW nodes (typically, radio links) and the end-to-end Network Layer subpath to decide at all times which of the PAREO diversity is actioned by which RAW Nodes.
+    Depending on the use case and the SLA, the Track may comprise non-RAW
+    segments, either interleaved inside the Track, or all the way to
+    the Egress End Node (e.g., a server in the Internet). RAW observes the
+    Lower-Layer Links between RAW nodes (typically, radio links) and the
+    end-to-end Network Layer operation to decide at all times which of the PAREO
+    diversity schemes is actioned by which RAW Nodes.
+    </t><t>
+    Once a Track is established, per-segment and end-to-end reliability
+    and availability statistics are periodically reported to the PCE to assure that
+    the SLA can be met or have it recompute the Track if not.
     </t>
+
 
 <section anchor="psepce" numbered="true" toc="default">
     <name>PCE vs. PSE</name>
-    <t>
-    <xref target="timescale"/> shows that the time scale at which RAW operates
-    is not that of the Controller Plane that needs to deal with a
-    possibly large whole network and make global optimization across multiple
-    flows that may contend for limited resources.
-    </t><t>
-    RAW separates the path computation time scale at which a complex path is recomputed from the path selection time scale at which the forwarding decision is taken for one or a few packets.
+ <t>
+    RAW separates the path computation time scale at which a complex path is recomputed from the path selection time scale at which the forwarding decision is taken for one or a few packets (more in <xref target="timescale"/>).
     RAW operates at the path selection time scale.  The RAW problem is to decide, within the redundant solutions that are proposed by the PCE, which will be used for each packet to provide a Reliable and Available service while minimizing the waste of constrained resources.
     </t><t>
     To that effect, RAW defines the Path Selection Engine (PSE) that is the counter-part of the PCE to perform rapid local adjustments of the forwarding tables within the diversity that the PCE has selected for the Track.
     The PSE enables to exploit the richer forwarding capabilities with PAREO and scheduled transmissions at a faster time scale over the smaller domain that
     is the Track, in either a loose or a strict fashion.
     </t>
-
+   <t>
+        Compared to the PCE,
+    the PSE operates on metrics that evolve faster, but that needs to be known
+    and updated only locally. The scope of the forwarding
+    decision is within the allocated Track, with no visibility to the other
+    Tracks and flows in the network.
+ Conversely, the PCE needs to observe the
+    whole network, and optimize all the Tracks globally, which can only be done
+    at a slow pace and using long-term statistical metrics, as presented in
+    <xref target="PCEPSEtable"/>.
+    </t>
     <table anchor="PCEPSEtable"><name>PCE vs. PSE</name>
    <thead>
       <tr>
@@ -1256,8 +1278,8 @@ ingress    |      |      |    egress
 
 
 			<tr><td>Time Scale</td>
-    			<td align='center'>Long (hours, days)</td>
-    			<td align='center'>Short (seconds, sub-second)</td>
+    			<td align='center'>hours and above</td>
+    			<td align='center'>seconds and below</td>
         </tr>
 
 
@@ -1275,8 +1297,35 @@ ingress    |      |      |    egress
 
 
     </tbody>
-    </table>
+    </table><t>
+    The PSE sits in the DetNet Service sub-Layer of Edge and Relay Nodes. On the
+    one hand, it operates on the packet flow, learning the Track and path selection information from the packet, possibly making local decision and
+    retagging the packet to indicate so. On the other hand, the PSE interacts
+    with the lower layers and with its peers to obtain up-to-date information
+    about its radio links and the quality of the overall Track, respectively,
+    as illustrated in <xref target="FigPSEcomp"/>.
+    </t>
 
+<figure anchor="FigPSEcomp">
+          <name>PSE</name>
+       <artwork align="center" name="" type="" alt=""><![CDATA[
+      packet | going
+    down the | stack
+ +-----------v----------+----------------------+----------------------+
+ |        (iOAM)        | (L2 Triggers, DLEP)  |        (oOAM)        |
+ +===========v==========+======================+======================+
+ |      Learn from                Make               Learn from       |
+ |     packet tagging     Forwarding decision       end-to-end OAM    |
+ +-----------v----------+                      +----------^-----------+
+ +     Retag Packet     |   Learn abstracted   >  Enrich / Regenerate |
+ |      and Forward     |  metrics about Link  |     OAM packets      |
+ +-----------v----------+----------^-----------+----------^-v---------+
+ |                           Lower layers                             |
+ +-----------+----------+----------------------+----------^-+---------+
+       frame | sent                                   Ack | | oOAM
+        over v wireless                               In  | v and out
+]]></artwork>
+</figure>
 </section>
     <!--PCE vs. PSE-->
 
@@ -1288,10 +1337,10 @@ ingress    |      |      |    egress
 
 <section anchor="aom" numbered="true" toc="default">
     <name>RAW OAM </name><t>
-    The RAW OAM operation in the Network Plane observes a subset of the links
-    along that redundant path and the RAW PSE makes the decision on which PAREO
-    function in actioned at which RAW Node, for a packet or a small collection
-    of packets.
+    The RAW OAM operation in the Network Plane observes either a full Track or
+    subTracks that are being used at this time. This observeation feeds the RAW
+    PSE that makes the decision on which PAREO function in actioned at which RAW
+    Node, for one a small continuous series of packets.
      </t>
 <figure anchor="Figranp2">
           <name>Observed Links in Radio Access Protection</name>
@@ -1367,14 +1416,11 @@ ingress    |      |      |    egress
     routing and be treated at the service layer through, say, elimination and
     reordering.
 </t><t>
-    Packets that are tagged with the same (address, instance ID) tuple will
-    experience the same RAW service regardless of the IPv6 6-tuple, and
-    regardless of whether they transport application flows or OAM. That RAW
-    service includes forwarding over a subset of the Links that form the Track.
-    It results that the packets that are routed through a Track will not
-    necessarily traverse the same Links.
+    The RAW service includes forwarding over a subset of the Links that form the
+    Track (a subTrack). Packets from the same or a different flow that are routed through the same Track will not necessarily traverse the same Links. The PSE
+    selects a subTrack for a packet based on the links
+    that are preferred and those that should be avoided at this time.
 </t><t>
-    To that effect, RAW enables a combination of subTracks within the Track.
     Each packet is forwarded within the subTrack that provides the best
     adequation with the SLA of the flow and the energy and bandwidth constraints
     of the network.
@@ -1419,9 +1465,21 @@ ingress    |      |      |    egress
 ]]>
        </artwork>
 </figure>
-
+<t>
+    With 6TiSCH,
+    packets are tagged with the same (destination address, instance ID)
+    will experience the same RAW service regardless of the IPv6 6-tuple
+    that indicates the flow. The forwarding does not depend on whether the
+    packets transport application flows or OAM. In the generic
+    case, the Track or the subTrack can be signaled in the packet through other
+    means, e.g., encoded in the suffix of the destination address as a Segment
+    Routing Service Instruction <xref target="RFC8402"/>, or leveraging Bit
+    Index Explicit Replication <xref target="RFC8279"/> Traffic Engineering
+     <xref target="I-D.ietf-bier-te-arch"/>.
+</t>
 </section>
     <!--Flow Identification vs. Path Identification-->
+
 
     <section numbered="true" toc="default">
       <name>Source-Routed vs. Distributed Forwarding Decision</name>
@@ -1447,19 +1505,18 @@ ingress    |      |      |    egress
     the type of flow of interest (e.g., for a QoS level of interest). To observe
     the whole Track in quasi real time, RAW considers existing tools such as
     L2-triggers, DLEP, BFD and leverages in-band and out-of-band OAM to capture
-    and repotr that information to the SRE.
+    and report that information to the PSE.
       </t>
       <t>
    One possible way of making the RAW forwarding decisions within a Track is to
-   position a unique SRE at the ingress and express its decision in-band in the packet, which requires new loose or strict signaling.
-   To control the RAW forwarding operation
-   along a Track for the individual packets, RAW leverages and extends known
-   techniques such as DetNet tagging, Segment Routing (SRv6) or BIER-TE such as
-   done with
+   position a unique PSE at the Ingress and express its decision in-band in the packet, which requires the explicit signaling of the subTrack within the
+   Track. In that case, the RAW forwarding operation along the Track is encoded
+   by the source, e.g., by indicating the subTrack in the Segment Routing (SRv6)
+   Service Instruction, or by leveraging BIER-TE such as done with
    <xref target="I-D.thubert-bier-replication-elimination" format="default"/>.
       </t>
       <t>
-    The alternate way is to operate the SRE in each forwarding Node, which makes
+    The alternate way is to operate the PSE in each forwarding Node, which makes
     the RAW forwarding decisions for a packet on its own, based on its knowledge
     of the expectation (timeliness and reliability) for that packet and a recent
     observation of the rest of the way across the possible paths based on OAM.
@@ -1467,14 +1524,38 @@ ingress    |      |      |    egress
     matched with the forwarding Node's capabilities and policies.
       </t>
       <t>
-    In either case, a per-flow state is installed in all intermediate Nodes to
-    recognize the flow and determine the forwarding policy to be applied.
+    In either case, a per-track/subTrack state is installed in all the
+    intermediate Nodes to recognize the packets that are following a Track and
+    determine the forwarding operation to be applied.
       </t>
 
     </section>
     <!-- Track Source-Routed vs. Distributed RAW Decision -->
 
 
+    <section numbered="true" toc="default">
+      <name>Encapsulation and Decapsulation</name>
+ <t>
+    In the generic case where the Track Ingress Node is not the source of the
+    Packet, the Ingress Node needs to encapsulate IP-in-IP to ensure that the
+    Destination IP Address is that of the Egress Node and that the necessary
+    Headers (Router Header, Segment Routing Header and/or Hop-By-Hop Header)
+    can be added to the packet to signal the Track or the subTrack, conforming
+    <xref target="RFC8200"/> that discourages the insertion of a Header on the
+    fly.
+ </t><t>
+    In the specific case where the Ingress Node is the source of the packet, the
+    encapsulation can be avoided, provided that the source adds the necessary
+    headers and that the destination is set to the Egress Node. Forwarding
+    to a final destination beyond the Egress Node is possible, e.g., with a
+    Segment Routing Header that signals the rest of the way. In that case
+    a Hop-by-Hop Header is not recommmended since its validity is within the
+    Track only.
+ </t><t>
+ </t>
+
+</section>
+    <!--Encapsulation and Decapsulation -->
 
 </section>
     <!--RAW Architecture -->
@@ -1550,11 +1631,15 @@ ingress    |      |      |    egress
 <displayreference   target="I-D.thubert-bier-replication-elimination" to="BIER-PREF"/>
 <displayreference   target="I-D.mirsky-detnet-ip-oam"         to="DetNet-IP-OAM"/>
 <displayreference   target="I-D.ietf-detnet-data-plane-framework"     to="DetNet-DP-FW"/>
+<displayreference   target="I-D.ietf-bier-te-arch"     to="BIER-TE"/>
 <displayreference   target="RFC3272"                  to="TE"/>
 <displayreference   target="RFC5880"                  to="BFD"/>
 <displayreference   target="RFC3411"                  to="STD 62"/>
 <displayreference   target="RFC7490"                  to="RLFA-FRR"/>
 <displayreference   target="RFC5714"                  to="FRR"/>
+<displayreference   target="RFC8402"                  to="SR-ARCHI"/>
+<displayreference   target="RFC8200"                  to="IPv6"/>
+<displayreference   target="RFC8279"                  to="BIER"/>
 
     <references>
       <name>References</name>
@@ -1582,6 +1667,13 @@ ingress    |      |      |    egress
 
 <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8578.xml"/>
 <!-- Deterministic Networking Use Cases -->
+
+<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8200.xml"/>
+<!-- IPv6 -->
+<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8402.xml"/>
+<!-- Segment Routing Architecture -->
+<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8279.xml"/>
+<!-- BIER -->
 
 <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8175.xml"/>
 <!-- Dynamic Link Exchange Protocol (DLEP) -->
@@ -1629,6 +1721,10 @@ ingress    |      |      |    egress
 
 <xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.farkas-raw-5g.xml"/>
 <!-- RAW 5G-->
+
+
+<xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-bier-te-arch.xml"/>
+<!-- Traffic Engineering for Bit Index Explicit Replication (BIER-TE)-->
 
 
     <reference anchor="NASA" target="https://kscddms.ksc.nasa.gov/Reliability/Documents/150814-3bWhatIsReliability.pdf">
