@@ -5,9 +5,9 @@
 RAW                                                      P. Thubert, Ed.
 Internet-Draft                                             Cisco Systems
 Intended status: Informational                         G.Z. Papadopoulos
-Expires: 1 January 2021                                   IMT Atlantique
+Expires: 7 January 2021                                   IMT Atlantique
                                                            R. Buddenberg
-                                                            30 June 2020
+                                                             6 July 2020
 
 
          Reliable and Available Wireless Architecture/Framework
@@ -43,7 +43,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 January 2021.
+   This Internet-Draft will expire on 7 January 2021.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Thubert, et al.          Expires 1 January 2021                 [Page 1]
+Thubert, et al.          Expires 7 January 2021                 [Page 1]
 
-Internet-Draft         RAW Architecture/Framework              June 2020
+Internet-Draft         RAW Architecture/Framework              July 2020
 
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Thubert, et al.          Expires 1 January 2021                 [Page 2]
+Thubert, et al.          Expires 7 January 2021                 [Page 2]
 
-Internet-Draft         RAW Architecture/Framework              June 2020
+Internet-Draft         RAW Architecture/Framework              July 2020
 
 
 1.  Introduction
@@ -165,9 +165,9 @@ Internet-Draft         RAW Architecture/Framework              June 2020
 
 
 
-Thubert, et al.          Expires 1 January 2021                 [Page 3]
+Thubert, et al.          Expires 7 January 2021                 [Page 3]
 
-Internet-Draft         RAW Architecture/Framework              June 2020
+Internet-Draft         RAW Architecture/Framework              July 2020
 
 
    This increased complexity explains why the development of
@@ -221,9 +221,9 @@ Internet-Draft         RAW Architecture/Framework              June 2020
 
 
 
-Thubert, et al.          Expires 1 January 2021                 [Page 4]
+Thubert, et al.          Expires 7 January 2021                 [Page 4]
 
-Internet-Draft         RAW Architecture/Framework              June 2020
+Internet-Draft         RAW Architecture/Framework              July 2020
 
 
 2.  Terminology
@@ -277,9 +277,9 @@ Internet-Draft         RAW Architecture/Framework              June 2020
 
 
 
-Thubert, et al.          Expires 1 January 2021                 [Page 5]
+Thubert, et al.          Expires 7 January 2021                 [Page 5]
 
-Internet-Draft         RAW Architecture/Framework              June 2020
+Internet-Draft         RAW Architecture/Framework              July 2020
 
 
 3.  Related Work at The IETF
@@ -333,9 +333,9 @@ Internet-Draft         RAW Architecture/Framework              June 2020
 
 
 
-Thubert, et al.          Expires 1 January 2021                 [Page 6]
+Thubert, et al.          Expires 7 January 2021                 [Page 6]
 
-Internet-Draft         RAW Architecture/Framework              June 2020
+Internet-Draft         RAW Architecture/Framework              July 2020
 
 
    "Deterministic Networking Use Cases" [RFC8578] presents a number of
@@ -389,9 +389,9 @@ Internet-Draft         RAW Architecture/Framework              June 2020
 
 
 
-Thubert, et al.          Expires 1 January 2021                 [Page 7]
+Thubert, et al.          Expires 7 January 2021                 [Page 7]
 
-Internet-Draft         RAW Architecture/Framework              June 2020
+Internet-Draft         RAW Architecture/Framework              July 2020
 
 
 4.2.  End-to-End Protection in a Wireless Mesh
@@ -445,9 +445,9 @@ Internet-Draft         RAW Architecture/Framework              June 2020
 
 
 
-Thubert, et al.          Expires 1 January 2021                 [Page 8]
+Thubert, et al.          Expires 7 January 2021                 [Page 8]
 
-Internet-Draft         RAW Architecture/Framework              June 2020
+Internet-Draft         RAW Architecture/Framework              July 2020
 
 
 5.1.1.1.  Elimination of Single Points of Failure
@@ -501,9 +501,9 @@ Internet-Draft         RAW Architecture/Framework              June 2020
 
 
 
-Thubert, et al.          Expires 1 January 2021                 [Page 9]
+Thubert, et al.          Expires 7 January 2021                 [Page 9]
 
-Internet-Draft         RAW Architecture/Framework              June 2020
+Internet-Draft         RAW Architecture/Framework              July 2020
 
 
    Deterministic flows, on the contrary, are attached to specific paths
@@ -557,9 +557,9 @@ Internet-Draft         RAW Architecture/Framework              June 2020
 
 
 
-Thubert, et al.          Expires 1 January 2021                [Page 10]
+Thubert, et al.          Expires 7 January 2021                [Page 10]
 
-Internet-Draft         RAW Architecture/Framework              June 2020
+Internet-Draft         RAW Architecture/Framework              July 2020
 
 
 5.1.2.  Applying Reliability Concepts to Networking
@@ -613,9 +613,9 @@ Internet-Draft         RAW Architecture/Framework              June 2020
 
 
 
-Thubert, et al.          Expires 1 January 2021                [Page 11]
+Thubert, et al.          Expires 7 January 2021                [Page 11]
 
-Internet-Draft         RAW Architecture/Framework              June 2020
+Internet-Draft         RAW Architecture/Framework              July 2020
 
 
       original signal.
@@ -669,9 +669,9 @@ Internet-Draft         RAW Architecture/Framework              June 2020
 
 
 
-Thubert, et al.          Expires 1 January 2021                [Page 12]
+Thubert, et al.          Expires 7 January 2021                [Page 12]
 
-Internet-Draft         RAW Architecture/Framework              June 2020
+Internet-Draft         RAW Architecture/Framework              July 2020
 
 
    A single packet may be sent at different times (time diversity) over
@@ -725,9 +725,9 @@ Internet-Draft         RAW Architecture/Framework              June 2020
 
 
 
-Thubert, et al.          Expires 1 January 2021                [Page 13]
+Thubert, et al.          Expires 7 January 2021                [Page 13]
 
-Internet-Draft         RAW Architecture/Framework              June 2020
+Internet-Draft         RAW Architecture/Framework              July 2020
 
 
 5.3.  Routing Time Scale vs. Forwarding Time Scale
@@ -781,9 +781,9 @@ Internet-Draft         RAW Architecture/Framework              June 2020
 
 
 
-Thubert, et al.          Expires 1 January 2021                [Page 14]
+Thubert, et al.          Expires 7 January 2021                [Page 14]
 
-Internet-Draft         RAW Architecture/Framework              June 2020
+Internet-Draft         RAW Architecture/Framework              July 2020
 
 
    In the case of wireless, the changes that affect the forwarding
@@ -837,9 +837,9 @@ Internet-Draft         RAW Architecture/Framework              June 2020
 
 
 
-Thubert, et al.          Expires 1 January 2021                [Page 15]
+Thubert, et al.          Expires 7 January 2021                [Page 15]
 
-Internet-Draft         RAW Architecture/Framework              June 2020
+Internet-Draft         RAW Architecture/Framework              July 2020
 
 
    A Complex Track provides multiple non-equal cost multipath (NECM)
@@ -893,9 +893,9 @@ Internet-Draft         RAW Architecture/Framework              June 2020
 
 
 
-Thubert, et al.          Expires 1 January 2021                [Page 16]
+Thubert, et al.          Expires 7 January 2021                [Page 16]
 
-Internet-Draft         RAW Architecture/Framework              June 2020
+Internet-Draft         RAW Architecture/Framework              July 2020
 
 
    PAREO may also take advantage of the shared properties of the
@@ -949,9 +949,9 @@ Internet-Draft         RAW Architecture/Framework              June 2020
 
 
 
-Thubert, et al.          Expires 1 January 2021                [Page 17]
+Thubert, et al.          Expires 7 January 2021                [Page 17]
 
-Internet-Draft         RAW Architecture/Framework              June 2020
+Internet-Draft         RAW Architecture/Framework              July 2020
 
 
 6.2.2.  Packet Elimination
@@ -1005,9 +1005,9 @@ Internet-Draft         RAW Architecture/Framework              June 2020
 
 
 
-Thubert, et al.          Expires 1 January 2021                [Page 18]
+Thubert, et al.          Expires 7 January 2021                [Page 18]
 
-Internet-Draft         RAW Architecture/Framework              June 2020
+Internet-Draft         RAW Architecture/Framework              July 2020
 
 
 7.  RAW Architecture
@@ -1061,9 +1061,9 @@ Internet-Draft         RAW Architecture/Framework              June 2020
 
 
 
-Thubert, et al.          Expires 1 January 2021                [Page 19]
+Thubert, et al.          Expires 7 January 2021                [Page 19]
 
-Internet-Draft         RAW Architecture/Framework              June 2020
+Internet-Draft         RAW Architecture/Framework              July 2020
 
 
    Based on those metrics, the PCE installs the Track with enough
@@ -1105,21 +1105,21 @@ Internet-Draft         RAW Architecture/Framework              June 2020
    a strict fashion.
 
    Compared to the PCE, the PSE operates on metrics that evolve faster,
-   but that needs to be known and updated only locally.  The scope of
-   the forwarding decision is within the allocated Track, with no
-   visibility to the other Tracks and flows in the network.  Conversely,
-   the PCE needs to observe the whole network, and optimize all the
-   Tracks globally, which can only be done at a slow pace and using
-   long-term statistical metrics, as presented in Table 2.
+   but that needs to be advertised at a fast rate but only locally,
+   within the Track.  The forwarding decision may also change rapidly,
+   but wiht a scope that is also contained within the Track, with no
+   visibility to the other Tracks and flows in the network.  This is as
+   opposed to the PCE that needs to observe the whole network, and
+   optimize all the Tracks globally, which can only be done at a slow
+   pace and using long-term statistical metrics, as presented in
+   Table 2.
 
 
 
 
-
-
-Thubert, et al.          Expires 1 January 2021                [Page 20]
+Thubert, et al.          Expires 7 January 2021                [Page 20]
 
-Internet-Draft         RAW Architecture/Framework              June 2020
+Internet-Draft         RAW Architecture/Framework              July 2020
 
 
       +===============+========================+===================+
@@ -1149,33 +1149,33 @@ Internet-Draft         RAW Architecture/Framework              June 2020
    up-to-date information about its radio links and the quality of the
    overall Track, respectively, as illustrated in Figure 8.
 
-         packet | going
-       down the | stack
-    +-----------v----------+----------------------+----------------------+
-    |        (iOAM)        | (L2 Triggers, DLEP)  |        (oOAM)        |
-    +===========v==========+======================+======================+
-    |      Learn from                Make               Learn from       |
-    |     packet tagging     Forwarding decision       end-to-end OAM    |
-    +-----------v----------+                      +----------^-----------+
-    +     Retag Packet     |   Learn abstracted   >  Enrich / Regenerate |
-    |      and Forward     |  metrics about Link  |     OAM packets      |
-    +-----------v----------+----------^-----------+----------^-v---------+
-    |                           Lower layers                             |
-    +-----------+----------+----------------------+----------^-+---------+
-          frame | sent                                   Ack | | oOAM
-           over v wireless                               In  | v and out
+               |
+        packet | going
+      down the | stack
+    +==========v==========+=====================+=====================+
+    |   (iOAM + iCTRL)    | (L2 Triggers, DLEP) |       (oOAM)        |
+    +==========v==========+=====================+=====================+
+    |     Learn from                                 Learn from       |
+    |    packet tagging           Maintain           end-to-end       |
+    +----------v----------+      Forwarding          OAM packets      |
+    | Forwarding decision <        State        +---------^-----------|
+    +----------v----------+                     |      Enrich or      |
+    +    Retag Packet     |  Learn abstracted   >     Regenerate      |
+    |    and Forward      | metrics about Links |     OAM packets     |
+    +..........v..........+..........^..........+.........^.v.........+
+    |                          Lower layers                           |
+    +..........v.....................^....................^.v.........+
+         frame | sent          Frame | L2 Ack        oOAM | | packet
+          over | wireless        In  |                 In | | and out
+               v                     |                    | v
 
                                Figure 8: PSE
 
 
 
-
-
-
-
-Thubert, et al.          Expires 1 January 2021                [Page 21]
+Thubert, et al.          Expires 7 January 2021                [Page 21]
 
-Internet-Draft         RAW Architecture/Framework              June 2020
+Internet-Draft         RAW Architecture/Framework              July 2020
 
 
 7.2.  RAW OAM
@@ -1229,9 +1229,9 @@ Internet-Draft         RAW Architecture/Framework              June 2020
 
 
 
-Thubert, et al.          Expires 1 January 2021                [Page 22]
+Thubert, et al.          Expires 7 January 2021                [Page 22]
 
-Internet-Draft         RAW Architecture/Framework              June 2020
+Internet-Draft         RAW Architecture/Framework              July 2020
 
 
 7.3.  Flow Identification vs. Path Identification
@@ -1285,9 +1285,9 @@ Internet-Draft         RAW Architecture/Framework              June 2020
 
 
 
-Thubert, et al.          Expires 1 January 2021                [Page 23]
+Thubert, et al.          Expires 7 January 2021                [Page 23]
 
-Internet-Draft         RAW Architecture/Framework              June 2020
+Internet-Draft         RAW Architecture/Framework              July 2020
 
 
                         Flow 1 (6-tuple) ----+
@@ -1341,9 +1341,9 @@ Internet-Draft         RAW Architecture/Framework              June 2020
 
 
 
-Thubert, et al.          Expires 1 January 2021                [Page 24]
+Thubert, et al.          Expires 7 January 2021                [Page 24]
 
-Internet-Draft         RAW Architecture/Framework              June 2020
+Internet-Draft         RAW Architecture/Framework              July 2020
 
 
 7.4.  Source-Routed vs. Distributed Forwarding Decision
@@ -1397,9 +1397,9 @@ Internet-Draft         RAW Architecture/Framework              June 2020
 
 
 
-Thubert, et al.          Expires 1 January 2021                [Page 25]
+Thubert, et al.          Expires 7 January 2021                [Page 25]
 
-Internet-Draft         RAW Architecture/Framework              June 2020
+Internet-Draft         RAW Architecture/Framework              July 2020
 
 
 7.5.  Encapsulation and Decapsulation
@@ -1453,9 +1453,9 @@ Internet-Draft         RAW Architecture/Framework              June 2020
 
 
 
-Thubert, et al.          Expires 1 January 2021                [Page 26]
+Thubert, et al.          Expires 7 January 2021                [Page 26]
 
-Internet-Draft         RAW Architecture/Framework              June 2020
+Internet-Draft         RAW Architecture/Framework              July 2020
 
 
 11.  Acknowledgments
@@ -1509,9 +1509,9 @@ Internet-Draft         RAW Architecture/Framework              June 2020
 
 
 
-Thubert, et al.          Expires 1 January 2021                [Page 27]
+Thubert, et al.          Expires 7 January 2021                [Page 27]
 
-Internet-Draft         RAW Architecture/Framework              June 2020
+Internet-Draft         RAW Architecture/Framework              July 2020
 
 
    [IPv6]     Deering, S. and R. Hinden, "Internet Protocol, Version 6
@@ -1565,9 +1565,9 @@ Internet-Draft         RAW Architecture/Framework              June 2020
 
 
 
-Thubert, et al.          Expires 1 January 2021                [Page 28]
+Thubert, et al.          Expires 7 January 2021                [Page 28]
 
-Internet-Draft         RAW Architecture/Framework              June 2020
+Internet-Draft         RAW Architecture/Framework              July 2020
 
 
    [RFC4090]  Pan, P., Ed., Swallow, G., Ed., and A. Atlas, Ed., "Fast
@@ -1621,9 +1621,9 @@ Internet-Draft         RAW Architecture/Framework              June 2020
 
 
 
-Thubert, et al.          Expires 1 January 2021                [Page 29]
+Thubert, et al.          Expires 7 January 2021                [Page 29]
 
-Internet-Draft         RAW Architecture/Framework              June 2020
+Internet-Draft         RAW Architecture/Framework              July 2020
 
 
    [NASA]     Adams, T., "RELIABILITY: Definition & Quantitative
@@ -1677,9 +1677,9 @@ Authors' Addresses
 
 
 
-Thubert, et al.          Expires 1 January 2021                [Page 30]
+Thubert, et al.          Expires 7 January 2021                [Page 30]
 
-Internet-Draft         RAW Architecture/Framework              June 2020
+Internet-Draft         RAW Architecture/Framework              July 2020
 
 
    Rex Buddenberg
@@ -1733,4 +1733,4 @@ Internet-Draft         RAW Architecture/Framework              June 2020
 
 
 
-Thubert, et al.          Expires 1 January 2021                [Page 31]
+Thubert, et al.          Expires 7 January 2021                [Page 31]

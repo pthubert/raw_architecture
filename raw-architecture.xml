@@ -1245,13 +1245,12 @@ Ingress    |      |      |    Egress
     </t>
    <t>
         Compared to the PCE,
-    the PSE operates on metrics that evolve faster, but that needs to be known
-    and updated only locally. The scope of the forwarding
-    decision is within the allocated Track, with no visibility to the other
-    Tracks and flows in the network.
- Conversely, the PCE needs to observe the
-    whole network, and optimize all the Tracks globally, which can only be done
-    at a slow pace and using long-term statistical metrics, as presented in
+    the PSE operates on metrics that evolve faster, but that needs to be advertised at a fast rate but only locally, within the Track.
+    The forwarding decision may also change rapidly, but wiht a scope that is
+    also contained within the Track, with no visibility to the other Tracks and
+    flows in the network. This is as opposed to the PCE that needs to observe
+    the  whole network, and optimize all the Tracks globally, which can only be
+    done at a slow pace and using long-term statistical metrics, as presented in
     <xref target="PCEPSEtable"/>.
     </t>
     <table anchor="PCEPSEtable"><name>PCE vs. PSE</name>
@@ -1309,21 +1308,25 @@ Ingress    |      |      |    Egress
 <figure anchor="FigPSEcomp">
           <name>PSE</name>
        <artwork align="center" name="" type="" alt=""><![CDATA[
-      packet | going
-    down the | stack
- +-----------v----------+----------------------+----------------------+
- |        (iOAM)        | (L2 Triggers, DLEP)  |        (oOAM)        |
- +===========v==========+======================+======================+
- |      Learn from                Make               Learn from       |
- |     packet tagging     Forwarding decision       end-to-end OAM    |
- +-----------v----------+                      +----------^-----------+
- +     Retag Packet     |   Learn abstracted   >  Enrich / Regenerate |
- |      and Forward     |  metrics about Link  |     OAM packets      |
- +-----------v----------+----------^-----------+----------^-v---------+
- |                           Lower layers                             |
- +-----------+----------+----------------------+----------^-+---------+
-       frame | sent                                   Ack | | oOAM
-        over v wireless                               In  | v and out
+            |
+     packet | going
+   down the | stack
+ +==========v==========+=====================+=====================+
+ |   (iOAM + iCTRL)    | (L2 Triggers, DLEP) |       (oOAM)        |
+ +==========v==========+=====================+=====================+
+ |     Learn from                                 Learn from       |
+ |    packet tagging           Maintain           end-to-end       |
+ +----------v----------+      Forwarding          OAM packets      |
+ | Forwarding decision <        State        +---------^-----------|
+ +----------v----------+                     |      Enrich or      |
+ +    Retag Packet     |  Learn abstracted   >     Regenerate      |
+ |    and Forward      | metrics about Links |     OAM packets     |
+ +..........v..........+..........^..........+.........^.v.........+
+ |                          Lower layers                           |
+ +..........v.....................^....................^.v.........+
+      frame | sent          Frame | L2 Ack        oOAM | | packet
+       over | wireless        In  |                 In | | and out
+            v                     |                    | v
 ]]></artwork>
 </figure>
 </section>
